@@ -233,6 +233,14 @@
 			"priorite": 2
 		},
 		{
+			"id": "boss_phase_f",
+			"perso": "palutena",
+			"texte": "Elle devient furieuse ! Attention, ses attaques s'accélèrent.",
+			"declencheur": "boss_phase_f",
+			"priorite": 2,
+			"sans_voix": true
+		},
+		{
 			"id": "boss_vaincu_1",
 			"perso": "pit",
 			"texte": "Et voilà ! Au suivant !",
@@ -428,7 +436,7 @@
 		{
 			"id": "w4_42_b",
 			"perso": "pit",
-			"texte": "Rendez-nous Dame Palutena, Medusa !",
+			"texte": "Rendez-nous Dame Palutena, Médusa !",
 			"declencheur": "stage:w4/4-2",
 			"une_fois": true,
 			"ton": "Crié, déterminé."
@@ -545,7 +553,7 @@
 		{
 			"id": "ch_marche",
 			"perso": "marchand",
-			"texte": "Psst... Des merveilles, pour qui a le coeur bien garni.",
+			"texte": "Psst... Des merveilles, pour qui a le cœur bien garni.",
 			"declencheur": "chambre:marche_noir"
 		},
 		{

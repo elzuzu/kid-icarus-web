@@ -5,7 +5,7 @@
 			"id": "boutique",
 			"nom": "Boutique",
 			"hasard": 3,
-			"accueil": "Bienvenue, petit ange ! Tout est a vendre.",
+			"accueil": "Bienvenue, petit ange ! Tout est à vendre.",
 			"marqueurs": {
 				"k": {
 					"role": "marchand"
@@ -40,7 +40,7 @@
 			"id": "marche_noir",
 			"nom": "Marché noir",
 			"hasard": 1,
-			"accueil": "Psst... des merveilles, pour qui a le coeur bien garni.",
+			"accueil": "Psst... des merveilles, pour qui a le cœur bien garni.",
 			"marqueurs": {
 				"k": {
 					"role": "marchand"
@@ -79,7 +79,7 @@
 			"id": "tresor",
 			"nom": "Salle au trésor",
 			"hasard": 3,
-			"accueil": "Brise les jarres... mais gare au dieu de la Pauvrete !",
+			"accueil": "Brise les jarres... mais gare au dieu de la Pauvreté !",
 			"marqueurs": {
 				"j": {
 					"role": "jarre"
@@ -113,7 +113,7 @@
 			"id": "source_chaude",
 			"nom": "Source chaude",
 			"hasard": 2,
-			"accueil": "Les eaux sacrees apaisent le corps et benissent l'arc.",
+			"accueil": "Les eaux sacrées apaisent le corps et bénissent l'arc.",
 			"marqueurs": {
 				"e": {
 					"role": "source"
@@ -144,7 +144,7 @@
 			"id": "nid",
 			"nom": "Nid d'ennemis",
 			"hasard": 2,
-			"accueil": "Un nid ! Survis a trois vagues pour gagner le coffre.",
+			"accueil": "Un nid ! Survis à trois vagues pour gagner le coffre.",
 			"marqueurs": {
 				"n": {
 					"role": "apparition"
@@ -177,7 +177,7 @@
 			"id": "divine",
 			"nom": "Chambre divine",
 			"hasard": 1,
-			"accueil": "Les dieux t'offrent un present. Un seul.",
+			"accueil": "Les dieux t'offrent un présent. Un seul.",
 			"marqueurs": {
 				"a": {
 					"role": "autel"
@@ -202,7 +202,7 @@
 			"id": "epreuve",
 			"nom": "Salle d'épreuve",
 			"hasard": 1,
-			"accueil": "Epreuve : abats %d ennemis en %d secondes !",
+			"accueil": "Épreuve : abats %d ennemis en %d secondes !",
 			"marqueurs": {
 				"n": {
 					"role": "apparition"
@@ -262,7 +262,7 @@
 			"id": "hopital",
 			"nom": "Hôpital",
 			"hasard": 0,
-			"accueil": "Le Sorcier Aubergine t'a joue un tour ? On soigne ca.",
+			"accueil": "Le Sorcier Aubergine t'a joué un tour ? On soigne ça.",
 			"marqueurs": {
 				"k": {
 					"role": "medecin"

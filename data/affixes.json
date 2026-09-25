@@ -24,7 +24,7 @@
 		{"id": "vitesse", "nom": "+{v}% vitesse de course", "type": "normal", "poids": 5, "groupe": "vitesse", "stat": "vitesse_course", "mode": "joueur_pct", "paliers": [[4, 6], [6, 9], [9, 12]]},
 		{"id": "coeurs", "nom": "+{v}% cœurs ramassés", "type": "normal", "poids": 6, "groupe": "coeurs", "stat": "coeurs", "mode": "joueur_pct", "paliers": [[8, 14], [14, 22], [22, 32]]},
 		{"id": "xp", "nom": "+{v}% expérience", "type": "normal", "poids": 6, "groupe": "xp", "stat": "xp", "mode": "joueur_pct", "paliers": [[8, 14], [14, 22], [22, 32]]},
-		{"id": "explosion", "nom": "Explosion a l'impact", "type": "normal", "poids": 3, "groupe": "explosion", "stat": "explosion", "mode": "add", "paliers": [[1, 1], [1, 1], [1, 1]], "classes": ["arc", "orbitaux"]},
+		{"id": "explosion", "nom": "Explosion à l'impact", "type": "normal", "poids": 3, "groupe": "explosion", "stat": "explosion", "mode": "add", "paliers": [[1, 1], [1, 1], [1, 1]], "classes": ["arc", "orbitaux"]},
 		{"id": "tir_en_dash", "nom": "Tire en dashant", "type": "normal", "poids": 3, "groupe": "tir_en_dash", "stat": "tir_en_dash", "mode": "flag", "paliers": [[1, 1], [1, 1], [1, 1]]},
 		{"id": "regeneration", "nom": "Régénère {v} PV toutes les 5 s", "type": "normal", "poids": 4, "groupe": "regeneration", "stat": "regeneration", "mode": "joueur_add", "paliers": [[1, 2], [2, 3], [3, 5]]},
 
