@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_03": {
+  "specknose/boucle_03": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5741
    }
   },
-  "boucle_01": {
+  "specknose/boucle_01": {
    "frame": {
     "x": 247,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.5502
    }
   },
-  "mort_00": {
+  "specknose/mort_00": {
    "frame": {
     "x": 508,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4551
    }
   },
-  "boucle_00": {
+  "specknose/boucle_00": {
    "frame": {
     "x": 727,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.5331
    }
   },
-  "touche_00": {
+  "specknose/touche_00": {
    "frame": {
     "x": 990,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4795
    }
   },
-  "boucle_02": {
+  "specknose/boucle_02": {
    "frame": {
     "x": 1248,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.4892
    }
   },
-  "prepare_00": {
+  "specknose/prepare_00": {
    "frame": {
     "x": 1514,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4884
    }
   },
-  "attaque_00": {
+  "specknose/attaque_00": {
    "frame": {
     "x": 1719,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "specknose/boucle_00",
+   "specknose/boucle_01",
+   "specknose/boucle_02",
+   "specknose/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "specknose/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "specknose/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "specknose/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "specknose/mort_00"
   ]
  },
  "meta": {

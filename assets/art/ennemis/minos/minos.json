@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_00": {
+  "minos/boucle_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5091
    }
   },
-  "boucle_03": {
+  "minos/boucle_03": {
    "frame": {
     "x": 226,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.4906
    }
   },
-  "touche_00": {
+  "minos/touche_00": {
    "frame": {
     "x": 463,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4738
    }
   },
-  "boucle_01": {
+  "minos/boucle_01": {
    "frame": {
     "x": 691,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4027
    }
   },
-  "mort_00": {
+  "minos/mort_00": {
    "frame": {
     "x": 954,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.5547
    }
   },
-  "boucle_02": {
+  "minos/boucle_02": {
    "frame": {
     "x": 1172,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.4999
    }
   },
-  "prepare_00": {
+  "minos/prepare_00": {
    "frame": {
     "x": 1424,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4128
    }
   },
-  "attaque_00": {
+  "minos/attaque_00": {
    "frame": {
     "x": 1679,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "minos/boucle_00",
+   "minos/boucle_01",
+   "minos/boucle_02",
+   "minos/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "minos/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "minos/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "minos/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "minos/mort_00"
   ]
  },
  "meta": {

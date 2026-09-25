@@ -24,5 +24,19 @@
 	"traversee": 0.22,
 	"largeur": 0.62,
 	"hauteur": 1.4,
-	"hauteur_accroupi": 0.9
+	"hauteur_accroupi": 0.9,
+	"tir_debout_x": 0.853,
+	"tir_debout_y": 1.524,
+	"tir_course_x": 1.133,
+	"tir_course_y": 1.452,
+	"tir_accroupi_x": 1.106,
+	"tir_accroupi_y": 0.793,
+	"tir_air_x": 0.938,
+	"tir_air_y": 0.969,
+	"tir_haut_debout_x": 0.046,
+	"tir_haut_debout_y": 2.642,
+	"tir_haut_air_x": 0.085,
+	"tir_haut_air_y": 1.857,
+	"tir_haut_accroupi_x": 0.004,
+	"tir_haut_accroupi_y": 2.259
 }

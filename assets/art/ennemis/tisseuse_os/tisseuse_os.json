@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_03": {
+  "tisseuse_os/boucle_03": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5611
    }
   },
-  "boucle_02": {
+  "tisseuse_os/boucle_02": {
    "frame": {
     "x": 175,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.4857
    }
   },
-  "boucle_01": {
+  "tisseuse_os/boucle_01": {
    "frame": {
     "x": 328,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.5377
    }
   },
-  "attaque_00": {
+  "tisseuse_os/attaque_00": {
    "frame": {
     "x": 493,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4555
    }
   },
-  "prepare_00": {
+  "tisseuse_os/prepare_00": {
    "frame": {
     "x": 716,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.5027
    }
   },
-  "boucle_00": {
+  "tisseuse_os/boucle_00": {
    "frame": {
     "x": 986,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.5705
    }
   },
-  "touche_00": {
+  "tisseuse_os/touche_00": {
    "frame": {
     "x": 1148,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.569
    }
   },
-  "mort_00": {
+  "tisseuse_os/mort_00": {
    "frame": {
     "x": 1276,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "tisseuse_os/boucle_00",
+   "tisseuse_os/boucle_01",
+   "tisseuse_os/boucle_02",
+   "tisseuse_os/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "tisseuse_os/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "tisseuse_os/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "tisseuse_os/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "tisseuse_os/mort_00"
   ]
  },
  "meta": {

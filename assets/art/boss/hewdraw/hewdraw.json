@@ -1,6 +1,6 @@
 {
  "frames": {
-  "prepare_00": {
+  "hewdraw/prepare_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "touche_00": {
+  "hewdraw/touche_00": {
    "frame": {
     "x": 502,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "hewdraw/boucle_00": {
    "frame": {
     "x": 1010,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "hewdraw/boucle_02": {
    "frame": {
     "x": 1523,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "hewdraw/boucle_01": {
    "frame": {
     "x": 2036,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "hewdraw/boucle_03": {
    "frame": {
     "x": 2560,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "attaque_00": {
+  "hewdraw/attaque_00": {
    "frame": {
     "x": 3074,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "hewdraw/mort_00": {
    "frame": {
     "x": 0,
     "y": 538,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "hewdraw/boucle_00",
+   "hewdraw/boucle_01",
+   "hewdraw/boucle_02",
+   "hewdraw/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "hewdraw/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "hewdraw/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "hewdraw/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "hewdraw/mort_00"
   ]
  },
  "meta": {

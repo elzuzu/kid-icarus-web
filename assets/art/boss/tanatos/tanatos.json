@@ -1,6 +1,6 @@
 {
  "frames": {
-  "prepare_00": {
+  "tanatos/prepare_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.4713
    }
   },
-  "boucle_03": {
+  "tanatos/boucle_03": {
    "frame": {
     "x": 465,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.4611
    }
   },
-  "boucle_02": {
+  "tanatos/boucle_02": {
    "frame": {
     "x": 975,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4683
    }
   },
-  "boucle_01": {
+  "tanatos/boucle_01": {
    "frame": {
     "x": 1493,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4578
    }
   },
-  "boucle_00": {
+  "tanatos/boucle_00": {
    "frame": {
     "x": 2016,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4718
    }
   },
-  "attaque_00": {
+  "tanatos/attaque_00": {
    "frame": {
     "x": 2509,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.4435
    }
   },
-  "touche_00": {
+  "tanatos/touche_00": {
    "frame": {
     "x": 3158,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4575
    }
   },
-  "mort_00": {
+  "tanatos/mort_00": {
    "frame": {
     "x": 3512,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "tanatos/boucle_00",
+   "tanatos/boucle_01",
+   "tanatos/boucle_02",
+   "tanatos/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "tanatos/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "tanatos/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "tanatos/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "tanatos/mort_00"
   ]
  },
  "meta": {

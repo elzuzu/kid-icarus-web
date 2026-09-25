@@ -1,6 +1,6 @@
 {
  "frames": {
-  "attaque_00": {
+  "tamambo/attaque_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "touche_00": {
+  "tamambo/touche_00": {
    "frame": {
     "x": 278,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "tamambo/boucle_02": {
    "frame": {
     "x": 511,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "tamambo/mort_00": {
    "frame": {
     "x": 775,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "tamambo/boucle_01": {
    "frame": {
     "x": 1015,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "tamambo/boucle_03": {
    "frame": {
     "x": 1276,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "tamambo/boucle_00": {
    "frame": {
     "x": 1534,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "prepare_00": {
+  "tamambo/prepare_00": {
    "frame": {
     "x": 0,
     "y": 244,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "tamambo/boucle_00",
+   "tamambo/boucle_01",
+   "tamambo/boucle_02",
+   "tamambo/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "tamambo/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "tamambo/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "tamambo/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "tamambo/mort_00"
   ]
  },
  "meta": {

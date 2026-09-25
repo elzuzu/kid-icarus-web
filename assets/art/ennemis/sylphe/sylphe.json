@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_02": {
+  "sylphe/boucle_02": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.4328
    }
   },
-  "boucle_00": {
+  "sylphe/boucle_00": {
    "frame": {
     "x": 176,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.455
    }
   },
-  "boucle_01": {
+  "sylphe/boucle_01": {
    "frame": {
     "x": 387,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4468
    }
   },
-  "boucle_03": {
+  "sylphe/boucle_03": {
    "frame": {
     "x": 587,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4644
    }
   },
-  "prepare_00": {
+  "sylphe/prepare_00": {
    "frame": {
     "x": 807,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4577
    }
   },
-  "attaque_00": {
+  "sylphe/attaque_00": {
    "frame": {
     "x": 1034,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.4503
    }
   },
-  "mort_00": {
+  "sylphe/mort_00": {
    "frame": {
     "x": 1289,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.5066
    }
   },
-  "touche_00": {
+  "sylphe/touche_00": {
    "frame": {
     "x": 1542,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "sylphe/boucle_00",
+   "sylphe/boucle_01",
+   "sylphe/boucle_02",
+   "sylphe/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "sylphe/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "sylphe/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "sylphe/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "sylphe/mort_00"
   ]
  },
  "meta": {

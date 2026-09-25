@@ -1,6 +1,6 @@
 {
  "frames": {
-  "dash_degats_05": {
+  "pit/dash_degats_05": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5306
    }
   },
-  "visee_sol_00": {
+  "pit/visee_sol_00": {
    "frame": {
     "x": 277,
     "y": 0,
@@ -56,7 +56,7 @@
     ]
    }
   },
-  "visee_sol_01": {
+  "pit/visee_sol_01": {
    "frame": {
     "x": 494,
     "y": 0,
@@ -88,7 +88,7 @@
     ]
    }
   },
-  "tir_haut_debout_00": {
+  "pit/tir_haut_debout_00": {
    "frame": {
     "x": 721,
     "y": 0,
@@ -120,7 +120,7 @@
     ]
    }
   },
-  "tir_haut_debout_01": {
+  "pit/tir_haut_debout_01": {
    "frame": {
     "x": 976,
     "y": 0,
@@ -152,7 +152,7 @@
     ]
    }
   },
-  "tir_haut_air_00": {
+  "pit/tir_haut_air_00": {
    "frame": {
     "x": 1218,
     "y": 0,
@@ -184,7 +184,7 @@
     ]
    }
   },
-  "tir_haut_air_01": {
+  "pit/tir_haut_air_01": {
    "frame": {
     "x": 1496,
     "y": 0,
@@ -216,7 +216,7 @@
     ]
    }
   },
-  "tir_debout_02": {
+  "pit/tir_debout_02": {
    "frame": {
     "x": 1778,
     "y": 0,
@@ -248,7 +248,7 @@
     ]
    }
   },
-  "tir_debout_00": {
+  "pit/tir_debout_00": {
    "frame": {
     "x": 2071,
     "y": 0,
@@ -280,7 +280,7 @@
     ]
    }
   },
-  "tir_debout_01": {
+  "pit/tir_debout_01": {
    "frame": {
     "x": 2322,
     "y": 0,
@@ -312,7 +312,7 @@
     ]
    }
   },
-  "tir_haut_accroupi_00": {
+  "pit/tir_haut_accroupi_00": {
    "frame": {
     "x": 2575,
     "y": 0,
@@ -344,7 +344,7 @@
     ]
    }
   },
-  "tir_haut_accroupi_01": {
+  "pit/tir_haut_accroupi_01": {
    "frame": {
     "x": 2830,
     "y": 0,
@@ -376,7 +376,7 @@
     ]
    }
   },
-  "visee_sol_02": {
+  "pit/visee_sol_02": {
    "frame": {
     "x": 3089,
     "y": 0,
@@ -408,7 +408,7 @@
     ]
    }
   },
-  "visee_00": {
+  "pit/visee_00": {
    "frame": {
     "x": 3334,
     "y": 0,
@@ -440,7 +440,7 @@
     ]
    }
   },
-  "saut_04": {
+  "pit/saut_04": {
    "frame": {
     "x": 3522,
     "y": 0,
@@ -464,7 +464,7 @@
     "y": 1.0
    }
   },
-  "tir_debout_03": {
+  "pit/tir_debout_03": {
    "frame": {
     "x": 3710,
     "y": 0,
@@ -496,7 +496,7 @@
     ]
    }
   },
-  "tir_debout_05": {
+  "pit/tir_debout_05": {
    "frame": {
     "x": 0,
     "y": 366,
@@ -528,7 +528,7 @@
     ]
    }
   },
-  "vol_00": {
+  "pit/vol_00": {
    "frame": {
     "x": 261,
     "y": 366,
@@ -552,7 +552,7 @@
     "y": 0.5358
    }
   },
-  "tir_debout_04": {
+  "pit/tir_debout_04": {
    "frame": {
     "x": 490,
     "y": 366,
@@ -584,7 +584,7 @@
     ]
    }
   },
-  "dash_degats_03": {
+  "pit/dash_degats_03": {
    "frame": {
     "x": 765,
     "y": 366,
@@ -608,7 +608,7 @@
     "y": 0.4327
    }
   },
-  "dash_degats_02": {
+  "pit/dash_degats_02": {
    "frame": {
     "x": 1091,
     "y": 366,
@@ -632,7 +632,7 @@
     "y": 0.4659
    }
   },
-  "visee_04": {
+  "pit/visee_04": {
    "frame": {
     "x": 1378,
     "y": 366,
@@ -664,7 +664,7 @@
     ]
    }
   },
-  "course_00": {
+  "pit/course_00": {
    "frame": {
     "x": 1556,
     "y": 366,
@@ -688,7 +688,7 @@
     "y": 1.0
    }
   },
-  "tir_00": {
+  "pit/tir_00": {
    "frame": {
     "x": 1812,
     "y": 366,
@@ -720,7 +720,7 @@
     ]
    }
   },
-  "course_tir_03": {
+  "pit/course_tir_03": {
    "frame": {
     "x": 2044,
     "y": 366,
@@ -752,7 +752,7 @@
     ]
    }
   },
-  "course_01": {
+  "pit/course_01": {
    "frame": {
     "x": 2296,
     "y": 366,
@@ -776,7 +776,7 @@
     "y": 1.0
    }
   },
-  "course_02": {
+  "pit/course_02": {
    "frame": {
     "x": 2503,
     "y": 366,
@@ -800,7 +800,7 @@
     "y": 1.0
    }
   },
-  "tir_02": {
+  "pit/tir_02": {
    "frame": {
     "x": 2758,
     "y": 366,
@@ -832,7 +832,7 @@
     ]
    }
   },
-  "course_tir_01": {
+  "pit/course_tir_01": {
    "frame": {
     "x": 3021,
     "y": 366,
@@ -864,7 +864,7 @@
     ]
    }
   },
-  "course_06": {
+  "pit/course_06": {
    "frame": {
     "x": 3274,
     "y": 366,
@@ -888,7 +888,7 @@
     "y": 1.0
    }
   },
-  "course_tir_00": {
+  "pit/course_tir_00": {
    "frame": {
     "x": 3533,
     "y": 366,
@@ -920,7 +920,7 @@
     ]
    }
   },
-  "saut_01": {
+  "pit/saut_01": {
    "frame": {
     "x": 3790,
     "y": 366,
@@ -944,7 +944,7 @@
     "y": 1.0
    }
   },
-  "tir_01": {
+  "pit/tir_01": {
    "frame": {
     "x": 0,
     "y": 647,
@@ -976,7 +976,7 @@
     ]
    }
   },
-  "repos_04": {
+  "pit/repos_04": {
    "frame": {
     "x": 243,
     "y": 647,
@@ -1000,7 +1000,7 @@
     "y": 1.0
    }
   },
-  "repos_05": {
+  "pit/repos_05": {
    "frame": {
     "x": 417,
     "y": 647,
@@ -1024,7 +1024,7 @@
     "y": 1.0
    }
   },
-  "repos_07": {
+  "pit/repos_07": {
    "frame": {
     "x": 593,
     "y": 647,
@@ -1048,7 +1048,7 @@
     "y": 1.0
    }
   },
-  "course_tir_02": {
+  "pit/course_tir_02": {
    "frame": {
     "x": 769,
     "y": 647,
@@ -1080,7 +1080,7 @@
     ]
    }
   },
-  "visee_01": {
+  "pit/visee_01": {
    "frame": {
     "x": 1021,
     "y": 647,
@@ -1112,7 +1112,7 @@
     ]
    }
   },
-  "repos_00": {
+  "pit/repos_00": {
    "frame": {
     "x": 1256,
     "y": 647,
@@ -1136,7 +1136,7 @@
     "y": 1.0
    }
   },
-  "repos_01": {
+  "pit/repos_01": {
    "frame": {
     "x": 1432,
     "y": 647,
@@ -1160,7 +1160,7 @@
     "y": 1.0
    }
   },
-  "repos_02": {
+  "pit/repos_02": {
    "frame": {
     "x": 1625,
     "y": 647,
@@ -1184,7 +1184,7 @@
     "y": 1.0
    }
   },
-  "repos_03": {
+  "pit/repos_03": {
    "frame": {
     "x": 1816,
     "y": 647,
@@ -1208,7 +1208,7 @@
     "y": 1.0
    }
   },
-  "repos_06": {
+  "pit/repos_06": {
    "frame": {
     "x": 2009,
     "y": 647,
@@ -1232,7 +1232,7 @@
     "y": 1.0
    }
   },
-  "tir_05": {
+  "pit/tir_05": {
    "frame": {
     "x": 2187,
     "y": 647,
@@ -1264,7 +1264,7 @@
     ]
    }
   },
-  "course_tir_05": {
+  "pit/course_tir_05": {
    "frame": {
     "x": 2402,
     "y": 647,
@@ -1296,7 +1296,7 @@
     ]
    }
   },
-  "visee_03": {
+  "pit/visee_03": {
    "frame": {
     "x": 2657,
     "y": 647,
@@ -1328,7 +1328,7 @@
     ]
    }
   },
-  "course_tir_06": {
+  "pit/course_tir_06": {
    "frame": {
     "x": 2891,
     "y": 647,
@@ -1360,7 +1360,7 @@
     ]
    }
   },
-  "course_04": {
+  "pit/course_04": {
    "frame": {
     "x": 3152,
     "y": 647,
@@ -1384,7 +1384,7 @@
     "y": 1.0
    }
   },
-  "course_05": {
+  "pit/course_05": {
    "frame": {
     "x": 3399,
     "y": 647,
@@ -1408,7 +1408,7 @@
     "y": 1.0
    }
   },
-  "course_07": {
+  "pit/course_07": {
    "frame": {
     "x": 3613,
     "y": 647,
@@ -1432,7 +1432,7 @@
     "y": 1.0
    }
   },
-  "tir_03": {
+  "pit/tir_03": {
    "frame": {
     "x": 3834,
     "y": 647,
@@ -1464,7 +1464,7 @@
     ]
    }
   },
-  "tir_04": {
+  "pit/tir_04": {
    "frame": {
     "x": 0,
     "y": 910,
@@ -1496,7 +1496,7 @@
     ]
    }
   },
-  "course_03": {
+  "pit/course_03": {
    "frame": {
     "x": 226,
     "y": 910,
@@ -1520,7 +1520,7 @@
     "y": 1.0
    }
   },
-  "saut_02": {
+  "pit/saut_02": {
    "frame": {
     "x": 438,
     "y": 910,
@@ -1544,7 +1544,7 @@
     "y": 1.0
    }
   },
-  "course_tir_04": {
+  "pit/course_tir_04": {
    "frame": {
     "x": 628,
     "y": 910,
@@ -1576,7 +1576,7 @@
     ]
    }
   },
-  "course_tir_07": {
+  "pit/course_tir_07": {
    "frame": {
     "x": 886,
     "y": 910,
@@ -1608,7 +1608,7 @@
     ]
    }
   },
-  "vol_01": {
+  "pit/vol_01": {
    "frame": {
     "x": 1138,
     "y": 910,
@@ -1632,7 +1632,7 @@
     "y": 0.5191
    }
   },
-  "visee_sol_03": {
+  "pit/visee_sol_03": {
    "frame": {
     "x": 1368,
     "y": 910,
@@ -1664,7 +1664,7 @@
     ]
    }
   },
-  "accroupi_tir_03": {
+  "pit/accroupi_tir_03": {
    "frame": {
     "x": 1604,
     "y": 910,
@@ -1696,7 +1696,7 @@
     ]
    }
   },
-  "visee_02": {
+  "pit/visee_02": {
    "frame": {
     "x": 1791,
     "y": 910,
@@ -1728,7 +1728,7 @@
     ]
    }
   },
-  "dash_degats_00": {
+  "pit/dash_degats_00": {
    "frame": {
     "x": 2035,
     "y": 910,
@@ -1752,7 +1752,7 @@
     "y": 0.4765
    }
   },
-  "dash_degats_01": {
+  "pit/dash_degats_01": {
    "frame": {
     "x": 2333,
     "y": 910,
@@ -1776,7 +1776,7 @@
     "y": 0.4753
    }
   },
-  "saut_03": {
+  "pit/saut_03": {
    "frame": {
     "x": 2604,
     "y": 910,
@@ -1800,7 +1800,7 @@
     "y": 1.0
    }
   },
-  "accroupi_tir_02": {
+  "pit/accroupi_tir_02": {
    "frame": {
     "x": 2915,
     "y": 910,
@@ -1832,7 +1832,7 @@
     ]
    }
   },
-  "vol_05": {
+  "pit/vol_05": {
    "frame": {
     "x": 3146,
     "y": 910,
@@ -1856,7 +1856,7 @@
     "y": 0.4982
    }
   },
-  "accroupi_tir_01": {
+  "pit/accroupi_tir_01": {
    "frame": {
     "x": 3377,
     "y": 910,
@@ -1888,7 +1888,7 @@
     ]
    }
   },
-  "accroupi_tir_00": {
+  "pit/accroupi_tir_00": {
    "frame": {
     "x": 3623,
     "y": 910,
@@ -1920,7 +1920,7 @@
     ]
    }
   },
-  "dash_degats_04": {
+  "pit/dash_degats_04": {
    "frame": {
     "x": 3856,
     "y": 910,
@@ -1944,7 +1944,7 @@
     "y": 0.5375
    }
   },
-  "accroupi_descente_00": {
+  "pit/accroupi_descente_00": {
    "frame": {
     "x": 0,
     "y": 1169,
@@ -1968,7 +1968,7 @@
     "y": 1.0
    }
   },
-  "saut_05": {
+  "pit/saut_05": {
    "frame": {
     "x": 220,
     "y": 1169,
@@ -1992,7 +1992,7 @@
     "y": 1.0
    }
   },
-  "tir_bas_00": {
+  "pit/tir_bas_00": {
    "frame": {
     "x": 436,
     "y": 1169,
@@ -2024,7 +2024,7 @@
     ]
    }
   },
-  "tir_bas_01": {
+  "pit/tir_bas_01": {
    "frame": {
     "x": 701,
     "y": 1169,
@@ -2056,7 +2056,7 @@
     ]
    }
   },
-  "tir_bas_02": {
+  "pit/tir_bas_02": {
    "frame": {
     "x": 984,
     "y": 1169,
@@ -2088,7 +2088,7 @@
     ]
    }
   },
-  "vol_03": {
+  "pit/vol_03": {
    "frame": {
     "x": 1217,
     "y": 1169,
@@ -2112,7 +2112,7 @@
     "y": 0.4802
    }
   },
-  "vol_02": {
+  "pit/vol_02": {
    "frame": {
     "x": 1445,
     "y": 1169,
@@ -2136,7 +2136,7 @@
     "y": 0.4108
    }
   },
-  "vol_04": {
+  "pit/vol_04": {
    "frame": {
     "x": 1680,
     "y": 1169,
@@ -2160,7 +2160,7 @@
     "y": 0.4996
    }
   },
-  "accroupi_02": {
+  "pit/accroupi_02": {
    "frame": {
     "x": 1910,
     "y": 1169,
@@ -2184,7 +2184,7 @@
     "y": 1.0
    }
   },
-  "accroupi_00": {
+  "pit/accroupi_00": {
    "frame": {
     "x": 2125,
     "y": 1169,
@@ -2208,7 +2208,7 @@
     "y": 1.0
    }
   },
-  "accroupi_01": {
+  "pit/accroupi_01": {
    "frame": {
     "x": 2340,
     "y": 1169,
@@ -2232,7 +2232,7 @@
     "y": 1.0
    }
   },
-  "saut_00": {
+  "pit/saut_00": {
    "frame": {
     "x": 2555,
     "y": 1169,
@@ -2259,118 +2259,118 @@
  },
  "animations": {
   "course": [
-   "course_00",
-   "course_01",
-   "course_02",
-   "course_03",
-   "course_04",
-   "course_05",
-   "course_06",
-   "course_07"
+   "pit/course_00",
+   "pit/course_01",
+   "pit/course_02",
+   "pit/course_03",
+   "pit/course_04",
+   "pit/course_05",
+   "pit/course_06",
+   "pit/course_07"
   ],
   "saut": [
-   "saut_00",
-   "saut_01",
-   "saut_02",
-   "saut_03",
-   "saut_04",
-   "saut_05"
+   "pit/saut_00",
+   "pit/saut_01",
+   "pit/saut_02",
+   "pit/saut_03",
+   "pit/saut_04",
+   "pit/saut_05"
   ],
   "tir": [
-   "tir_00",
-   "tir_01",
-   "tir_02",
-   "tir_03",
-   "tir_04",
-   "tir_05"
+   "pit/tir_00",
+   "pit/tir_01",
+   "pit/tir_02",
+   "pit/tir_03",
+   "pit/tir_04",
+   "pit/tir_05"
   ],
   "vol": [
-   "vol_00",
-   "vol_01",
-   "vol_02",
-   "vol_03",
-   "vol_04",
-   "vol_05"
+   "pit/vol_00",
+   "pit/vol_01",
+   "pit/vol_02",
+   "pit/vol_03",
+   "pit/vol_04",
+   "pit/vol_05"
   ],
   "visee": [
-   "visee_00",
-   "visee_01",
-   "visee_02",
-   "visee_03",
-   "visee_04"
+   "pit/visee_00",
+   "pit/visee_01",
+   "pit/visee_02",
+   "pit/visee_03",
+   "pit/visee_04"
   ],
   "repos": [
-   "repos_00",
-   "repos_01",
-   "repos_02",
-   "repos_03",
-   "repos_04",
-   "repos_05",
-   "repos_06",
-   "repos_07"
+   "pit/repos_00",
+   "pit/repos_01",
+   "pit/repos_02",
+   "pit/repos_03",
+   "pit/repos_04",
+   "pit/repos_05",
+   "pit/repos_06",
+   "pit/repos_07"
   ],
   "dash_degats": [
-   "dash_degats_00",
-   "dash_degats_01",
-   "dash_degats_02",
-   "dash_degats_03",
-   "dash_degats_04",
-   "dash_degats_05"
+   "pit/dash_degats_00",
+   "pit/dash_degats_01",
+   "pit/dash_degats_02",
+   "pit/dash_degats_03",
+   "pit/dash_degats_04",
+   "pit/dash_degats_05"
   ],
   "visee_sol": [
-   "visee_sol_00",
-   "visee_sol_01",
-   "visee_sol_02",
-   "visee_sol_03"
+   "pit/visee_sol_00",
+   "pit/visee_sol_01",
+   "pit/visee_sol_02",
+   "pit/visee_sol_03"
   ],
   "course_tir": [
-   "course_tir_00",
-   "course_tir_01",
-   "course_tir_02",
-   "course_tir_03",
-   "course_tir_04",
-   "course_tir_05",
-   "course_tir_06",
-   "course_tir_07"
+   "pit/course_tir_00",
+   "pit/course_tir_01",
+   "pit/course_tir_02",
+   "pit/course_tir_03",
+   "pit/course_tir_04",
+   "pit/course_tir_05",
+   "pit/course_tir_06",
+   "pit/course_tir_07"
   ],
   "accroupi": [
-   "accroupi_00",
-   "accroupi_01",
-   "accroupi_02"
+   "pit/accroupi_00",
+   "pit/accroupi_01",
+   "pit/accroupi_02"
   ],
   "accroupi_descente": [
-   "accroupi_descente_00"
+   "pit/accroupi_descente_00"
   ],
   "accroupi_tir": [
-   "accroupi_tir_00",
-   "accroupi_tir_01",
-   "accroupi_tir_02",
-   "accroupi_tir_03"
+   "pit/accroupi_tir_00",
+   "pit/accroupi_tir_01",
+   "pit/accroupi_tir_02",
+   "pit/accroupi_tir_03"
   ],
   "tir_debout": [
-   "tir_debout_00",
-   "tir_debout_01",
-   "tir_debout_02",
-   "tir_debout_03",
-   "tir_debout_04",
-   "tir_debout_05"
+   "pit/tir_debout_00",
+   "pit/tir_debout_01",
+   "pit/tir_debout_02",
+   "pit/tir_debout_03",
+   "pit/tir_debout_04",
+   "pit/tir_debout_05"
   ],
   "tir_haut_debout": [
-   "tir_haut_debout_00",
-   "tir_haut_debout_01"
+   "pit/tir_haut_debout_00",
+   "pit/tir_haut_debout_01"
   ],
   "tir_haut_air": [
-   "tir_haut_air_00",
-   "tir_haut_air_01"
+   "pit/tir_haut_air_00",
+   "pit/tir_haut_air_01"
   ],
   "tir_haut_accroupi": [
-   "tir_haut_accroupi_00",
-   "tir_haut_accroupi_01"
+   "pit/tir_haut_accroupi_00",
+   "pit/tir_haut_accroupi_01"
   ],
   "tir_bas": [
-   "tir_bas_00",
-   "tir_bas_01",
-   "tir_bas_02"
+   "pit/tir_bas_00",
+   "pit/tir_bas_01",
+   "pit/tir_bas_02"
   ]
  },
  "meta": {

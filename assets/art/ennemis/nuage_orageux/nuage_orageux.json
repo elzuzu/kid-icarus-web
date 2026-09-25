@@ -1,6 +1,6 @@
 {
  "frames": {
-  "attaque_00": {
+  "nuage_orageux/attaque_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.3468
    }
   },
-  "boucle_00": {
+  "nuage_orageux/boucle_00": {
    "frame": {
     "x": 254,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.498
    }
   },
-  "touche_00": {
+  "nuage_orageux/touche_00": {
    "frame": {
     "x": 508,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4511
    }
   },
-  "boucle_01": {
+  "nuage_orageux/boucle_01": {
    "frame": {
     "x": 780,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4931
    }
   },
-  "boucle_02": {
+  "nuage_orageux/boucle_02": {
    "frame": {
     "x": 1044,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4911
    }
   },
-  "prepare_00": {
+  "nuage_orageux/prepare_00": {
    "frame": {
     "x": 1304,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.466
    }
   },
-  "boucle_03": {
+  "nuage_orageux/boucle_03": {
    "frame": {
     "x": 1538,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.5012
    }
   },
-  "mort_00": {
+  "nuage_orageux/mort_00": {
    "frame": {
     "x": 0,
     "y": 310,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "nuage_orageux/boucle_00",
+   "nuage_orageux/boucle_01",
+   "nuage_orageux/boucle_02",
+   "nuage_orageux/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "nuage_orageux/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "nuage_orageux/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "nuage_orageux/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "nuage_orageux/mort_00"
   ]
  },
  "meta": {

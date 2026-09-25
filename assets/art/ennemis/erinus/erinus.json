@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_00": {
+  "erinus/boucle_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.4774
    }
   },
-  "boucle_01": {
+  "erinus/boucle_01": {
    "frame": {
     "x": 198,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.5126
    }
   },
-  "prepare_00": {
+  "erinus/prepare_00": {
    "frame": {
     "x": 405,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.449
    }
   },
-  "touche_00": {
+  "erinus/touche_00": {
    "frame": {
     "x": 622,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4769
    }
   },
-  "boucle_02": {
+  "erinus/boucle_02": {
    "frame": {
     "x": 831,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4121
    }
   },
-  "attaque_00": {
+  "erinus/attaque_00": {
    "frame": {
     "x": 1083,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.3902
    }
   },
-  "boucle_03": {
+  "erinus/boucle_03": {
    "frame": {
     "x": 1432,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4057
    }
   },
-  "mort_00": {
+  "erinus/mort_00": {
    "frame": {
     "x": 1664,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "erinus/boucle_00",
+   "erinus/boucle_01",
+   "erinus/boucle_02",
+   "erinus/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "erinus/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "erinus/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "erinus/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "erinus/mort_00"
   ]
  },
  "meta": {

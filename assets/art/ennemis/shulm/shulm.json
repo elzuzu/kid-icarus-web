@@ -1,6 +1,6 @@
 {
  "frames": {
-  "attaque_00": {
+  "shulm/attaque_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "prepare_00": {
+  "shulm/prepare_00": {
    "frame": {
     "x": 333,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "shulm/boucle_01": {
    "frame": {
     "x": 561,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "shulm/boucle_02": {
    "frame": {
     "x": 828,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "shulm/boucle_00": {
    "frame": {
     "x": 1078,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "shulm/boucle_03": {
    "frame": {
     "x": 1357,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "touche_00": {
+  "shulm/touche_00": {
    "frame": {
     "x": 1614,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "shulm/mort_00": {
    "frame": {
     "x": 0,
     "y": 140,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "shulm/boucle_00",
+   "shulm/boucle_01",
+   "shulm/boucle_02",
+   "shulm/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "shulm/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "shulm/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "shulm/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "shulm/mort_00"
   ]
  },
  "meta": {

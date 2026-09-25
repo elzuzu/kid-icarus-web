@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_00": {
+  "chauve_souris_braise/boucle_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.4762
    }
   },
-  "boucle_03": {
+  "chauve_souris_braise/boucle_03": {
    "frame": {
     "x": 244,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.4531
    }
   },
-  "attaque_00": {
+  "chauve_souris_braise/attaque_00": {
    "frame": {
     "x": 511,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.5139
    }
   },
-  "touche_00": {
+  "chauve_souris_braise/touche_00": {
    "frame": {
     "x": 797,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4551
    }
   },
-  "mort_00": {
+  "chauve_souris_braise/mort_00": {
    "frame": {
     "x": 1041,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.5071
    }
   },
-  "boucle_02": {
+  "chauve_souris_braise/boucle_02": {
    "frame": {
     "x": 1278,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.4618
    }
   },
-  "boucle_01": {
+  "chauve_souris_braise/boucle_01": {
    "frame": {
     "x": 1530,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4016
    }
   },
-  "prepare_00": {
+  "chauve_souris_braise/prepare_00": {
    "frame": {
     "x": 0,
     "y": 257,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "chauve_souris_braise/boucle_00",
+   "chauve_souris_braise/boucle_01",
+   "chauve_souris_braise/boucle_02",
+   "chauve_souris_braise/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "chauve_souris_braise/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "chauve_souris_braise/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "chauve_souris_braise/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "chauve_souris_braise/mort_00"
   ]
  },
  "meta": {

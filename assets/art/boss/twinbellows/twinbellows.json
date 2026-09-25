@@ -1,6 +1,6 @@
 {
  "frames": {
-  "touche_00": {
+  "twinbellows/touche_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "prepare_00": {
+  "twinbellows/prepare_00": {
    "frame": {
     "x": 496,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "twinbellows/boucle_01": {
    "frame": {
     "x": 1038,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "twinbellows/boucle_02": {
    "frame": {
     "x": 1558,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "twinbellows/boucle_00": {
    "frame": {
     "x": 2074,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "twinbellows/boucle_03": {
    "frame": {
     "x": 2587,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "attaque_00": {
+  "twinbellows/attaque_00": {
    "frame": {
     "x": 3114,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "twinbellows/mort_00": {
    "frame": {
     "x": 0,
     "y": 443,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "twinbellows/boucle_00",
+   "twinbellows/boucle_01",
+   "twinbellows/boucle_02",
+   "twinbellows/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "twinbellows/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "twinbellows/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "twinbellows/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "twinbellows/mort_00"
   ]
  },
  "meta": {

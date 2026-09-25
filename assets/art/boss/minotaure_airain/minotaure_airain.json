@@ -1,6 +1,6 @@
 {
  "frames": {
-  "prepare_00": {
+  "minotaure_airain/prepare_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "minotaure_airain/boucle_01": {
    "frame": {
     "x": 447,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "minotaure_airain/boucle_02": {
    "frame": {
     "x": 951,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "minotaure_airain/boucle_03": {
    "frame": {
     "x": 1438,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "minotaure_airain/boucle_00": {
    "frame": {
     "x": 1933,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "touche_00": {
+  "minotaure_airain/touche_00": {
    "frame": {
     "x": 2420,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "attaque_00": {
+  "minotaure_airain/attaque_00": {
    "frame": {
     "x": 2976,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "minotaure_airain/mort_00": {
    "frame": {
     "x": 0,
     "y": 564,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "minotaure_airain/boucle_00",
+   "minotaure_airain/boucle_01",
+   "minotaure_airain/boucle_02",
+   "minotaure_airain/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "minotaure_airain/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "minotaure_airain/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "minotaure_airain/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "minotaure_airain/mort_00"
   ]
  },
  "meta": {

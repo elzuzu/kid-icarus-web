@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_00": {
+  "medusa/boucle_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.4992
    }
   },
-  "boucle_03": {
+  "medusa/boucle_03": {
    "frame": {
     "x": 494,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.5032
    }
   },
-  "boucle_01": {
+  "medusa/boucle_01": {
    "frame": {
     "x": 981,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.5048
    }
   },
-  "boucle_02": {
+  "medusa/boucle_02": {
    "frame": {
     "x": 1483,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.5153
    }
   },
-  "touche_00": {
+  "medusa/touche_00": {
    "frame": {
     "x": 1994,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.5029
    }
   },
-  "prepare_00": {
+  "medusa/prepare_00": {
    "frame": {
     "x": 2481,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.5021
    }
   },
-  "attaque_00": {
+  "medusa/attaque_00": {
    "frame": {
     "x": 2976,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4942
    }
   },
-  "mort_00": {
+  "medusa/mort_00": {
    "frame": {
     "x": 3504,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "medusa/boucle_00",
+   "medusa/boucle_01",
+   "medusa/boucle_02",
+   "medusa/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "medusa/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "medusa/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "medusa/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "medusa/mort_00"
   ]
  },
  "meta": {

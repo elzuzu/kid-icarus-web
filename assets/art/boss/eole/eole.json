@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_02": {
+  "eole/boucle_02": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5006
    }
   },
-  "boucle_03": {
+  "eole/boucle_03": {
    "frame": {
     "x": 522,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.4962
    }
   },
-  "boucle_00": {
+  "eole/boucle_00": {
    "frame": {
     "x": 1022,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.4897
    }
   },
-  "boucle_01": {
+  "eole/boucle_01": {
    "frame": {
     "x": 1507,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.4948
    }
   },
-  "prepare_00": {
+  "eole/prepare_00": {
    "frame": {
     "x": 1996,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.4922
    }
   },
-  "attaque_00": {
+  "eole/attaque_00": {
    "frame": {
     "x": 2490,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.5025
    }
   },
-  "touche_00": {
+  "eole/touche_00": {
    "frame": {
     "x": 3087,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4888
    }
   },
-  "mort_00": {
+  "eole/mort_00": {
    "frame": {
     "x": 0,
     "y": 520,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "eole/boucle_00",
+   "eole/boucle_01",
+   "eole/boucle_02",
+   "eole/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "eole/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "eole/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "eole/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "eole/mort_00"
   ]
  },
  "meta": {

@@ -1,6 +1,6 @@
 {
  "frames": {
-  "touche_00": {
+  "sanglier_bronze/touche_00": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 1.0
    }
   },
-  "boucle_00": {
+  "sanglier_bronze/boucle_00": {
    "frame": {
     "x": 212,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 1.0
    }
   },
-  "boucle_01": {
+  "sanglier_bronze/boucle_01": {
    "frame": {
     "x": 474,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 1.0
    }
   },
-  "boucle_03": {
+  "sanglier_bronze/boucle_03": {
    "frame": {
     "x": 741,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 1.0
    }
   },
-  "prepare_00": {
+  "sanglier_bronze/prepare_00": {
    "frame": {
     "x": 1003,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 1.0
    }
   },
-  "boucle_02": {
+  "sanglier_bronze/boucle_02": {
    "frame": {
     "x": 1249,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 1.0
    }
   },
-  "attaque_00": {
+  "sanglier_bronze/attaque_00": {
    "frame": {
     "x": 1502,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 1.0
    }
   },
-  "mort_00": {
+  "sanglier_bronze/mort_00": {
    "frame": {
     "x": 0,
     "y": 185,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "sanglier_bronze/boucle_00",
+   "sanglier_bronze/boucle_01",
+   "sanglier_bronze/boucle_02",
+   "sanglier_bronze/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "sanglier_bronze/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "sanglier_bronze/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "sanglier_bronze/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "sanglier_bronze/mort_00"
   ]
  },
  "meta": {

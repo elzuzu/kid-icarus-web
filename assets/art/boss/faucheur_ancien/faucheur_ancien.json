@@ -1,6 +1,6 @@
 {
  "frames": {
-  "boucle_03": {
+  "faucheur_ancien/boucle_03": {
    "frame": {
     "x": 0,
     "y": 0,
@@ -24,7 +24,7 @@
     "y": 0.5222
    }
   },
-  "boucle_01": {
+  "faucheur_ancien/boucle_01": {
    "frame": {
     "x": 525,
     "y": 0,
@@ -48,7 +48,7 @@
     "y": 0.5307
    }
   },
-  "boucle_00": {
+  "faucheur_ancien/boucle_00": {
    "frame": {
     "x": 1018,
     "y": 0,
@@ -72,7 +72,7 @@
     "y": 0.5362
    }
   },
-  "boucle_02": {
+  "faucheur_ancien/boucle_02": {
    "frame": {
     "x": 1528,
     "y": 0,
@@ -96,7 +96,7 @@
     "y": 0.5544
    }
   },
-  "prepare_00": {
+  "faucheur_ancien/prepare_00": {
    "frame": {
     "x": 2004,
     "y": 0,
@@ -120,7 +120,7 @@
     "y": 0.5366
    }
   },
-  "touche_00": {
+  "faucheur_ancien/touche_00": {
    "frame": {
     "x": 2514,
     "y": 0,
@@ -144,7 +144,7 @@
     "y": 0.5145
    }
   },
-  "attaque_00": {
+  "faucheur_ancien/attaque_00": {
    "frame": {
     "x": 2973,
     "y": 0,
@@ -168,7 +168,7 @@
     "y": 0.4441
    }
   },
-  "mort_00": {
+  "faucheur_ancien/mort_00": {
    "frame": {
     "x": 3522,
     "y": 0,
@@ -195,22 +195,22 @@
  },
  "animations": {
   "boucle": [
-   "boucle_00",
-   "boucle_01",
-   "boucle_02",
-   "boucle_03"
+   "faucheur_ancien/boucle_00",
+   "faucheur_ancien/boucle_01",
+   "faucheur_ancien/boucle_02",
+   "faucheur_ancien/boucle_03"
   ],
   "prepare": [
-   "prepare_00"
+   "faucheur_ancien/prepare_00"
   ],
   "attaque": [
-   "attaque_00"
+   "faucheur_ancien/attaque_00"
   ],
   "touche": [
-   "touche_00"
+   "faucheur_ancien/touche_00"
   ],
   "mort": [
-   "mort_00"
+   "faucheur_ancien/mort_00"
   ]
  },
  "meta": {
