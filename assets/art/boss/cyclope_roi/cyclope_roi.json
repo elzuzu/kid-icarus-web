@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "prepare_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 483,
+    "h": 532
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 483,
+    "h": 532
+   },
+   "sourceSize": {
+    "w": 483,
+    "h": 532
+   },
+   "anchor": {
+    "x": 0.4689,
+    "y": 1.0
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 489,
+    "y": 0,
+    "w": 519,
+    "h": 505
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 519,
+    "h": 505
+   },
+   "sourceSize": {
+    "w": 519,
+    "h": 505
+   },
+   "anchor": {
+    "x": 0.4605,
+    "y": 1.0
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 1014,
+    "y": 0,
+    "w": 489,
+    "h": 505
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 489,
+    "h": 505
+   },
+   "sourceSize": {
+    "w": 489,
+    "h": 505
+   },
+   "anchor": {
+    "x": 0.498,
+    "y": 1.0
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 1509,
+    "y": 0,
+    "w": 520,
+    "h": 503
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 520,
+    "h": 503
+   },
+   "sourceSize": {
+    "w": 520,
+    "h": 503
+   },
+   "anchor": {
+    "x": 0.4904,
+    "y": 1.0
+   }
+  },
+  "boucle_00": {
+   "frame": {
+    "x": 2035,
+    "y": 0,
+    "w": 499,
+    "h": 502
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 499,
+    "h": 502
+   },
+   "sourceSize": {
+    "w": 499,
+    "h": 502
+   },
+   "anchor": {
+    "x": 0.496,
+    "y": 1.0
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 2540,
+    "y": 0,
+    "w": 482,
+    "h": 486
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 482,
+    "h": 486
+   },
+   "sourceSize": {
+    "w": 482,
+    "h": 486
+   },
+   "anchor": {
+    "x": 0.5021,
+    "y": 1.0
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 3028,
+    "y": 0,
+    "w": 538,
+    "h": 459
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 538,
+    "h": 459
+   },
+   "sourceSize": {
+    "w": 538,
+    "h": 459
+   },
+   "anchor": {
+    "x": 0.4842,
+    "y": 1.0
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 0,
+    "y": 538,
+    "w": 520,
+    "h": 358
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 520,
+    "h": 358
+   },
+   "sourceSize": {
+    "w": 520,
+    "h": 358
+   },
+   "anchor": {
+    "x": 0.499,
+    "y": 1.0
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "cyclope_roi.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 4096,
+   "h": 896
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "pieds"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   }
+  },
+  "face_peinte": -1
+ }
+}

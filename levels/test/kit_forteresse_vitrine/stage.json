@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_forteresse_vitrine",
+	"nom": "Vitrine du kit forteresse",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "forteresse",
+	"chunks": ["00"],
+	"marqueurs": {},
+	"portes": []
+}

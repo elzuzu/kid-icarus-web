@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_givre_vitrine",
+	"nom": "Vitrine du kit givre",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "givre",
+	"chunks": ["00"],
+	"marqueurs": {},
+	"portes": []
+}

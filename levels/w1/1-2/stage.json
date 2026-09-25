@@ -1,0 +1,70 @@
+{
+	"id": "w1/1-2",
+	"nom": "Fosses ardentes",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "enfers",
+	"ambiance": "fosses",
+	"musique": "enfers_2",
+	"niveau": 3,
+	"boss": "faucheur_ancien",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17"
+	],
+	"marqueurs": {
+		"n": {
+			"ennemi": "nettler"
+		},
+		"s": {
+			"ennemi": "specknose"
+		},
+		"r": {
+			"ennemi": "reaper"
+		},
+		"k": {
+			"ennemi": "mcgoo"
+		},
+		"c": {
+			"ennemi": "cracheur_lave"
+		},
+		"o": {
+			"ennemi": "golem_cendre"
+		},
+		"b": {
+			"ennemi": "chauve_souris_braise",
+			"mode": "vague",
+			"intervalle": 6.0,
+			"max": 2
+		},
+		"g": {
+			"element": "geyser",
+			"periode": 3.2,
+			"hauteur": 6.0
+		}
+	},
+	"portes": [
+		"forge",
+		"boutique",
+		"nid",
+		"source_chaude"
+	],
+	"secrets": 1
+}

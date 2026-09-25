@@ -1,0 +1,679 @@
+{
+	"_doc": "Repliques doublees (Qwen3-TTS CustomVoice, voix predefinies, aucun clonage : tools/audio/voix.py -> assets/voix/<id>.ogg) et sous-titrees. declencheur : evenement du jeu qui lance la replique (stage:<id> au debut d'un stage, boss:<id>, boss_phase:<id>, boss_vaincu:<id>, chambre:<type>, et des evenements generiques). Les repliques d'un meme declencheur s'enchainent dans l'ordre de la liste. une_fois : jamais rejouee dans la partie. priorite : une replique plus prioritaire passe devant la file.",
+	"voix": {
+		"pit": {
+			"speaker": "aiden",
+			"nom": "Pit",
+			"couleur": [
+				0.55,
+				0.8,
+				1.0
+			],
+			"consigne": "Jeune héros enthousiaste et courageux, énergique, un peu espiègle, voix claire d'adolescent."
+		},
+		"palutena": {
+			"speaker": "serena",
+			"nom": "Palutena",
+			"couleur": [
+				0.6,
+				1.0,
+				0.7
+			],
+			"consigne": "Voix de déesse bienveillante, calme, chaleureuse et assurée, légèrement amusée."
+		},
+		"medusa": {
+			"speaker": "vivian",
+			"nom": "Médusa",
+			"couleur": [
+				0.85,
+				0.5,
+				1.0
+			],
+			"consigne": "Reine gorgone cruelle et hautaine, voix grave et menaçante, théâtrale, rire froid."
+		},
+		"pandora": {
+			"speaker": "sohee",
+			"nom": "Pandora",
+			"couleur": [
+				1.0,
+				0.6,
+				0.85
+			],
+			"consigne": "Entité espiègle et chaotique, voix moqueuse et chantante, imprévisible."
+		},
+		"tanatos": {
+			"speaker": "eric",
+			"nom": "Tanatos",
+			"couleur": [
+				0.7,
+				0.7,
+				0.75
+			],
+			"consigne": "Dieu de la mort théâtral et sinistre, voix veloutée, ton ironique."
+		},
+		"marchand": {
+			"speaker": "uncle_fu",
+			"nom": "Marchand",
+			"couleur": [
+				1.0,
+				0.85,
+				0.5
+			],
+			"consigne": "Vieux marchand jovial et roublard, voix chaleureuse, un peu rapide."
+		},
+		"forgeron": {
+			"speaker": "uncle_fu",
+			"nom": "Forgeron",
+			"couleur": [
+				1.0,
+				0.6,
+				0.35
+			],
+			"consigne": "Cyclope forgeron bourru, voix très grave et lente, peu bavard."
+		},
+		"centurion": {
+			"speaker": "ryan",
+			"nom": "Centurion",
+			"couleur": [
+				1.0,
+				0.9,
+				0.6
+			],
+			"consigne": "Soldat loyal et martial, voix ferme et reconnaissante."
+		},
+		"sorcier": {
+			"speaker": "dylan",
+			"nom": "Sorcier Aubergine",
+			"couleur": [
+				0.75,
+				0.45,
+				1.0
+			],
+			"consigne": "Sorcier farceur et ridicule, voix nasillarde et moqueuse, ricanant."
+		}
+	},
+	"entrees": [
+		{
+			"id": "intro_1",
+			"perso": "medusa",
+			"texte": "Palutena est à moi. Le ciel, la terre et les Enfers m'appartiennent désormais !",
+			"declencheur": "intro",
+			"une_fois": true
+		},
+		{
+			"id": "intro_2",
+			"perso": "palutena",
+			"texte": "Pit... m'entends-tu ? Medusa m'a emprisonnée. Toi seul peux encore la vaincre.",
+			"declencheur": "intro",
+			"une_fois": true
+		},
+		{
+			"id": "intro_3",
+			"perso": "pit",
+			"texte": "Je vous entends, Dame Palutena ! Attendez-moi, j'arrive !",
+			"declencheur": "intro",
+			"une_fois": true,
+			"ton": "Déterminé, plein d'élan."
+		},
+		{
+			"id": "w1_11_a",
+			"perso": "palutena",
+			"texte": "Les Profondeurs des Enfers... Monte sans t'arrêter, et surtout, ne regarde pas en bas.",
+			"declencheur": "stage:w1/1-1",
+			"une_fois": true
+		},
+		{
+			"id": "w1_11_b",
+			"perso": "pit",
+			"texte": "Pas besoin de me le dire deux fois ! En avant !",
+			"declencheur": "stage:w1/1-1",
+			"une_fois": true,
+			"ton": "Enthousiaste."
+		},
+		{
+			"id": "w1_12_a",
+			"perso": "palutena",
+			"texte": "Les Fosses ardentes. Méfie-toi des geysers de lave, et ne te fais pas voir des Faucheurs.",
+			"declencheur": "stage:w1/1-2",
+			"une_fois": true
+		},
+		{
+			"id": "w1_12_b",
+			"perso": "pit",
+			"texte": "Discret comme une plume. Enfin... presque.",
+			"declencheur": "stage:w1/1-2",
+			"une_fois": true,
+			"ton": "Amusé."
+		},
+		{
+			"id": "w1_13_a",
+			"perso": "palutena",
+			"texte": "Le Puits des âmes est plongé dans l'obscurité. Ta lumière te guidera, Pit.",
+			"declencheur": "stage:w1/1-3",
+			"une_fois": true
+		},
+		{
+			"id": "w1_13_b",
+			"perso": "pit",
+			"texte": "Brr... Je n'aime pas trop le noir. Mais je n'ai pas peur !",
+			"declencheur": "stage:w1/1-3",
+			"une_fois": true,
+			"ton": "Un peu nerveux puis courageux."
+		},
+		{
+			"id": "w1_14_a",
+			"perso": "palutena",
+			"texte": "La forteresse des Enfers est un vrai labyrinthe. Trouve la carte, et libère les Centurions pétrifiés.",
+			"declencheur": "stage:w1/1-4",
+			"une_fois": true
+		},
+		{
+			"id": "boss_mere_a",
+			"perso": "pit",
+			"texte": "Une jarre géante ? Et... elle bouge !",
+			"declencheur": "boss:mere_des_jarres",
+			"une_fois": true,
+			"ton": "Surpris."
+		},
+		{
+			"id": "boss_mere_b",
+			"perso": "palutena",
+			"texte": "C'est la Mère des Jarres. Vise la tête du serpent quand il se découvre !",
+			"declencheur": "boss:mere_des_jarres",
+			"une_fois": true
+		},
+		{
+			"id": "boss_faucheur_a",
+			"perso": "palutena",
+			"texte": "Le Faucheur ancien veille sur ces fosses. Garde tes distances avec sa faux !",
+			"declencheur": "boss:faucheur_ancien",
+			"une_fois": true
+		},
+		{
+			"id": "boss_faucheur_b",
+			"perso": "pit",
+			"texte": "Sa lanterne ne me fait pas peur. Enfin, pas beaucoup.",
+			"declencheur": "boss:faucheur_ancien",
+			"une_fois": true
+		},
+		{
+			"id": "boss_oeil_a",
+			"perso": "pit",
+			"texte": "Un oeil énorme dans une ruche d'os ? C'est dégoûtant !",
+			"declencheur": "boss:oeil_ruche",
+			"une_fois": true,
+			"ton": "Dégoûté."
+		},
+		{
+			"id": "boss_oeil_b",
+			"perso": "palutena",
+			"texte": "Quand son regard brille, écarte-toi de sa ligne de mire !",
+			"declencheur": "boss:oeil_ruche",
+			"une_fois": true
+		},
+		{
+			"id": "boss_twin_a",
+			"perso": "palutena",
+			"texte": "Twinbellows, le gardien à deux têtes. Ses flammes vont dans les deux sens, reste en mouvement !",
+			"declencheur": "boss:twinbellows",
+			"une_fois": true
+		},
+		{
+			"id": "boss_twin_b",
+			"perso": "pit",
+			"texte": "Deux têtes, deux fois plus de flèches. Ça me va !",
+			"declencheur": "boss:twinbellows",
+			"une_fois": true
+		},
+		{
+			"id": "boss_phase_1",
+			"perso": "palutena",
+			"texte": "Il devient furieux ! Attention, ses attaques s'accélèrent.",
+			"declencheur": "boss_phase",
+			"priorite": 2
+		},
+		{
+			"id": "boss_vaincu_1",
+			"perso": "pit",
+			"texte": "Et voilà ! Au suivant !",
+			"declencheur": "boss_vaincu",
+			"ton": "Triomphant."
+		},
+		{
+			"id": "boss_vaincu_2",
+			"perso": "palutena",
+			"texte": "Magnifique, Pit. Je suis fière de toi.",
+			"declencheur": "boss_vaincu"
+		},
+		{
+			"id": "w2_21_a",
+			"perso": "palutena",
+			"texte": "Te voici à la Surface. Les terres des hommes sont envahies par les créatures de Medusa.",
+			"declencheur": "stage:w2/2-1",
+			"une_fois": true
+		},
+		{
+			"id": "w2_21_b",
+			"perso": "pit",
+			"texte": "Enfin le soleil ! Ça fait du bien de sortir de ces Enfers.",
+			"declencheur": "stage:w2/2-1",
+			"une_fois": true,
+			"ton": "Heureux, soulagé."
+		},
+		{
+			"id": "w2_22_a",
+			"perso": "palutena",
+			"texte": "Le col gelé. Le sol glisse, dose bien tes sauts.",
+			"declencheur": "stage:w2/2-2",
+			"une_fois": true
+		},
+		{
+			"id": "w2_23_a",
+			"perso": "palutena",
+			"texte": "Les ruines au crépuscule. Un cyclope règne ici, sois prudent.",
+			"declencheur": "stage:w2/2-3",
+			"une_fois": true
+		},
+		{
+			"id": "w2_24_a",
+			"perso": "palutena",
+			"texte": "La forteresse de la Surface abrite Hewdraw, le serpent à trois têtes.",
+			"declencheur": "stage:w2/2-4",
+			"une_fois": true
+		},
+		{
+			"id": "boss_minotaure_a",
+			"perso": "pit",
+			"texte": "Un minotaure en armure ! Il va charger, je le sens.",
+			"declencheur": "boss:minotaure_airain",
+			"une_fois": true
+		},
+		{
+			"id": "boss_givre_a",
+			"perso": "palutena",
+			"texte": "La Reine du givre ! Brise ses cristaux avant qu'ils ne te gèlent.",
+			"declencheur": "boss:reine_givre",
+			"une_fois": true
+		},
+		{
+			"id": "boss_cyclope_a",
+			"perso": "pit",
+			"texte": "Il est gigantesque... mais il n'a qu'un oeil. Je sais où viser !",
+			"declencheur": "boss:cyclope_roi",
+			"une_fois": true
+		},
+		{
+			"id": "boss_hewdraw_a",
+			"perso": "palutena",
+			"texte": "Hewdraw ! Chaque tête a son élément. Occupe-toi d'une tête à la fois.",
+			"declencheur": "boss:hewdraw",
+			"une_fois": true
+		},
+		{
+			"id": "w3_31_a",
+			"perso": "palutena",
+			"texte": "Le Ciel, enfin. Mon palais n'est plus très loin, Pit.",
+			"declencheur": "stage:w3/3-1",
+			"une_fois": true
+		},
+		{
+			"id": "w3_31_b",
+			"perso": "pit",
+			"texte": "Marcher sur les nuages ! C'est encore mieux que dans mes rêves.",
+			"declencheur": "stage:w3/3-1",
+			"une_fois": true,
+			"ton": "Émerveillé."
+		},
+		{
+			"id": "w3_32_a",
+			"perso": "palutena",
+			"texte": "Une tempête se lève. Le vent va te pousser, sers-toi de lui.",
+			"declencheur": "stage:w3/3-2",
+			"une_fois": true
+		},
+		{
+			"id": "w3_33_a",
+			"perso": "palutena",
+			"texte": "Le temple céleste. Talos, le géant de bronze, en garde l'entrée.",
+			"declencheur": "stage:w3/3-3",
+			"une_fois": true
+		},
+		{
+			"id": "w3_34_a",
+			"perso": "palutena",
+			"texte": "La forteresse céleste cache Pandora. Méfie-toi de ce que tu ne vois pas.",
+			"declencheur": "stage:w3/3-4",
+			"une_fois": true
+		},
+		{
+			"id": "boss_stymphale_a",
+			"perso": "pit",
+			"texte": "Ses plumes sont en bronze ? Ça va piquer.",
+			"declencheur": "boss:reine_stymphale",
+			"une_fois": true
+		},
+		{
+			"id": "boss_eole_a",
+			"perso": "palutena",
+			"texte": "Éole, le maître des vents, a été ensorcelé. Libère-le !",
+			"declencheur": "boss:eole",
+			"une_fois": true
+		},
+		{
+			"id": "boss_talos_a",
+			"perso": "pit",
+			"texte": "Un géant de bronze... Il doit bien avoir un point faible.",
+			"declencheur": "boss:talos",
+			"une_fois": true
+		},
+		{
+			"id": "boss_talos_b",
+			"perso": "palutena",
+			"texte": "Son ichor brille à la cheville. Vise là !",
+			"declencheur": "boss:talos",
+			"une_fois": true
+		},
+		{
+			"id": "boss_pandora_a",
+			"perso": "pandora",
+			"texte": "Coucou, petit ange ! Tu veux jouer avec moi ? Tu vas perdre, bien sûr !",
+			"declencheur": "boss:pandora",
+			"une_fois": true
+		},
+		{
+			"id": "boss_pandora_b",
+			"perso": "pit",
+			"texte": "Montre-toi, au lieu de te cacher !",
+			"declencheur": "boss:pandora",
+			"une_fois": true,
+			"ton": "Agacé."
+		},
+		{
+			"id": "w4_41_a",
+			"perso": "palutena",
+			"texte": "Pit, je t'offre les Trésors sacrés : les Ailes de Pégase, le Bouclier miroir et les Flèches de lumière.",
+			"declencheur": "stage:w4/4-1",
+			"une_fois": true
+		},
+		{
+			"id": "w4_41_b",
+			"perso": "pit",
+			"texte": "Je vole ! Je vole vraiment ! Medusa, prépare-toi !",
+			"declencheur": "stage:w4/4-1",
+			"une_fois": true,
+			"ton": "Euphorique."
+		},
+		{
+			"id": "boss_tanatos_a",
+			"perso": "tanatos",
+			"texte": "Quelle charmante visite. Laisse-moi t'offrir un aller simple pour l'au-delà.",
+			"declencheur": "boss:tanatos",
+			"une_fois": true
+		},
+		{
+			"id": "boss_tanatos_b",
+			"perso": "pit",
+			"texte": "Non merci, j'ai déjà visité les Enfers !",
+			"declencheur": "boss:tanatos",
+			"une_fois": true,
+			"ton": "Moqueur."
+		},
+		{
+			"id": "w4_42_a",
+			"perso": "medusa",
+			"texte": "Tu es venu jusqu'ici, petit ange ? Alors viens mourir dans mon palais.",
+			"declencheur": "stage:w4/4-2",
+			"une_fois": true
+		},
+		{
+			"id": "w4_42_b",
+			"perso": "pit",
+			"texte": "Rendez-nous Dame Palutena, Medusa !",
+			"declencheur": "stage:w4/4-2",
+			"une_fois": true,
+			"ton": "Crié, déterminé."
+		},
+		{
+			"id": "boss_medusa_a",
+			"perso": "medusa",
+			"texte": "Regarde-moi, Pit. Regarde-moi, et deviens pierre !",
+			"declencheur": "boss:medusa",
+			"une_fois": true
+		},
+		{
+			"id": "boss_medusa_phase",
+			"perso": "medusa",
+			"texte": "Assez ! Tu vas voir ma véritable colère !",
+			"declencheur": "boss_phase:medusa",
+			"une_fois": true,
+			"priorite": 3
+		},
+		{
+			"id": "fin_1",
+			"perso": "palutena",
+			"texte": "Tu as réussi, Pit. La lumière revient sur le ciel, la terre et les Enfers.",
+			"declencheur": "fin",
+			"une_fois": true
+		},
+		{
+			"id": "fin_2",
+			"perso": "pit",
+			"texte": "Ce n'était rien, Dame Palutena. Enfin... si, c'était beaucoup !",
+			"declencheur": "fin",
+			"une_fois": true,
+			"ton": "Rieur."
+		},
+		{
+			"id": "pv_bas_1",
+			"perso": "palutena",
+			"texte": "Pit, tu es gravement blessé ! Bois une Eau de vie.",
+			"declencheur": "pv_bas",
+			"priorite": 2
+		},
+		{
+			"id": "pv_bas_2",
+			"perso": "pit",
+			"texte": "Aïe... Ça commence à faire mal.",
+			"declencheur": "pv_bas"
+		},
+		{
+			"id": "plume_1",
+			"perso": "palutena",
+			"texte": "Ta plume d'ange t'a rattrapé. Fais plus attention !",
+			"declencheur": "plume",
+			"priorite": 2
+		},
+		{
+			"id": "mort_1",
+			"perso": "palutena",
+			"texte": "Pit ! Relève-toi, je te donne un peu de ma force.",
+			"declencheur": "mort",
+			"priorite": 3
+		},
+		{
+			"id": "niveau_1",
+			"perso": "pit",
+			"texte": "Je me sens plus fort !",
+			"declencheur": "niveau"
+		},
+		{
+			"id": "niveau_2",
+			"perso": "palutena",
+			"texte": "Tu progresses, Pit. Pense à tes talents.",
+			"declencheur": "niveau"
+		},
+		{
+			"id": "arme_1",
+			"perso": "pit",
+			"texte": "Waouh, regardez-moi cette arme !",
+			"declencheur": "arme_rare",
+			"ton": "Émerveillé."
+		},
+		{
+			"id": "elite_1",
+			"perso": "palutena",
+			"texte": "Attention, cet ennemi est bien plus coriace que les autres.",
+			"declencheur": "elite"
+		},
+		{
+			"id": "sirene_1",
+			"perso": "pit",
+			"texte": "Oups... Il m'a vu !",
+			"declencheur": "sirene",
+			"ton": "Paniqué."
+		},
+		{
+			"id": "checkpoint_1",
+			"perso": "palutena",
+			"texte": "Ma statue veillera sur toi. Tu reprendras d'ici.",
+			"declencheur": "checkpoint",
+			"une_fois": true
+		},
+		{
+			"id": "porte_1",
+			"perso": "palutena",
+			"texte": "Une porte ! On ne sait jamais ce qui se cache derrière.",
+			"declencheur": "porte_vue",
+			"une_fois": true
+		},
+		{
+			"id": "ch_boutique",
+			"perso": "marchand",
+			"texte": "Bienvenue, petit ange ! Tout est à vendre, et à prix d'ami.",
+			"declencheur": "chambre:boutique"
+		},
+		{
+			"id": "ch_marche",
+			"perso": "marchand",
+			"texte": "Psst... Des merveilles, pour qui a le coeur bien garni.",
+			"declencheur": "chambre:marche_noir"
+		},
+		{
+			"id": "ch_forge",
+			"perso": "forgeron",
+			"texte": "Deux armes entrent. Une seule ressort.",
+			"declencheur": "chambre:forge"
+		},
+		{
+			"id": "ch_source",
+			"perso": "palutena",
+			"texte": "Une source sacrée. Repose-toi un instant, Pit.",
+			"declencheur": "chambre:source_chaude"
+		},
+		{
+			"id": "ch_tresor",
+			"perso": "pit",
+			"texte": "Des jarres ! J'espère que le dieu de la Pauvreté n'est pas dans le coin.",
+			"declencheur": "chambre:tresor"
+		},
+		{
+			"id": "ch_nid",
+			"perso": "pit",
+			"texte": "Un nid entier ? Bon. Qu'ils viennent !",
+			"declencheur": "chambre:nid"
+		},
+		{
+			"id": "ch_divine",
+			"perso": "palutena",
+			"texte": "Les dieux t'offrent un présent. Choisis bien, tu n'en auras qu'un.",
+			"declencheur": "chambre:divine"
+		},
+		{
+			"id": "ch_epreuve",
+			"perso": "palutena",
+			"texte": "Une épreuve ! Montre-moi ce que tu vaux, Pit.",
+			"declencheur": "chambre:epreuve"
+		},
+		{
+			"id": "ch_hopital",
+			"perso": "palutena",
+			"texte": "Un hôpital. Parfait pour te remettre sur pied.",
+			"declencheur": "chambre:hopital"
+		},
+		{
+			"id": "centurion_1",
+			"perso": "centurion",
+			"texte": "Merci de m'avoir libéré, Pit ! Je me battrai à tes côtés.",
+			"declencheur": "centurion"
+		},
+		{
+			"id": "sorcier_1",
+			"perso": "sorcier",
+			"texte": "Hé hé hé ! Une aubergine de plus pour ma collection !",
+			"declencheur": "sorcier"
+		},
+		{
+			"id": "sorcier_2",
+			"perso": "pit",
+			"texte": "Je suis... une aubergine ? Vite, un hôpital !",
+			"declencheur": "aubergine",
+			"ton": "Paniqué et comique."
+		},
+		{
+			"id": "fin_heroique_1",
+			"perso": "palutena",
+			"texte": "Pit, tu as surpassé tous mes espoirs. Je te nomme capitaine de ma garde céleste.",
+			"declencheur": "fin_heroique",
+			"une_fois": true
+		},
+		{
+			"id": "fin_heroique_2",
+			"perso": "pit",
+			"texte": "Capitaine ?! Merci, Dame Palutena ! Je veillerai sur le ciel pour toujours !",
+			"declencheur": "fin_heroique",
+			"une_fois": true,
+			"ton": "Fou de joie, ému."
+		},
+		{
+			"id": "fin_sobre_1",
+			"perso": "palutena",
+			"texte": "Tu m'as sauvée, Pit. Mais la route a été rude... Continue de t'entraîner.",
+			"declencheur": "fin_sobre",
+			"une_fois": true
+		},
+		{
+			"id": "fin_sobre_2",
+			"perso": "pit",
+			"texte": "Promis ! La prochaine fois, je serai encore plus fort !",
+			"declencheur": "fin_sobre",
+			"une_fois": true,
+			"ton": "Un peu penaud, puis résolu."
+		},
+		{
+			"id": "ng_plus_1",
+			"perso": "medusa",
+			"texte": "Tu croyais m'avoir vaincue ? Je renais, plus terrible que jamais !",
+			"declencheur": "ng_plus",
+			"une_fois": true
+		},
+		{
+			"id": "ng_plus_2",
+			"perso": "pit",
+			"texte": "Encore vous ? Très bien, je recommence tout. Et en mieux !",
+			"declencheur": "ng_plus",
+			"une_fois": true,
+			"ton": "Amusé et sûr de lui."
+		},
+		{
+			"id": "objet_sandales",
+			"perso": "palutena",
+			"texte": "Les Sandales d'Hermès ! En dash, tu traverseras désormais les grilles.",
+			"declencheur": "objet:sandales",
+			"une_fois": true
+		},
+		{
+			"id": "objet_bouclier",
+			"perso": "palutena",
+			"texte": "Le Bouclier miroir ! Il renverra parfois les tirs qui te visent de face.",
+			"declencheur": "objet:bouclier",
+			"une_fois": true
+		},
+		{
+			"id": "objet_fleches",
+			"perso": "palutena",
+			"texte": "Les Flèches de lumière ! Tes tirs transperceront un ennemi de plus.",
+			"declencheur": "objet:fleches",
+			"une_fois": true
+		}
+	]
+}

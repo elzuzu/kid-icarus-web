@@ -1,0 +1,10 @@
+{
+	"id": "test/ascension",
+	"nom": "Ascension de test",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "enfers",
+	"chunks": ["00", "01"],
+	"marqueurs": {}
+}

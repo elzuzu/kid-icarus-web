@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "boucle_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 260,
+    "h": 252
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 260,
+    "h": 252
+   },
+   "sourceSize": {
+    "w": 260,
+    "h": 252
+   },
+   "anchor": {
+    "x": 0.3942,
+    "y": 1.0
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 266,
+    "y": 0,
+    "w": 260,
+    "h": 252
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 260,
+    "h": 252
+   },
+   "sourceSize": {
+    "w": 260,
+    "h": 252
+   },
+   "anchor": {
+    "x": 0.3923,
+    "y": 1.0
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 532,
+    "y": 0,
+    "w": 250,
+    "h": 252
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 250,
+    "h": 252
+   },
+   "sourceSize": {
+    "w": 250,
+    "h": 252
+   },
+   "anchor": {
+    "x": 0.37,
+    "y": 1.0
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 788,
+    "y": 0,
+    "w": 243,
+    "h": 251
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 243,
+    "h": 251
+   },
+   "sourceSize": {
+    "w": 243,
+    "h": 251
+   },
+   "anchor": {
+    "x": 0.4033,
+    "y": 1.0
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 1037,
+    "y": 0,
+    "w": 149,
+    "h": 218
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 149,
+    "h": 218
+   },
+   "sourceSize": {
+    "w": 149,
+    "h": 218
+   },
+   "anchor": {
+    "x": 0.5604,
+    "y": 1.0
+   }
+  },
+  "prepare_00": {
+   "frame": {
+    "x": 1192,
+    "y": 0,
+    "w": 216,
+    "h": 209
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 216,
+    "h": 209
+   },
+   "sourceSize": {
+    "w": 216,
+    "h": 209
+   },
+   "anchor": {
+    "x": 0.5417,
+    "y": 1.0
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 1414,
+    "y": 0,
+    "w": 327,
+    "h": 208
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 327,
+    "h": 208
+   },
+   "sourceSize": {
+    "w": 327,
+    "h": 208
+   },
+   "anchor": {
+    "x": 0.3028,
+    "y": 1.0
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 1747,
+    "y": 0,
+    "w": 286,
+    "h": 109
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 286,
+    "h": 109
+   },
+   "sourceSize": {
+    "w": 286,
+    "h": 109
+   },
+   "anchor": {
+    "x": 0.4983,
+    "y": 1.0
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "myrmidon.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 2048,
+   "h": 252
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "pieds"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   }
+  },
+  "face_peinte": 1
+ }
+}

@@ -1,0 +1,17 @@
+{
+	"_doc": "Pouvoirs de la grille (inventaire a pieces facon Tetris). forme : cellules occupees [x, y] relatives. actif : declenche par pouvoir_1 / pouvoir_2 (les deux premiers actifs places), recharge en s. passif : effets permanents tant que la piece est posee.",
+	"entrees": [
+		{"id": "soin", "nom": "Soin", "actif": true, "recharge": 45, "forme": [[0, 0], [1, 0]], "effet": {"soin_pct": 35}},
+		{"id": "super_saut", "nom": "Super saut", "actif": true, "recharge": 12, "forme": [[0, 0], [0, 1]], "effet": {"impulsion": 1.9}},
+		{"id": "autoguidage", "nom": "Autoguidage", "actif": true, "recharge": 40, "forme": [[0, 0], [1, 0], [0, 1]], "effet": {"duree": 10, "guidage": 3.0}},
+		{"id": "pluie_fleches", "nom": "Pluie de flèches", "actif": true, "recharge": 30, "forme": [[0, 0], [1, 0], [2, 0]], "effet": {"fleches": 24, "base": 14}},
+		{"id": "bouclier", "nom": "Bouclier réfléchissant", "actif": true, "recharge": 35, "forme": [[0, 0], [1, 0], [0, 1], [1, 1]], "effet": {"duree": 4}},
+		{"id": "vitesse", "nom": "Vitesse divine", "actif": true, "recharge": 25, "forme": [[0, 0], [1, 1]], "effet": {"duree": 8, "vitesse_pct": 40}},
+		{"id": "eclair", "nom": "Éclair de Zeus", "actif": true, "recharge": 28, "forme": [[0, 0], [1, 0], [2, 0], [1, 1]], "effet": {"cibles": 5, "base": 30}},
+		{"id": "invisibilite", "nom": "Invisibilité", "actif": true, "recharge": 50, "forme": [[0, 0], [0, 1], [0, 2]], "effet": {"duree": 5}},
+		{"id": "regeneration", "nom": "Régénération", "actif": false, "forme": [[0, 0]], "effets": [{"stat": "regeneration", "v": 2, "mode": "joueur_add"}]},
+		{"id": "attraction", "nom": "Attraction des cœurs", "actif": false, "forme": [[0, 0], [1, 0]], "effets": [{"stat": "aimant", "v": 80, "mode": "joueur_pct"}]},
+		{"id": "robustesse", "nom": "Robustesse", "actif": false, "forme": [[0, 0], [1, 0], [0, 1]], "effets": [{"stat": "defense", "v": 2, "mode": "joueur_add"}]},
+		{"id": "precision", "nom": "Précision", "actif": false, "forme": [[0, 0], [0, 1]], "effets": [{"stat": "chance_critique", "v": 6, "mode": "add_pct"}]}
+	]
+}

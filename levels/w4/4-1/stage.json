@@ -1,0 +1,54 @@
+{
+	"id": "w4/4-1",
+	"nom": "Traversée céleste",
+	"type": "shmup",
+	"boucle": false,
+	"kit": "ciel",
+	"ambiance": "vol_celeste",
+	"musique": "vol_celeste",
+	"niveau": 25,
+	"boss": "tanatos",
+	"defilement": 4.0,
+	"marqueurs": {
+		"g": {
+			"ennemi": "gardien_aile"
+		},
+		"o": {
+			"ennemi": "oeil_celeste"
+		},
+		"k": {
+			"ennemi": "komayto"
+		},
+		"m": {
+			"ennemi": "minos"
+		},
+		"p": {
+			"ennemi": "pegase_noir"
+		}
+	},
+	"portes": [],
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17",
+		"18",
+		"19",
+		"20",
+		"21"
+	]
+}

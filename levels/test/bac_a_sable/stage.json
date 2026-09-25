@@ -1,0 +1,10 @@
+{
+	"id": "test/bac_a_sable",
+	"nom": "Bac a sable horizontal",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "enfers",
+	"chunks": ["00", "01"],
+	"marqueurs": {},
+	"portes": ["boutique"]
+}

@@ -1,0 +1,60 @@
+{
+	"id": "w3/3-1",
+	"nom": "Mer de nuages",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "ciel",
+	"ambiance": "mer_nuages",
+	"musique": "ciel_1",
+	"niveau": 17,
+	"boss": "reine_stymphale",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14"
+	],
+	"marqueurs": {
+		"h": {
+			"ennemi": "holer"
+		},
+		"g": {
+			"ennemi": "girin",
+			"mode": "vague",
+			"intervalle": 6.0,
+			"max": 2
+		},
+		"k": {
+			"ennemi": "komayto"
+		},
+		"y": {
+			"ennemi": "sylphe"
+		},
+		"v": {
+			"element": "nuage",
+			"axe": "x",
+			"amplitude": 4.0,
+			"periode": 5.0,
+			"largeur": 3
+		}
+	},
+	"portes": [
+		"boutique",
+		"source_chaude",
+		"tresor",
+		"divine"
+	],
+	"secrets": 1
+}

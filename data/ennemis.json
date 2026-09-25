@@ -1,0 +1,1475 @@
+{
+	"_doc": "Bestiaire. taille en tuiles [largeur, hauteur] ; vitesse en tuiles/s ; contact = attaque au toucher ; coeurs = [min, max] laches a la mort ; params propres au comportement. Les PV sont ceux de l'Intensite 0 (voir Intensite pour la mise a l'echelle).",
+	"entrees": [
+		{
+			"id": "shemum",
+			"nom": "Shemum",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "marcheur",
+			"pv": 12,
+			"taille": [
+				0.9,
+				0.6
+			],
+			"vitesse": 3.2,
+			"volant": false,
+			"xp": 4,
+			"coeurs": [
+				1,
+				1
+			],
+			"contact": {
+				"base": 8
+			},
+			"params": {
+				"poursuit": true
+			},
+			"couleur": [
+				0.35,
+				0.7,
+				0.3
+			]
+		},
+		{
+			"id": "monoeye",
+			"nom": "Monoeye",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "plongeur",
+			"pv": 15,
+			"taille": [
+				0.9,
+				0.9
+			],
+			"vitesse": 6.0,
+			"volant": true,
+			"xp": 6,
+			"coeurs": [
+				1,
+				2
+			],
+			"contact": {
+				"base": 10
+			},
+			"params": {
+				"hauteur_attente": 4.5,
+				"vitesse_plongee": 11.0,
+				"attente": 1.2
+			},
+			"couleur": [
+				0.9,
+				0.85,
+				0.8
+			]
+		},
+		{
+			"id": "nettler",
+			"nom": "Nettler",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "sauteur",
+			"pv": 10,
+			"taille": [
+				0.7,
+				0.8
+			],
+			"vitesse": 3.0,
+			"volant": false,
+			"xp": 4,
+			"coeurs": [
+				1,
+				1
+			],
+			"contact": {
+				"base": 8
+			},
+			"params": {
+				"impulsion": 9.0,
+				"intervalle": 1.4
+			},
+			"couleur": [
+				0.85,
+				0.3,
+				0.25
+			]
+		},
+		{
+			"id": "mcgoo",
+			"nom": "McGoo",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "emergeant",
+			"pv": 20,
+			"taille": [
+				1.0,
+				1.0
+			],
+			"vitesse": 0.0,
+			"volant": false,
+			"xp": 8,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 12,
+				"element": 1
+			},
+			"params": {
+				"cycle": 3.0,
+				"tir": {
+					"base": 10,
+					"element": 1,
+					"vitesse": 9.0,
+					"gravite": 18.0,
+					"visuel": "boule_feu"
+				}
+			},
+			"resistances": {
+				"1": 0.8,
+				"2": -0.5
+			},
+			"couleur": [
+				1.0,
+				0.45,
+				0.15
+			]
+		},
+		{
+			"id": "reaper",
+			"nom": "Faucheur",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "patrouilleur",
+			"pv": 40,
+			"taille": [
+				1.0,
+				1.6
+			],
+			"vitesse": 2.2,
+			"volant": false,
+			"xp": 20,
+			"coeurs": [
+				5,
+				8
+			],
+			"contact": {
+				"base": 15
+			},
+			"params": {
+				"vue": 9.0,
+				"invoque": "reapette",
+				"nombre": 3,
+				"panique": 6.0
+			},
+			"couleur": [
+				0.25,
+				0.2,
+				0.35
+			]
+		},
+		{
+			"id": "reapette",
+			"nom": "Faucheuse",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "chasseur",
+			"pv": 6,
+			"taille": [
+				0.6,
+				0.6
+			],
+			"vitesse": 5.5,
+			"volant": true,
+			"xp": 2,
+			"coeurs": [
+				0,
+				1
+			],
+			"contact": {
+				"base": 6
+			},
+			"params": {
+				"virage": 2.5
+			},
+			"couleur": [
+				0.6,
+				0.55,
+				0.7
+			]
+		},
+		{
+			"id": "specknose",
+			"nom": "Specknose",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "erratique",
+			"pv": 18,
+			"taille": [
+				0.8,
+				0.8
+			],
+			"vitesse": 4.5,
+			"volant": true,
+			"xp": 7,
+			"coeurs": [
+				1,
+				3
+			],
+			"contact": {
+				"base": 10
+			},
+			"params": {
+				"changement": 0.7
+			},
+			"couleur": [
+				0.95,
+				0.6,
+				0.55
+			]
+		},
+		{
+			"id": "chauve_souris_braise",
+			"nom": "Chauve-souris de braise",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "onduleur",
+			"pv": 9,
+			"taille": [
+				0.8,
+				0.5
+			],
+			"vitesse": 6.5,
+			"volant": true,
+			"xp": 4,
+			"coeurs": [
+				1,
+				1
+			],
+			"contact": {
+				"base": 8,
+				"element": 1,
+				"statuts": [
+					{
+						"id": "brulure",
+						"duree": 2.0,
+						"puissance": 2
+					}
+				]
+			},
+			"params": {
+				"amplitude": 1.5,
+				"frequence": 2.2
+			},
+			"resistances": {
+				"1": 0.9
+			},
+			"couleur": [
+				1.0,
+				0.35,
+				0.1
+			]
+		},
+		{
+			"id": "golem_cendre",
+			"nom": "Golem de cendre",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "marcheur",
+			"pv": 45,
+			"taille": [
+				1.2,
+				1.5
+			],
+			"vitesse": 1.4,
+			"volant": false,
+			"xp": 18,
+			"coeurs": [
+				4,
+				6
+			],
+			"contact": {
+				"base": 16
+			},
+			"params": {
+				"poursuit": true,
+				"bouclier_frontal": true
+			},
+			"defense": 2,
+			"couleur": [
+				0.45,
+				0.42,
+				0.4
+			]
+		},
+		{
+			"id": "tisseuse_os",
+			"nom": "Tisseuse d'os",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "tombeur",
+			"pv": 16,
+			"taille": [
+				1.0,
+				0.7
+			],
+			"vitesse": 10.0,
+			"volant": true,
+			"xp": 8,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 12,
+				"statuts": [
+					{
+						"id": "poison",
+						"duree": 3.0,
+						"puissance": 1
+					}
+				]
+			},
+			"params": {
+				"detection": 2.5,
+				"remontee": 3.0
+			},
+			"couleur": [
+				0.9,
+				0.88,
+				0.8
+			]
+		},
+		{
+			"id": "gargouille",
+			"nom": "Gargouille",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "dormeur",
+			"pv": 30,
+			"taille": [
+				1.0,
+				1.1
+			],
+			"vitesse": 7.5,
+			"volant": true,
+			"xp": 14,
+			"coeurs": [
+				3,
+				5
+			],
+			"contact": {
+				"base": 14
+			},
+			"params": {
+				"reveil": 4.0,
+				"virage": 1.6
+			},
+			"couleur": [
+				0.5,
+				0.48,
+				0.52
+			]
+		},
+		{
+			"id": "cracheur_lave",
+			"nom": "Cracheur de lave",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "tourelle",
+			"pv": 25,
+			"taille": [
+				1.0,
+				1.0
+			],
+			"vitesse": 0.0,
+			"volant": true,
+			"xp": 10,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 10,
+				"element": 1
+			},
+			"params": {
+				"cadence": 2.2,
+				"tir": {
+					"base": 12,
+					"element": 1,
+					"vitesse": 10.0,
+					"gravite": 0.0,
+					"visuel": "boule_feu"
+				}
+			},
+			"resistances": {
+				"1": 0.9
+			},
+			"couleur": [
+				0.6,
+				0.25,
+				0.15
+			]
+		},
+		{
+			"id": "brute_hades",
+			"nom": "Brute d'Hadès",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "chargeur",
+			"pv": 80,
+			"taille": [
+				1.4,
+				1.9
+			],
+			"vitesse": 2.0,
+			"volant": false,
+			"xp": 30,
+			"coeurs": [
+				8,
+				12
+			],
+			"contact": {
+				"base": 20
+			},
+			"params": {
+				"vitesse_charge": 12.0,
+				"portee": 8.0,
+				"preparation": 0.6,
+				"repos": 1.5
+			},
+			"defense": 3,
+			"couleur": [
+				0.55,
+				0.2,
+				0.3
+			]
+		},
+		{
+			"id": "ame_errante",
+			"nom": "Âme errante",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "spectre",
+			"pv": 14,
+			"taille": [
+				0.9,
+				1.1
+			],
+			"vitesse": 2.2,
+			"volant": true,
+			"xp": 8,
+			"coeurs": [
+				1,
+				3
+			],
+			"contact": {
+				"base": 11
+			},
+			"params": {
+				"visible": 2.6,
+				"fondu": 1.4
+			},
+			"couleur": [
+				0.55,
+				0.85,
+				1.0
+			]
+		},
+		{
+			"id": "sorcier_aubergine",
+			"nom": "Sorcier Aubergine",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "lanceur",
+			"pv": 30,
+			"taille": [
+				1.0,
+				1.6
+			],
+			"vitesse": 1.2,
+			"volant": false,
+			"xp": 16,
+			"coeurs": [
+				3,
+				6
+			],
+			"contact": {
+				"base": 10
+			},
+			"params": {
+				"portee": 9.0,
+				"preparation": 0.6,
+				"recharge": 2.8,
+				"tir": {
+					"base": 4,
+					"vitesse": 9.0,
+					"gravite": 18.0,
+					"visuel": "aubergine",
+					"statuts": [
+						{
+							"id": "aubergine",
+							"duree": 40.0,
+							"puissance": 1
+						}
+					]
+				}
+			},
+			"couleur": [
+				0.55,
+				0.25,
+				0.7
+			]
+		},
+		{
+			"id": "tamambo",
+			"nom": "Tamambo",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "sauteur",
+			"pv": 28,
+			"taille": [
+				1.2,
+				1.2
+			],
+			"vitesse": 2.6,
+			"volant": false,
+			"xp": 12,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 14
+			},
+			"params": {
+				"impulsion": 11.0,
+				"intervalle": 1.1
+			},
+			"couleur": [
+				0.7,
+				0.35,
+				0.25
+			]
+		},
+		{
+			"id": "pluton",
+			"nom": "Pluton",
+			"monde": 1,
+			"origine": "nes",
+			"comportement": "voleur",
+			"pv": 22,
+			"taille": [
+				1.0,
+				1.4
+			],
+			"vitesse": 4.0,
+			"volant": false,
+			"xp": 14,
+			"coeurs": [
+				4,
+				8
+			],
+			"contact": {
+				"base": 6
+			},
+			"params": {
+				"vol_pct": 0.15,
+				"vol_min": 15,
+				"fuite": 7.0
+			},
+			"couleur": [
+				0.3,
+				0.45,
+				0.3
+			]
+		},
+		{
+			"id": "komayto",
+			"nom": "Komayto",
+			"monde": 3,
+			"origine": "nes",
+			"comportement": "chasseur",
+			"pv": 20,
+			"taille": [
+				1.0,
+				1.0
+			],
+			"vitesse": 2.2,
+			"volant": true,
+			"xp": 12,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 9,
+				"statuts": [
+					{
+						"id": "gel",
+						"duree": 1.5,
+						"puissance": 1
+					}
+				]
+			},
+			"params": {
+				"virage": 1.4
+			},
+			"couleur": [
+				0.5,
+				0.95,
+				0.8
+			]
+		},
+		{
+			"id": "gardien_ferre",
+			"nom": "Gardien ferré",
+			"monde": 1,
+			"origine": "nouveau",
+			"comportement": "marcheur",
+			"pv": 60,
+			"taille": [
+				1.1,
+				1.8
+			],
+			"vitesse": 1.6,
+			"volant": false,
+			"xp": 22,
+			"coeurs": [
+				5,
+				8
+			],
+			"contact": {
+				"base": 18
+			},
+			"params": {
+				"poursuit": true,
+				"bouclier_frontal": true
+			},
+			"defense": 3,
+			"couleur": [
+				0.35,
+				0.3,
+				0.28
+			]
+		},
+		{
+			"id": "keron",
+			"nom": "Keron",
+			"monde": 2,
+			"origine": "nes",
+			"comportement": "onduleur",
+			"pv": 22,
+			"taille": [
+				0.8,
+				0.7
+			],
+			"vitesse": 5.5,
+			"volant": true,
+			"xp": 9,
+			"coeurs": [
+				1,
+				2
+			],
+			"contact": {
+				"base": 12
+			},
+			"params": {
+				"amplitude": 2.0,
+				"frequence": 1.8
+			},
+			"couleur": [
+				0.45,
+				0.75,
+				0.35
+			]
+		},
+		{
+			"id": "shulm",
+			"nom": "Shulm",
+			"monde": 2,
+			"origine": "nes",
+			"comportement": "marcheur",
+			"pv": 26,
+			"taille": [
+				0.9,
+				0.6
+			],
+			"vitesse": 1.6,
+			"volant": false,
+			"xp": 8,
+			"coeurs": [
+				1,
+				2
+			],
+			"contact": {
+				"base": 12
+			},
+			"params": {
+				"poursuit": false
+			},
+			"defense": 2,
+			"couleur": [
+				0.8,
+				0.45,
+				0.25
+			]
+		},
+		{
+			"id": "mick",
+			"nom": "Mick",
+			"monde": 2,
+			"origine": "nes",
+			"comportement": "sauteur",
+			"pv": 30,
+			"taille": [
+				1.0,
+				1.0
+			],
+			"vitesse": 3.2,
+			"volant": false,
+			"xp": 10,
+			"coeurs": [
+				1,
+				3
+			],
+			"contact": {
+				"base": 14
+			},
+			"params": {
+				"impulsion": 10.0,
+				"intervalle": 1.2
+			},
+			"couleur": [
+				0.3,
+				0.45,
+				0.9
+			]
+		},
+		{
+			"id": "zurret",
+			"nom": "Zurret",
+			"monde": 2,
+			"origine": "nes",
+			"comportement": "erratique",
+			"pv": 24,
+			"taille": [
+				0.9,
+				0.9
+			],
+			"vitesse": 5.5,
+			"volant": true,
+			"xp": 9,
+			"coeurs": [
+				1,
+				3
+			],
+			"contact": {
+				"base": 12
+			},
+			"params": {
+				"changement": 0.6
+			},
+			"couleur": [
+				0.95,
+				0.8,
+				0.3
+			]
+		},
+		{
+			"id": "rokman",
+			"nom": "Rokman",
+			"monde": 2,
+			"origine": "nes",
+			"comportement": "tombeur",
+			"pv": 40,
+			"taille": [
+				1.2,
+				1.2
+			],
+			"vitesse": 12.0,
+			"volant": true,
+			"xp": 12,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 18
+			},
+			"params": {
+				"detection": 2.5,
+				"remontee": 2.5
+			},
+			"defense": 3,
+			"couleur": [
+				0.6,
+				0.58,
+				0.52
+			]
+		},
+		{
+			"id": "snowman",
+			"nom": "Bonhomme de givre",
+			"monde": 2,
+			"origine": "nouveau",
+			"comportement": "lanceur",
+			"pv": 45,
+			"taille": [
+				1.0,
+				1.4
+			],
+			"vitesse": 1.0,
+			"volant": false,
+			"xp": 14,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 12,
+				"element": 2
+			},
+			"params": {
+				"portee": 9.0,
+				"preparation": 0.6,
+				"recharge": 2.4,
+				"tir": {
+					"base": 12,
+					"element": 2,
+					"vitesse": 9.0,
+					"gravite": 18.0,
+					"visuel": "boule_neige",
+					"statuts": [
+						{
+							"id": "gel",
+							"duree": 1.6,
+							"puissance": 1
+						}
+					]
+				}
+			},
+			"resistances": {
+				"2": 0.8,
+				"1": -0.5
+			},
+			"couleur": [
+				0.9,
+				0.95,
+				1.0
+			]
+		},
+		{
+			"id": "sanglier_bronze",
+			"nom": "Sanglier d'airain",
+			"monde": 2,
+			"origine": "nouveau",
+			"comportement": "chargeur",
+			"pv": 70,
+			"taille": [
+				1.6,
+				1.0
+			],
+			"vitesse": 2.2,
+			"volant": false,
+			"xp": 24,
+			"coeurs": [
+				4,
+				7
+			],
+			"contact": {
+				"base": 20
+			},
+			"params": {
+				"vitesse_charge": 13.0,
+				"portee": 9.0,
+				"preparation": 0.7,
+				"repos": 1.4
+			},
+			"defense": 3,
+			"resistances": {
+				"4": -0.4
+			},
+			"couleur": [
+				0.7,
+				0.5,
+				0.25
+			]
+		},
+		{
+			"id": "harpie",
+			"nom": "Harpie",
+			"monde": 2,
+			"origine": "nouveau",
+			"comportement": "plongeur",
+			"pv": 34,
+			"taille": [
+				1.2,
+				1.2
+			],
+			"vitesse": 6.5,
+			"volant": true,
+			"xp": 12,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 14
+			},
+			"params": {
+				"hauteur_attente": 4.5,
+				"vitesse_plongee": 12.0,
+				"attente": 1.0
+			},
+			"couleur": [
+				0.75,
+				0.55,
+				0.8
+			]
+		},
+		{
+			"id": "myrmidon",
+			"nom": "Myrmidon",
+			"monde": 2,
+			"origine": "nouveau",
+			"comportement": "marcheur",
+			"pv": 50,
+			"taille": [
+				0.9,
+				1.35
+			],
+			"vitesse": 1.8,
+			"volant": false,
+			"xp": 20,
+			"coeurs": [
+				3,
+				6
+			],
+			"contact": {
+				"base": 14
+			},
+			"params": {
+				"poursuit": true,
+				"bouclier_frontal": true
+			},
+			"defense": 3,
+			"couleur": [
+				0.7,
+				0.15,
+				0.12
+			]
+		},
+		{
+			"id": "cyclope_frondeur",
+			"nom": "Cyclope frondeur",
+			"monde": 2,
+			"origine": "nouveau",
+			"comportement": "lanceur",
+			"pv": 70,
+			"taille": [
+				1.3,
+				2.0
+			],
+			"vitesse": 1.2,
+			"volant": false,
+			"xp": 26,
+			"coeurs": [
+				4,
+				7
+			],
+			"contact": {
+				"base": 18
+			},
+			"params": {
+				"portee": 11.0,
+				"preparation": 0.7,
+				"recharge": 2.2,
+				"tir": {
+					"base": 16,
+					"vitesse": 11.0,
+					"gravite": 14.0,
+					"visuel": "pierre"
+				}
+			},
+			"defense": 2,
+			"couleur": [
+				0.65,
+				0.55,
+				0.45
+			]
+		},
+		{
+			"id": "girin",
+			"nom": "Girin",
+			"monde": 3,
+			"origine": "nes",
+			"comportement": "onduleur",
+			"pv": 34,
+			"taille": [
+				1.0,
+				1.0
+			],
+			"vitesse": 6.0,
+			"volant": true,
+			"xp": 14,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 16
+			},
+			"params": {
+				"amplitude": 2.4,
+				"frequence": 1.6
+			},
+			"couleur": [
+				0.12,
+				0.7,
+				0.86
+			]
+		},
+		{
+			"id": "holer",
+			"nom": "Holer",
+			"monde": 3,
+			"origine": "nes",
+			"comportement": "emergeant",
+			"pv": 40,
+			"taille": [
+				0.8,
+				0.8
+			],
+			"vitesse": 0.0,
+			"volant": false,
+			"xp": 14,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 16
+			},
+			"params": {
+				"cycle": 2.6,
+				"tir": {
+					"base": 16,
+					"vitesse": 10.0,
+					"gravite": 16.0,
+					"visuel": "venin",
+					"statuts": [
+						{
+							"id": "poison",
+							"duree": 3.0,
+							"puissance": 2
+						}
+					]
+				}
+			},
+			"couleur": [
+				0.16,
+				0.66,
+				0.34
+			]
+		},
+		{
+			"id": "minos",
+			"nom": "Minos",
+			"monde": 3,
+			"origine": "nes",
+			"comportement": "piqueur",
+			"pv": 48,
+			"taille": [
+				1.1,
+				1.1
+			],
+			"vitesse": 5.5,
+			"volant": true,
+			"xp": 18,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 20
+			},
+			"params": {
+				"distance": 6.0,
+				"attente": 1.6,
+				"preparation": 0.55,
+				"vitesse_charge": 14.0,
+				"duree": 0.8
+			},
+			"couleur": [
+				0.74,
+				0.14,
+				0.12
+			]
+		},
+		{
+			"id": "erinus",
+			"nom": "Érinye",
+			"monde": 3,
+			"origine": "nes",
+			"comportement": "tireur_volant",
+			"pv": 44,
+			"taille": [
+				0.9,
+				1.2
+			],
+			"vitesse": 4.5,
+			"volant": true,
+			"xp": 18,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 16
+			},
+			"params": {
+				"distance": 6.5,
+				"hauteur": 2.5,
+				"cadence": 2.4,
+				"tir": {
+					"base": 16,
+					"element": 1,
+					"vitesse": 9.0,
+					"visuel": "boule_feu"
+				}
+			},
+			"resistances": {
+				"1": 0.7
+			},
+			"couleur": [
+				0.62,
+				0.08,
+				0.24
+			]
+		},
+		{
+			"id": "sylphe",
+			"nom": "Sylphe",
+			"monde": 3,
+			"origine": "nouveau",
+			"comportement": "erratique",
+			"pv": 36,
+			"taille": [
+				1.0,
+				1.2
+			],
+			"vitesse": 6.5,
+			"volant": true,
+			"xp": 14,
+			"coeurs": [
+				2,
+				3
+			],
+			"contact": {
+				"base": 15
+			},
+			"params": {
+				"changement": 0.5
+			},
+			"couleur": [
+				0.45,
+				0.75,
+				0.85
+			]
+		},
+		{
+			"id": "oiseau_stymphale",
+			"nom": "Oiseau de Stymphale",
+			"monde": 3,
+			"origine": "nouveau",
+			"comportement": "tireur_volant",
+			"pv": 40,
+			"taille": [
+				1.0,
+				0.8
+			],
+			"vitesse": 6.0,
+			"volant": true,
+			"xp": 16,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 16
+			},
+			"params": {
+				"distance": 7.0,
+				"hauteur": 3.0,
+				"cadence": 2.8,
+				"nombre": 3,
+				"ecart": 15.0,
+				"tir": {
+					"base": 14,
+					"vitesse": 12.0,
+					"visuel": "eclat"
+				}
+			},
+			"defense": 2,
+			"couleur": [
+				0.86,
+				0.52,
+				0.2
+			]
+		},
+		{
+			"id": "nuage_orageux",
+			"nom": "Nuage orageux",
+			"monde": 3,
+			"origine": "nouveau",
+			"comportement": "orage",
+			"pv": 60,
+			"taille": [
+				1.6,
+				1.0
+			],
+			"vitesse": 3.5,
+			"volant": true,
+			"xp": 20,
+			"coeurs": [
+				3,
+				5
+			],
+			"contact": {
+				"base": 12,
+				"element": 4
+			},
+			"params": {
+				"hauteur": 5.0,
+				"cadence": 3.0,
+				"preparation": 0.8,
+				"tir": {
+					"base": 22,
+					"element": 4,
+					"vitesse": 26.0,
+					"visuel": "foudre",
+					"vie": 0.6,
+					"rayon": 0.4
+				}
+			},
+			"resistances": {
+				"4": 0.9
+			},
+			"couleur": [
+				0.44,
+				0.45,
+				0.62
+			]
+		},
+		{
+			"id": "pegase_noir",
+			"nom": "Pégase noir",
+			"monde": 3,
+			"origine": "nouveau",
+			"comportement": "piqueur",
+			"pv": 70,
+			"taille": [
+				1.6,
+				1.3
+			],
+			"vitesse": 6.0,
+			"volant": true,
+			"xp": 26,
+			"coeurs": [
+				4,
+				6
+			],
+			"contact": {
+				"base": 22
+			},
+			"params": {
+				"distance": 7.0,
+				"attente": 1.8,
+				"preparation": 0.7,
+				"vitesse_charge": 16.0,
+				"duree": 0.9
+			},
+			"defense": 2,
+			"couleur": [
+				0.15,
+				0.1,
+				0.24
+			]
+		},
+		{
+			"id": "sentinelle_celeste",
+			"nom": "Sentinelle céleste",
+			"monde": 4,
+			"origine": "nouveau",
+			"comportement": "chargeur",
+			"pv": 90,
+			"taille": [
+				1.0,
+				1.8
+			],
+			"vitesse": 2.2,
+			"volant": false,
+			"xp": 30,
+			"coeurs": [
+				4,
+				7
+			],
+			"contact": {
+				"base": 24
+			},
+			"params": {
+				"vitesse_charge": 14.0,
+				"portee": 8.0,
+				"preparation": 0.6,
+				"repos": 1.2
+			},
+			"defense": 4,
+			"couleur": [
+				1.0,
+				0.76,
+				0.22
+			]
+		},
+		{
+			"id": "serpent_medusa",
+			"nom": "Serpent de Médusa",
+			"monde": 4,
+			"origine": "nes",
+			"comportement": "marcheur",
+			"pv": 50,
+			"taille": [
+				1.0,
+				0.6
+			],
+			"vitesse": 3.2,
+			"volant": false,
+			"xp": 18,
+			"coeurs": [
+				2,
+				4
+			],
+			"contact": {
+				"base": 20,
+				"statuts": [
+					{
+						"id": "poison",
+						"duree": 3.0,
+						"puissance": 3
+					}
+				]
+			},
+			"params": {
+				"poursuit": true
+			},
+			"couleur": [
+				0.08,
+				0.58,
+				0.52
+			]
+		},
+		{
+			"id": "statue_vivante",
+			"nom": "Statue vivante",
+			"monde": 4,
+			"origine": "nouveau",
+			"comportement": "dormeur",
+			"pv": 110,
+			"taille": [
+				1.0,
+				1.8
+			],
+			"vitesse": 4.0,
+			"volant": false,
+			"xp": 34,
+			"coeurs": [
+				5,
+				8
+			],
+			"contact": {
+				"base": 26
+			},
+			"params": {
+				"reveil": 4.0,
+				"virage": 2.0
+			},
+			"defense": 5,
+			"couleur": [
+				0.68,
+				0.66,
+				0.62
+			]
+		},
+		{
+			"id": "gardien_aile",
+			"nom": "Gardien aile",
+			"monde": 4,
+			"origine": "nouveau",
+			"comportement": "chasseur",
+			"pv": 60,
+			"taille": [
+				1.2,
+				1.2
+			],
+			"vitesse": 5.5,
+			"volant": true,
+			"xp": 22,
+			"coeurs": [
+				3,
+				5
+			],
+			"contact": {
+				"base": 22
+			},
+			"params": {
+				"virage": 2.0
+			},
+			"defense": 2,
+			"couleur": [
+				0.96,
+				0.82,
+				0.45
+			]
+		},
+		{
+			"id": "oeil_celeste",
+			"nom": "Œil céleste",
+			"monde": 4,
+			"origine": "nouveau",
+			"comportement": "tireur_volant",
+			"pv": 55,
+			"taille": [
+				0.9,
+				0.9
+			],
+			"vitesse": 3.5,
+			"volant": true,
+			"xp": 22,
+			"coeurs": [
+				3,
+				5
+			],
+			"contact": {
+				"base": 18
+			},
+			"params": {
+				"distance": 7.5,
+				"hauteur": 1.5,
+				"cadence": 2.0,
+				"tir": {
+					"base": 18,
+					"vitesse": 13.0,
+					"visuel": "lumiere",
+					"vie": 2.0
+				}
+			},
+			"couleur": [
+				1.0,
+				0.76,
+				0.22
+			]
+		}
+	]
+}

@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "mort_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 239,
+    "h": 231
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 239,
+    "h": 231
+   },
+   "sourceSize": {
+    "w": 239,
+    "h": 231
+   },
+   "anchor": {
+    "x": 0.4958,
+    "y": 1.0
+   }
+  },
+  "prepare_00": {
+   "frame": {
+    "x": 245,
+    "y": 0,
+    "w": 251,
+    "h": 230
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 251,
+    "h": 230
+   },
+   "sourceSize": {
+    "w": 251,
+    "h": 230
+   },
+   "anchor": {
+    "x": 0.4841,
+    "y": 1.0
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 502,
+    "y": 0,
+    "w": 295,
+    "h": 182
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 295,
+    "h": 182
+   },
+   "sourceSize": {
+    "w": 295,
+    "h": 182
+   },
+   "anchor": {
+    "x": 0.2898,
+    "y": 1.0
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 803,
+    "y": 0,
+    "w": 255,
+    "h": 176
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 255,
+    "h": 176
+   },
+   "sourceSize": {
+    "w": 255,
+    "h": 176
+   },
+   "anchor": {
+    "x": 0.4765,
+    "y": 1.0
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 1064,
+    "y": 0,
+    "w": 241,
+    "h": 168
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 241,
+    "h": 168
+   },
+   "sourceSize": {
+    "w": 241,
+    "h": 168
+   },
+   "anchor": {
+    "x": 0.4668,
+    "y": 1.0
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 1311,
+    "y": 0,
+    "w": 255,
+    "h": 152
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 255,
+    "h": 152
+   },
+   "sourceSize": {
+    "w": 255,
+    "h": 152
+   },
+   "anchor": {
+    "x": 0.4627,
+    "y": 1.0
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 1572,
+    "y": 0,
+    "w": 257,
+    "h": 120
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 257,
+    "h": 120
+   },
+   "sourceSize": {
+    "w": 257,
+    "h": 120
+   },
+   "anchor": {
+    "x": 0.4533,
+    "y": 1.0
+   }
+  },
+  "boucle_00": {
+   "frame": {
+    "x": 0,
+    "y": 237,
+    "w": 265,
+    "h": 96
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 265,
+    "h": 96
+   },
+   "sourceSize": {
+    "w": 265,
+    "h": 96
+   },
+   "anchor": {
+    "x": 0.5189,
+    "y": 1.0
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "serpent_medusa.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 2048,
+   "h": 333
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "pieds"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   }
+  },
+  "face_peinte": 1
+ }
+}

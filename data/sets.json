@@ -1,0 +1,10 @@
+{
+	"_doc": "Bonus de set par dieu : 2 reliques du meme dieu, puis 4.",
+	"entrees": [
+		{"id": "palutena", "nom": "Faveur de Palutena", "2": [{"stat": "pv_max", "v": 15, "mode": "joueur_add"}], "4": [{"stat": "soin_checkpoint", "v": 1, "mode": "flag"}, {"stat": "flacons", "v": 1, "mode": "joueur_add"}]},
+		{"id": "hades", "nom": "Pacte d'Hadès", "2": [{"stat": "chance_critique", "v": 5, "mode": "add_pct"}], "4": [{"stat": "vol_de_vie", "v": 6, "mode": "add_pct"}, {"stat": "bonus_degats", "v": 15, "mode": "pct"}]},
+		{"id": "poseidon", "nom": "Colère de Poséidon", "2": [{"stat": "defense", "v": 2, "mode": "joueur_add"}], "4": [{"stat": "statut_gel", "v": 1, "mode": "flag"}, {"stat": "pv_max", "v": 30, "mode": "joueur_add"}]},
+		{"id": "zeus", "nom": "Bénédiction de Zeus", "2": [{"stat": "cadence", "v": 8, "mode": "pct"}], "4": [{"stat": "vitesse_course", "v": 10, "mode": "joueur_pct"}, {"stat": "cadence", "v": 15, "mode": "pct"}]},
+		{"id": "athena", "nom": "Sagesse d'Athena", "2": [{"stat": "xp", "v": 15, "mode": "joueur_pct"}], "4": [{"stat": "degats_subis_pct", "v": -15, "mode": "joueur_add"}, {"stat": "mult_charge", "v": 25, "mode": "pct"}]}
+	]
+}

@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_ciel_vitrine",
+	"nom": "Vitrine du kit ciel",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "ciel",
+	"chunks": ["00"],
+	"marqueurs": {},
+	"portes": []
+}

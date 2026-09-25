@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "boucle_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 227,
+    "h": 269
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 227,
+    "h": 269
+   },
+   "sourceSize": {
+    "w": 227,
+    "h": 269
+   },
+   "anchor": {
+    "x": 0.4397,
+    "y": 0.5359
+   }
+  },
+  "prepare_00": {
+   "frame": {
+    "x": 233,
+    "y": 0,
+    "w": 219,
+    "h": 260
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 219,
+    "h": 260
+   },
+   "sourceSize": {
+    "w": 219,
+    "h": 260
+   },
+   "anchor": {
+    "x": 0.485,
+    "y": 0.4808
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 458,
+    "y": 0,
+    "w": 239,
+    "h": 204
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 239,
+    "h": 204
+   },
+   "sourceSize": {
+    "w": 239,
+    "h": 204
+   },
+   "anchor": {
+    "x": 0.4509,
+    "y": 0.4945
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 703,
+    "y": 0,
+    "w": 203,
+    "h": 198
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 203,
+    "h": 198
+   },
+   "sourceSize": {
+    "w": 203,
+    "h": 198
+   },
+   "anchor": {
+    "x": 0.4326,
+    "y": 0.4921
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 912,
+    "y": 0,
+    "w": 182,
+    "h": 191
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 182,
+    "h": 191
+   },
+   "sourceSize": {
+    "w": 182,
+    "h": 191
+   },
+   "anchor": {
+    "x": 0.4674,
+    "y": 0.4595
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 1100,
+    "y": 0,
+    "w": 269,
+    "h": 188
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 269,
+    "h": 188
+   },
+   "sourceSize": {
+    "w": 269,
+    "h": 188
+   },
+   "anchor": {
+    "x": 0.4557,
+    "y": 0.4631
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 1375,
+    "y": 0,
+    "w": 243,
+    "h": 171
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 243,
+    "h": 171
+   },
+   "sourceSize": {
+    "w": 243,
+    "h": 171
+   },
+   "anchor": {
+    "x": 0.5621,
+    "y": 0.4272
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 1624,
+    "y": 0,
+    "w": 156,
+    "h": 148
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 156,
+    "h": 148
+   },
+   "sourceSize": {
+    "w": 156,
+    "h": 148
+   },
+   "anchor": {
+    "x": 0.4687,
+    "y": 0.5626
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "oiseau_stymphale.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 2048,
+   "h": 269
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "masse"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   }
+  },
+  "face_peinte": 1
+ }
+}

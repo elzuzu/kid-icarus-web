@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "touche_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 490,
+    "h": 437
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 490,
+    "h": 437
+   },
+   "sourceSize": {
+    "w": 490,
+    "h": 437
+   },
+   "anchor": {
+    "x": 0.55,
+    "y": 1.0
+   }
+  },
+  "prepare_00": {
+   "frame": {
+    "x": 496,
+    "y": 0,
+    "w": 536,
+    "h": 385
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 536,
+    "h": 385
+   },
+   "sourceSize": {
+    "w": 536,
+    "h": 385
+   },
+   "anchor": {
+    "x": 0.459,
+    "y": 1.0
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 1038,
+    "y": 0,
+    "w": 514,
+    "h": 370
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 514,
+    "h": 370
+   },
+   "sourceSize": {
+    "w": 514,
+    "h": 370
+   },
+   "anchor": {
+    "x": 0.5506,
+    "y": 1.0
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 1558,
+    "y": 0,
+    "w": 510,
+    "h": 369
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 510,
+    "h": 369
+   },
+   "sourceSize": {
+    "w": 510,
+    "h": 369
+   },
+   "anchor": {
+    "x": 0.4696,
+    "y": 1.0
+   }
+  },
+  "boucle_00": {
+   "frame": {
+    "x": 2074,
+    "y": 0,
+    "w": 507,
+    "h": 368
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 507,
+    "h": 368
+   },
+   "sourceSize": {
+    "w": 507,
+    "h": 368
+   },
+   "anchor": {
+    "x": 0.5533,
+    "y": 1.0
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 2587,
+    "y": 0,
+    "w": 521,
+    "h": 365
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 521,
+    "h": 365
+   },
+   "sourceSize": {
+    "w": 521,
+    "h": 365
+   },
+   "anchor": {
+    "x": 0.5374,
+    "y": 1.0
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 3114,
+    "y": 0,
+    "w": 564,
+    "h": 349
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 564,
+    "h": 349
+   },
+   "sourceSize": {
+    "w": 564,
+    "h": 349
+   },
+   "anchor": {
+    "x": 0.5762,
+    "y": 1.0
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 0,
+    "y": 443,
+    "w": 543,
+    "h": 239
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 543,
+    "h": 239
+   },
+   "sourceSize": {
+    "w": 543,
+    "h": 239
+   },
+   "anchor": {
+    "x": 0.5184,
+    "y": 1.0
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "twinbellows.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 4096,
+   "h": 682
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "pieds"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   }
+  },
+  "face_peinte": -1
+ }
+}

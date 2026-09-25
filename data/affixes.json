@@ -1,0 +1,43 @@
+{
+	"_doc": "Affixes d'armes. type : normal (tire sur les emplacements), unique (legendaire et +, un par arme), maudit (mythique, bonus + malus). effets : [{stat, v | palier, mode}] ; mode add (ajoute), pct (ajoute v/100 a un multiplicateur), flag (vrai), statut (ajoute un statut aux tirs). paliers : [min, max] par tranche de niveau d'objet (1-5, 6-10, 11+). groupe : deux affixes du meme groupe ne coexistent pas. classes : restreint aux classes listees.",
+	"entrees": [
+		{"id": "degats", "nom": "+{v}% dégâts", "type": "normal", "poids": 12, "groupe": "degats", "stat": "bonus_degats", "mode": "pct", "paliers": [[6, 10], [10, 18], [18, 28]]},
+		{"id": "cadence", "nom": "+{v}% cadence", "type": "normal", "poids": 10, "groupe": "cadence", "stat": "cadence", "mode": "pct", "paliers": [[6, 10], [10, 16], [16, 24]]},
+		{"id": "critique", "nom": "+{v}% chance critique", "type": "normal", "poids": 9, "groupe": "critique", "stat": "chance_critique", "mode": "add_pct", "paliers": [[3, 6], [6, 10], [10, 15]]},
+		{"id": "degats_critiques", "nom": "+{v}% dégâts critiques", "type": "normal", "poids": 7, "groupe": "degats_critiques", "stat": "mult_critique", "mode": "add_pct", "paliers": [[15, 25], [25, 40], [40, 60]]},
+		{"id": "portee", "nom": "+{v}% portée", "type": "normal", "poids": 8, "groupe": "portee", "stat": "portee", "mode": "pct", "paliers": [[10, 18], [18, 28], [28, 40]]},
+		{"id": "vitesse_tir", "nom": "+{v}% vitesse des projectiles", "type": "normal", "poids": 6, "groupe": "vitesse_tir", "stat": "vitesse", "mode": "pct", "paliers": [[10, 20], [20, 30], [30, 45]]},
+		{"id": "charge_rapide", "nom": "-{v}% temps de charge", "type": "normal", "poids": 8, "groupe": "charge", "stat": "temps_charge", "mode": "pct_negatif", "paliers": [[8, 14], [14, 22], [22, 32]]},
+		{"id": "charge_forte", "nom": "+{v}% dégâts charges", "type": "normal", "poids": 7, "groupe": "charge_forte", "stat": "mult_charge", "mode": "pct", "paliers": [[10, 18], [18, 30], [30, 45]]},
+		{"id": "perce", "nom": "+{v} perçage", "type": "normal", "poids": 6, "groupe": "perce", "stat": "perce", "mode": "add", "paliers": [[1, 1], [1, 2], [2, 3]]},
+		{"id": "rebond", "nom": "+{v} rebond", "type": "normal", "poids": 5, "groupe": "rebond", "stat": "rebonds", "mode": "add", "paliers": [[1, 1], [1, 2], [2, 3]], "classes": ["arc", "orbitaux", "canon"]},
+		{"id": "guidage", "nom": "Tête chercheuse", "type": "normal", "poids": 4, "groupe": "guidage", "stat": "guidage", "mode": "add", "paliers": [[1, 1], [1, 2], [2, 3]]},
+		{"id": "projectile_sup", "nom": "+1 projectile", "type": "normal", "poids": 3, "groupe": "multi", "stat": "multi", "mode": "add", "paliers": [[1, 1], [1, 1], [1, 1]]},
+		{"id": "feu", "nom": "Tirs de feu (brûlure {v}/0,5 s)", "type": "normal", "poids": 5, "groupe": "element", "stat": "statut", "mode": "statut", "statut": "brulure", "element": 1, "duree": 2.5, "paliers": [[1, 2], [2, 3], [3, 5]]},
+		{"id": "glace", "nom": "Tirs gelants", "type": "normal", "poids": 5, "groupe": "element", "stat": "statut", "mode": "statut", "statut": "gel", "element": 2, "duree": 1.5, "paliers": [[1, 1], [1, 1], [1, 1]]},
+		{"id": "poison", "nom": "Tirs empoisonnés ({v}/0,5 s)", "type": "normal", "poids": 5, "groupe": "element", "stat": "statut", "mode": "statut", "statut": "poison", "element": 3, "duree": 4.0, "paliers": [[1, 1], [1, 2], [2, 3]]},
+		{"id": "foudre", "nom": "Tirs de foudre (+{v}% dégâts)", "type": "normal", "poids": 5, "groupe": "element", "stat": "bonus_degats", "mode": "pct", "element": 4, "paliers": [[8, 12], [12, 18], [18, 26]]},
+		{"id": "vol_de_vie", "nom": "Vol de vie {v}%", "type": "normal", "poids": 4, "groupe": "vol_de_vie", "stat": "vol_de_vie", "mode": "add_pct", "paliers": [[2, 3], [3, 5], [5, 7]]},
+		{"id": "melee", "nom": "+{v}% dégâts de mêlée", "type": "normal", "poids": 7, "groupe": "melee", "stat": "melee_base", "mode": "pct", "paliers": [[10, 18], [18, 30], [30, 45]]},
+		{"id": "pv_max", "nom": "+{v} PV max", "type": "normal", "poids": 7, "groupe": "pv_max", "stat": "pv_max", "mode": "joueur_add", "paliers": [[6, 10], [10, 18], [18, 28]]},
+		{"id": "defense", "nom": "+{v} défense", "type": "normal", "poids": 6, "groupe": "defense", "stat": "defense", "mode": "joueur_add", "paliers": [[1, 2], [2, 3], [3, 5]]},
+		{"id": "vitesse", "nom": "+{v}% vitesse de course", "type": "normal", "poids": 5, "groupe": "vitesse", "stat": "vitesse_course", "mode": "joueur_pct", "paliers": [[4, 6], [6, 9], [9, 12]]},
+		{"id": "coeurs", "nom": "+{v}% cœurs ramassés", "type": "normal", "poids": 6, "groupe": "coeurs", "stat": "coeurs", "mode": "joueur_pct", "paliers": [[8, 14], [14, 22], [22, 32]]},
+		{"id": "xp", "nom": "+{v}% expérience", "type": "normal", "poids": 6, "groupe": "xp", "stat": "xp", "mode": "joueur_pct", "paliers": [[8, 14], [14, 22], [22, 32]]},
+		{"id": "explosion", "nom": "Explosion a l'impact", "type": "normal", "poids": 3, "groupe": "explosion", "stat": "explosion", "mode": "add", "paliers": [[1, 1], [1, 1], [1, 1]], "classes": ["arc", "orbitaux"]},
+		{"id": "tir_en_dash", "nom": "Tire en dashant", "type": "normal", "poids": 3, "groupe": "tir_en_dash", "stat": "tir_en_dash", "mode": "flag", "paliers": [[1, 1], [1, 1], [1, 1]]},
+		{"id": "regeneration", "nom": "Régénère {v} PV toutes les 5 s", "type": "normal", "poids": 4, "groupe": "regeneration", "stat": "regeneration", "mode": "joueur_add", "paliers": [[1, 2], [2, 3], [3, 5]]},
+
+		{"id": "eventail", "nom": "UNIQUE : le tir charge part en éventail de 5", "type": "unique", "poids": 5, "stat": "eventail_charge", "mode": "flag", "paliers": [[5, 5], [5, 5], [5, 5]], "classes": ["arc", "orbitaux"]},
+		{"id": "tourbillon", "nom": "UNIQUE : le 3e coup de mêlée tourbillonne", "type": "unique", "poids": 5, "stat": "tourbillon", "mode": "flag", "paliers": [[1, 1], [1, 1], [1, 1]], "classes": ["lame", "griffes"]},
+		{"id": "sillage", "nom": "UNIQUE : le dash laisse un sillage brûlant", "type": "unique", "poids": 5, "stat": "sillage", "mode": "flag", "paliers": [[1, 1], [1, 1], [1, 1]], "classes": ["griffes", "lame"]},
+		{"id": "grappe", "nom": "UNIQUE : les explosions libèrent 3 bombes", "type": "unique", "poids": 5, "stat": "grappe", "mode": "flag", "paliers": [[3, 3], [3, 3], [3, 3]], "classes": ["canon"]},
+		{"id": "benediction", "nom": "UNIQUE : +1 flacon d'Eau de vie", "type": "unique", "poids": 4, "stat": "flacons", "mode": "joueur_add", "paliers": [[1, 1], [1, 1], [1, 1]]},
+		{"id": "chasseur", "nom": "UNIQUE : +50% dégâts contre les élites", "type": "unique", "poids": 4, "stat": "degats_elites", "mode": "add_pct", "paliers": [[50, 50], [50, 50], [50, 50]]},
+
+		{"id": "rage", "nom": "MAUDIT : +{v}% dégâts, mais -30% PV max", "type": "maudit", "poids": 5, "stat": "bonus_degats", "mode": "pct", "paliers": [[40, 40], [50, 50], [60, 60]], "malus": {"stat": "pv_max", "v": -30, "mode": "joueur_pct"}},
+		{"id": "verre", "nom": "MAUDIT : +{v}% dégâts critiques, mais +40% dégâts subis", "type": "maudit", "poids": 5, "stat": "mult_critique", "mode": "add_pct", "paliers": [[80, 80], [100, 100], [120, 120]], "malus": {"stat": "degats_subis_pct", "v": 40, "mode": "joueur_add"}},
+		{"id": "frenesie", "nom": "MAUDIT : +{v}% cadence, mais tirs dispersés", "type": "maudit", "poids": 5, "stat": "cadence", "mode": "pct", "paliers": [[40, 40], [50, 50], [60, 60]], "malus": {"stat": "dispersion", "v": 12, "mode": "add"}},
+		{"id": "avarice", "nom": "MAUDIT : +{v}% cœurs, mais les cœurs disparaissent 2x plus vite", "type": "maudit", "poids": 5, "stat": "coeurs", "mode": "joueur_pct", "paliers": [[60, 60], [80, 80], [100, 100]], "malus": {"stat": "vie_coeurs_pct", "v": -50, "mode": "joueur_add"}}
+	]
+}

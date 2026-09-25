@@ -1,0 +1,55 @@
+{
+	"id": "w2/2-2",
+	"nom": "Col gelé",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "givre",
+	"ambiance": "col_gele",
+	"musique": "surface_2",
+	"niveau": 11,
+	"boss": "reine_givre",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13"
+	],
+	"marqueurs": {
+		"n": {
+			"ennemi": "snowman"
+		},
+		"r": {
+			"ennemi": "rokman"
+		},
+		"k": {
+			"ennemi": "keron"
+		},
+		"y": {
+			"ennemi": "myrmidon"
+		},
+		"h": {
+			"ennemi": "harpie"
+		},
+		"s": {
+			"ennemi": "shulm"
+		}
+	},
+	"portes": [
+		"forge",
+		"boutique",
+		"divine",
+		"forge"
+	],
+	"glace": 0.3,
+	"secrets": 1
+}

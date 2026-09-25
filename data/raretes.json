@@ -1,0 +1,10 @@
+{
+	"_doc": "Raretes : poids de tirage a l'Intensite 0 (bonus_intensite s'ajoute par point d'Intensite), nombre d'emplacements d'affixes, multiplicateur de la base, et extras (effet unique, affixe maudit).",
+	"entrees": [
+		{"id": "commune", "nom": "Commune", "rang": 0, "poids": 62, "bonus_intensite": -4.0, "affixes": 0, "mult_base": 1.0, "couleur": [0.85, 0.85, 0.85]},
+		{"id": "rare", "nom": "Rare", "rang": 1, "poids": 25, "bonus_intensite": 1.0, "affixes": 1, "mult_base": 1.08, "couleur": [0.35, 0.65, 1.0]},
+		{"id": "epique", "nom": "Épique", "rang": 2, "poids": 9.5, "bonus_intensite": 1.6, "affixes": 2, "mult_base": 1.16, "couleur": [0.75, 0.4, 1.0]},
+		{"id": "legendaire", "nom": "Légendaire", "rang": 3, "poids": 3.0, "bonus_intensite": 1.0, "affixes": 3, "mult_base": 1.26, "unique": true, "couleur": [1.0, 0.65, 0.15]},
+		{"id": "mythique", "nom": "Mythique", "rang": 4, "poids": 0.5, "bonus_intensite": 0.4, "affixes": 4, "mult_base": 1.38, "unique": true, "maudit": true, "couleur": [1.0, 0.25, 0.35]}
+	]
+}

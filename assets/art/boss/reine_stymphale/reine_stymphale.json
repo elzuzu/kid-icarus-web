@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "prepare_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 529,
+    "h": 533
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 529,
+    "h": 533
+   },
+   "sourceSize": {
+    "w": 529,
+    "h": 533
+   },
+   "anchor": {
+    "x": 0.508,
+    "y": 0.4651
+   }
+  },
+  "boucle_00": {
+   "frame": {
+    "x": 535,
+    "y": 0,
+    "w": 518,
+    "h": 511
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 518,
+    "h": 511
+   },
+   "sourceSize": {
+    "w": 518,
+    "h": 511
+   },
+   "anchor": {
+    "x": 0.5184,
+    "y": 0.4508
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 1059,
+    "y": 0,
+    "w": 584,
+    "h": 511
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 584,
+    "h": 511
+   },
+   "sourceSize": {
+    "w": 584,
+    "h": 511
+   },
+   "anchor": {
+    "x": 0.5663,
+    "y": 0.4768
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 1649,
+    "y": 0,
+    "w": 520,
+    "h": 509
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 520,
+    "h": 509
+   },
+   "sourceSize": {
+    "w": 520,
+    "h": 509
+   },
+   "anchor": {
+    "x": 0.5055,
+    "y": 0.4346
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 2175,
+    "y": 0,
+    "w": 506,
+    "h": 427
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 506,
+    "h": 427
+   },
+   "sourceSize": {
+    "w": 506,
+    "h": 427
+   },
+   "anchor": {
+    "x": 0.5147,
+    "y": 0.451
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 2687,
+    "y": 0,
+    "w": 469,
+    "h": 419
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 469,
+    "h": 419
+   },
+   "sourceSize": {
+    "w": 469,
+    "h": 419
+   },
+   "anchor": {
+    "x": 0.5036,
+    "y": 0.4633
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 3162,
+    "y": 0,
+    "w": 497,
+    "h": 408
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 497,
+    "h": 408
+   },
+   "sourceSize": {
+    "w": 497,
+    "h": 408
+   },
+   "anchor": {
+    "x": 0.5117,
+    "y": 0.4602
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 0,
+    "y": 539,
+    "w": 496,
+    "h": 343
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 496,
+    "h": 343
+   },
+   "sourceSize": {
+    "w": 496,
+    "h": 343
+   },
+   "anchor": {
+    "x": 0.4655,
+    "y": 0.4952
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "reine_stymphale.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 4096,
+   "h": 882
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "masse"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "masse"
+   }
+  },
+  "face_peinte": -1
+ }
+}

@@ -1,0 +1,253 @@
+{
+ "frames": {
+  "prepare_00": {
+   "frame": {
+    "x": 0,
+    "y": 0,
+    "w": 354,
+    "h": 514
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 354,
+    "h": 514
+   },
+   "sourceSize": {
+    "w": 354,
+    "h": 514
+   },
+   "anchor": {
+    "x": 0.5847,
+    "y": 1.0
+   }
+  },
+  "boucle_00": {
+   "frame": {
+    "x": 360,
+    "y": 0,
+    "w": 379,
+    "h": 513
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 379,
+    "h": 513
+   },
+   "sourceSize": {
+    "w": 379,
+    "h": 513
+   },
+   "anchor": {
+    "x": 0.6148,
+    "y": 1.0
+   }
+  },
+  "boucle_02": {
+   "frame": {
+    "x": 745,
+    "y": 0,
+    "w": 397,
+    "h": 513
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 397,
+    "h": 513
+   },
+   "sourceSize": {
+    "w": 397,
+    "h": 513
+   },
+   "anchor": {
+    "x": 0.6297,
+    "y": 1.0
+   }
+  },
+  "boucle_01": {
+   "frame": {
+    "x": 1148,
+    "y": 0,
+    "w": 396,
+    "h": 511
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 396,
+    "h": 511
+   },
+   "sourceSize": {
+    "w": 396,
+    "h": 511
+   },
+   "anchor": {
+    "x": 0.6212,
+    "y": 1.0
+   }
+  },
+  "boucle_03": {
+   "frame": {
+    "x": 1550,
+    "y": 0,
+    "w": 390,
+    "h": 502
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 390,
+    "h": 502
+   },
+   "sourceSize": {
+    "w": 390,
+    "h": 502
+   },
+   "anchor": {
+    "x": 0.6038,
+    "y": 1.0
+   }
+  },
+  "touche_00": {
+   "frame": {
+    "x": 1946,
+    "y": 0,
+    "w": 350,
+    "h": 500
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 350,
+    "h": 500
+   },
+   "sourceSize": {
+    "w": 350,
+    "h": 500
+   },
+   "anchor": {
+    "x": 0.4757,
+    "y": 1.0
+   }
+  },
+  "attaque_00": {
+   "frame": {
+    "x": 2302,
+    "y": 0,
+    "w": 716,
+    "h": 443
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 716,
+    "h": 443
+   },
+   "sourceSize": {
+    "w": 716,
+    "h": 443
+   },
+   "anchor": {
+    "x": 0.7116,
+    "y": 1.0
+   }
+  },
+  "mort_00": {
+   "frame": {
+    "x": 3024,
+    "y": 0,
+    "w": 459,
+    "h": 369
+   },
+   "rotated": false,
+   "trimmed": false,
+   "spriteSourceSize": {
+    "x": 0,
+    "y": 0,
+    "w": 459,
+    "h": 369
+   },
+   "sourceSize": {
+    "w": 459,
+    "h": 369
+   },
+   "anchor": {
+    "x": 0.4989,
+    "y": 1.0
+   }
+  }
+ },
+ "animations": {
+  "boucle": [
+   "boucle_00",
+   "boucle_01",
+   "boucle_02",
+   "boucle_03"
+  ],
+  "prepare": [
+   "prepare_00"
+  ],
+  "attaque": [
+   "attaque_00"
+  ],
+  "touche": [
+   "touche_00"
+  ],
+  "mort": [
+   "mort_00"
+  ]
+ },
+ "meta": {
+  "image": "mere_des_jarres.webp",
+  "format": "RGBA8888",
+  "size": {
+   "w": 4096,
+   "h": 514
+  },
+  "scale": "1",
+  "infos": {
+   "boucle": {
+    "fps": 10,
+    "boucle": true,
+    "ancre": "pieds"
+   },
+   "prepare": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "attaque": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "touche": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   },
+   "mort": {
+    "fps": 1,
+    "boucle": false,
+    "ancre": "pieds"
+   }
+  },
+  "face_peinte": -1
+ }
+}

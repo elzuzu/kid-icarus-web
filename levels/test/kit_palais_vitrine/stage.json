@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_palais_vitrine",
+	"nom": "Vitrine du kit palais",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "palais",
+	"chunks": ["00"],
+	"marqueurs": {},
+	"portes": []
+}

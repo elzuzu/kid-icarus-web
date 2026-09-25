@@ -1,0 +1,56 @@
+{
+	"id": "w2/2-1",
+	"nom": "Plaines d'Arcadie",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "surface",
+	"ambiance": "arcadie",
+	"musique": "surface_1",
+	"niveau": 9,
+	"boss": "minotaure_airain",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15"
+	],
+	"marqueurs": {
+		"s": {
+			"ennemi": "shulm"
+		},
+		"m": {
+			"ennemi": "mick"
+		},
+		"k": {
+			"ennemi": "keron"
+		},
+		"z": {
+			"ennemi": "zurret"
+		},
+		"h": {
+			"ennemi": "harpie"
+		},
+		"b": {
+			"ennemi": "sanglier_bronze"
+		}
+	},
+	"portes": [
+		"boutique",
+		"source_chaude",
+		"tresor",
+		"boutique"
+	],
+	"secrets": 1
+}
