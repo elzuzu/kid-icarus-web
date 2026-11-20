@@ -19,6 +19,13 @@ const animsTir = [
 ];
 const fenetreRecul = 0.05;
 const fenetrePose = 0.11;
+const dureeSwing = 0.18;
+const dureeTourbillon = 0.25;
+const dureeEcrasement = 0.12;
+const dureeEtirement = 0.1;
+const dureeFantome = 0.25;
+const intervalleFantomes = 0.03;
+const maxFantomes = 3;
 
 export class VisuelJoueur extends Container {
   planche: any;
@@ -34,6 +41,15 @@ export class VisuelJoueur extends Container {
   accroupiDepuis = 0;
   depuisTir = 1 / 0;
   eclair = new Sprite(textureHalo(64));
+  fantomes = new Container();
+  swingRestant = 0;
+  swingDuree = dureeSwing;
+  swingCombo = 0;
+  ecrasement = 0;
+  etirement = 0;
+  fenetreFantomes = 0;
+  ticFantome = 0;
+  frappeAbonnee = false;
 
   constructor(planche: any, joueur: any) {
     super();
@@ -50,6 +66,32 @@ export class VisuelJoueur extends Container {
     this.addChild(this.sprite, this.eclair);
     joueur.aAtterri.connecter(() => {
       this.atterrissage = 0.1;
+      this.ecrasement = dureeEcrasement;
+    });
+    joueur.aSaute.connecter(() => {
+      this.etirement = dureeEtirement;
+    });
+    joueur.aDashe.connecter(() => {
+      this.fenetreFantomes = 0.18;
+      this.ticFantome = 0;
+    });
+  }
+
+  // WHY: aFrappe vit sur l'arme, pas sur le joueur, et index.ts ne passe que le joueur ;
+  // on préfère le relais joueur.aFrappeVisuel s'il existe, sinon abonnement lecture seule
+  // via __sim (exposé avant la première frame), vérifié par identité.
+  brancherFrappe() {
+    if (this.frappeAbonnee) return;
+    const sim = (window as any).__sim,
+      source =
+        this.joueur.aFrappeVisuel ??
+        (sim && sim.joueur === this.joueur ? sim.arme?.aFrappe : null);
+    if (!source) return;
+    this.frappeAbonnee = true;
+    source.connecter((combo: number) => {
+      this.swingCombo = combo;
+      this.swingDuree = combo === 3 ? dureeTourbillon : dureeSwing;
+      this.swingRestant = this.swingDuree;
     });
   }
 
@@ -140,12 +182,24 @@ export class VisuelJoueur extends Container {
     this.atterrissage = Math.max(0, this.atterrissage - dt);
     this.touche = Math.max(0, this.touche - dt);
     this.tirRecent = Math.max(0, this.tirRecent - dt);
+    this.swingRestant = Math.max(0, this.swingRestant - dt);
+    this.ecrasement = Math.max(0, this.ecrasement - dt);
+    this.etirement = Math.max(0, this.etirement - dt);
+    this.fenetreFantomes = Math.max(0, this.fenetreFantomes - dt);
+    this.brancherFrappe();
     const enTir = this.tirRecent > 0 || intention.tir;
     this.accroupiDepuis = j.accroupi ? this.accroupiDepuis + dt : 0;
     this.depuisTir += dt;
     const indiceTir = this.depuisTir < fenetreRecul ? 3 : this.depuisTir < fenetrePose ? 4 : 2;
     if (this.touche > 0) this.jouer("touche", "dash_degats", 10, [2, 3]);
-    else if (j.etat === EtatJoueur.DASH) this.jouer("dash", "dash_degats", 14, [0, 1]);
+    else if (this.swingRestant > 0) {
+      // WHY: override par une frame d'armes existante sous le nom d'anim standard,
+      // pour que la branche normale reprenne proprement la main après le swing.
+      if (corps.auSol && Math.abs(corps.vx) > 20 && this.animations.course_tir)
+        this.jouer("course_tir", "course_tir", 14);
+      else if (this.animations.tir_debout) this.image("tir_debout", "tir_debout", 3);
+      else this.image("tir", "tir", 3);
+    } else if (j.etat === EtatJoueur.DASH) this.jouer("dash", "dash_degats", 14, [0, 1]);
     else if (enTir) this.poseDeTir(indiceTir);
     else if (j.accroupi && this.animations.accroupi) {
       if (this.accroupiDepuis < 0.08) this.image("accroupi_descente", "accroupi_descente", 0);
@@ -163,7 +217,6 @@ export class VisuelJoueur extends Container {
       const indice = corps.vy < -90 ? 2 : corps.vy < 60 ? 3 : 4;
       this.image("saut", "saut", indice);
     }
-    this.sprite.scale.x = echelle * j.face;
     const decalage =
       this.anim === "visee" ||
       this.anim === "tir" ||
@@ -184,6 +237,37 @@ export class VisuelJoueur extends Container {
       this.sprite.y -= (this.dirTir.y / norme) * 7 * recul;
       this.sprite.rotation = -j.face * 0.04 * recul;
     }
+    // WHY: poses 100 % additives recalculées chaque frame — aucun état à restaurer,
+    // les anims par frames et les ancres existantes restent intactes.
+    let poseX = 1,
+      poseY = 1,
+      poseRot = 0;
+    if (this.swingRestant > 0) {
+      const p = 1 - this.swingRestant / this.swingDuree,
+        reste = 1 - p;
+      poseRot =
+        this.swingCombo === 3 ? j.face * Math.PI * 2 * p : j.face * 0.35 * Math.sin(Math.PI * p);
+      poseX *= 1 + 0.1 * reste * reste;
+      poseY *= 1 - 0.1 * reste * reste;
+    }
+    if (this.ecrasement > 0) {
+      const r = this.ecrasement / dureeEcrasement;
+      poseX *= 1 + 0.25 * r * r;
+      poseY *= 1 - 0.25 * r * r;
+    }
+    if (this.etirement > 0) {
+      const r = this.etirement / dureeEtirement;
+      poseX *= 1 - 0.2 * r * r;
+      poseY *= 1 + 0.2 * r * r;
+    }
+    this.sprite.scale.x = echelle * j.face * poseX;
+    this.sprite.scale.y = echelle * poseY;
+    this.sprite.rotation += poseRot;
+    // WHY: compense le squash via l'ancre de la frame pour garder les pieds au sol.
+    if (poseY !== 1) {
+      const tex: any = this.sprite.texture;
+      this.sprite.y += (1 - poseY) * (1 - this.sprite.anchor.y) * (tex?.height ?? 0) * echelle;
+    }
     const douille = animTir && this.depuisTir < 0.08 ? this.douilleEcran() : null;
     this.eclair.visible = !!douille;
     if (douille) {
@@ -196,6 +280,48 @@ export class VisuelJoueur extends Container {
       j.invulnerable > 0 && j.etat !== EtatJoueur.DASH && Math.floor(j.invulnerable * 20) % 2 == 0
         ? 0.45
         : 1;
+    this.majFantomes(dt);
+  }
+
+  majFantomes(dt: number) {
+    // WHY: les fantômes doivent rester en place dans le monde pendant que le joueur avance ;
+    // conteneur dédié inséré sous le joueur dans le même parent (z-order inférieur).
+    if (this.parent && this.fantomes.parent !== this.parent)
+      this.parent.addChildAt(this.fantomes, this.parent.getChildIndex(this));
+    const enDash = this.joueur.etat === EtatJoueur.DASH || this.fenetreFantomes > 0;
+    this.ticFantome -= dt;
+    if (enDash && this.ticFantome <= 0) {
+      this.ticFantome = intervalleFantomes;
+      if (this.fantomes.children.length >= maxFantomes) {
+        const vieux = this.fantomes.children[0];
+        this.fantomes.removeChild(vieux);
+        vieux.destroy();
+      }
+      const fantome = new Sprite(this.sprite.texture);
+      fantome.anchor.copyFrom(this.sprite.anchor);
+      fantome.scale.copyFrom(this.sprite.scale);
+      fantome.rotation = this.sprite.rotation;
+      fantome.position.set(this.x + this.sprite.x, this.y + this.sprite.y);
+      fantome.tint = 0xcfe8ff;
+      fantome.alpha = 0.35;
+      (fantome as any).ageFantome = 0;
+      this.fantomes.addChild(fantome);
+    }
+    for (const enfant of [...this.fantomes.children]) {
+      const fantome = enfant as any;
+      fantome.ageFantome += dt;
+      fantome.alpha = Math.max(0, 0.35 * (1 - fantome.ageFantome / dureeFantome));
+      if (fantome.ageFantome >= dureeFantome) {
+        this.fantomes.removeChild(fantome);
+        fantome.destroy();
+      }
+    }
+  }
+
+  destroy(options?: any) {
+    // WHY: le conteneur de fantômes est un frère, pas un enfant — nettoyage explicite.
+    if (!this.fantomes.destroyed) this.fantomes.destroy({ children: true });
+    super.destroy(options);
   }
 
   douilleEcran(): { x: number; y: number } | null {

@@ -44,6 +44,8 @@ export class PhysiqueJoueur {
   aAtterri = new Signal();
   aDashe = new Signal();
   aBoucle = new Signal();
+  aFrappeVisuel = new Signal();
+  impulsionMelee = 0;
   coyote = 0;
   tamponSaut = 0;
   sautCoupe = true;
@@ -105,6 +107,13 @@ export class PhysiqueJoueur {
     this.planant = false;
   }
 
+  // Relais visuel/feel de la mêlée (l'attaque elle-même reste dans arme.ts) :
+  // petite avancée de ~0.08 s, sans toucher aux i-frames ni au tuning.
+  frapperMelee(combo: number) {
+    this.impulsionMelee = 0.08;
+    this.aFrappeVisuel.emettre(combo, this.face);
+  }
+
   simuler(dt: number) {
     const t = this.intention,
       n = this.reglages,
@@ -156,7 +165,14 @@ export class PhysiqueJoueur {
       this.tomber(t, auSol, dt);
     }
     const vyAvant = r.vy,
-      boucle = r.deplacer(dt);
+      // Lunge appliqué uniquement au déplacement puis retiré : vx simulé intact.
+      impulsion =
+        this.impulsionMelee > 0 && this.etat !== EtatJoueur.DASH
+          ? this.face * n.vitesseCourse * 0.3
+          : 0;
+    r.vx += impulsion;
+    const boucle = r.deplacer(dt);
+    r.vx -= impulsion;
     if (r.auSol) {
       if (this.etat !== EtatJoueur.DASH) {
         if (this.etat === EtatJoueur.AIR && !auSol) this.aAtterri.emettre(vyAvant);
@@ -172,6 +188,7 @@ export class PhysiqueJoueur {
     this.tamponSaut = Math.max(0, this.tamponSaut - dt);
     this.dashRecharge = Math.max(0, this.dashRecharge - dt);
     this.invulnerable = Math.max(0, this.invulnerable - dt);
+    this.impulsionMelee = Math.max(0, this.impulsionMelee - dt);
     if (this.traversee > 0) {
       this.traversee -= dt;
       this.corps.opts.traversePlateformes = this.traversee > 0;

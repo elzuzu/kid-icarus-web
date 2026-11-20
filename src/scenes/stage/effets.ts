@@ -2,7 +2,9 @@ import { Container, Sprite, Graphics, TextStyle } from "pixi.js";
 import { r as Flux } from "../../core";
 import { o as Texte } from "../../render/textures";
 import { n as textureHalo } from "../../render/textures";
+import { options } from "../../app/options";
 import { Camp } from "./combat";
+import { EtatJoueur } from "./joueur";
 
 const styleChiffre = new TextStyle({
   fontFamily: `"Segoe UI", "Trebuchet MS", sans-serif`,
@@ -21,17 +23,22 @@ const styleChiffre = new TextStyle({
 
 export class EffetsCombat extends Container {
   additif = new Container();
+  poussiere = new Container();
   textes = new Container();
   particules: any[] = [];
+  poussieres: any[] = [];
   chiffres: any[] = [];
   anneaux: any[] = [];
   foudres: any[] = [];
+  arcs: any[] = [];
+  joueur: any = null;
+  ticCourse = 0;
   flux = new Flux("decor|effets_combat");
 
   constructor(combat: any) {
     super();
     this.additif.blendMode = "add";
-    this.addChild(this.additif, this.textes);
+    this.addChild(this.poussiere, this.additif, this.textes);
     combat.coupPorte.connecter((cible: any, coup: any, point: any) => {
       const joueur = cible.camp === Camp.JOUEUR,
         ampleur = coup.critique ? 1.6 : 1;
@@ -44,7 +51,13 @@ export class EffetsCombat extends Container {
         -coup.reculX,
         -coup.reculY,
       );
-      this.anneau(point.x, point.y, joueur ? 16736336 : 16773312, coup.critique ? 1.8 : 1.1);
+      this.anneau(
+        point.x,
+        point.y,
+        joueur ? 16736336 : 16773312,
+        coup.critique ? 1.8 : 1.1,
+        options.flashs ? 1 : 1 / 3,
+      );
       if (coup.montant > 0) this.chiffre(point.x, point.y - 10, coup.montant, coup.critique, joueur);
       if (coup.source === "eclair") this.foudre(cible.centre().x, cible.centre().y);
     });
@@ -74,6 +87,56 @@ export class EffetsCombat extends Container {
           -p.vy,
         );
     });
+  }
+
+  brancherJoueur(joueur: any) {
+    this.joueur = joueur;
+    joueur.aFrappeVisuel.connecter((combo: number, face: number) => {
+      const c = joueur.centre();
+      this.arcMelee(c.x + face * 6, c.y, face, combo);
+    });
+    joueur.aAtterri.connecter(() => this.bouffiere(joueur.x, joueur.y, 0));
+    joueur.aDashe.connecter((dir: number) => this.bouffiere(joueur.x, joueur.y, -dir));
+  }
+
+  arcMelee(x: number, y: number, face: number, combo: number) {
+    const g = new Graphics(),
+      rayon = 1.6 * 16 * 4,
+      couleur = 16765562;
+    if (combo === 3) {
+      g.circle(0, 0, rayon).stroke({ color: couleur, width: 12, alpha: 0.55 });
+      g.circle(0, 0, rayon).stroke({ color: 16774102, width: 4, alpha: 0.9 });
+    } else {
+      g.arc(0, 0, rayon * 0.85, -1.05, 1.05).stroke({ color: couleur, width: 14, alpha: 0.55 });
+      g.arc(0, 0, rayon * 0.85, -0.95, 0.95).stroke({ color: 16774102, width: 5, alpha: 0.9 });
+      g.rotation = face > 0 ? 0 : Math.PI;
+    }
+    g.position.set(x * 4, y * 4);
+    this.additif.addChild(g);
+    this.arcs.push({ g, vie: 0, duree: 0.15 });
+  }
+
+  bouffiere(x: number, y: number, biaisX: number) {
+    const nombre = 4 + Math.floor(this.flux.randf() * 3);
+    for (let i = 0; i < nombre; i++) {
+      let part = this.poussieres.find((p) => p.vie >= p.duree);
+      if (!part) {
+        const s = new Sprite(textureHalo(32));
+        s.anchor.set(0.5);
+        this.poussiere.addChild(s);
+        part = { s, vx: 0, vy: 0, vie: 0, duree: 0.3 };
+        this.poussieres.push(part);
+      }
+      part.vx = (this.flux.randfRange(-14, 14) + biaisX * 12) * 4;
+      part.vy = this.flux.randfRange(-22, -6) * 4;
+      part.vie = 0;
+      part.duree = 0.3;
+      part.s.visible = true;
+      part.s.tint = 14277074;
+      part.s.position.set(x * 4 + this.flux.randfRange(-12, 12), y * 4 - 2);
+      part.s.scale.set(0.16);
+      part.s.alpha = 0.4;
+    }
   }
 
   etincelles(x: number, y: number, couleur: number, nombre: number, vitesse: number, dirX: number, dirY: number) {
@@ -121,17 +184,18 @@ export class EffetsCombat extends Container {
     this.anneau(x, y, 11063551, 2);
   }
 
-  anneau(x: number, y: number, couleur: number, taille: number) {
+  anneau(x: number, y: number, couleur: number, taille: number, intensite = 1) {
     let an = this.anneaux.find((a) => a.vie >= a.duree);
     if (!an) {
       const s = new Sprite(textureHalo(128));
       s.anchor.set(0.5);
       this.additif.addChild(s);
-      an = { s, vie: 0, duree: 0.22, taille };
+      an = { s, vie: 0, duree: 0.22, taille, intensite: 1 };
       this.anneaux.push(an);
     }
     an.vie = 0;
     an.taille = taille;
+    an.intensite = intensite;
     an.s.visible = true;
     an.s.tint = couleur;
     an.s.position.set(x * 4, y * 4);
@@ -143,12 +207,14 @@ export class EffetsCombat extends Container {
       const t = new Texte({ text: "", style: styleChiffre.clone() });
       t.anchor.set(0.5);
       this.textes.addChild(t);
-      ch = { t, vx: 0, vy: 0, vie: 0, duree: 0.9 };
+      ch = { t, vx: 0, vy: 0, vie: 0, duree: 0.9, echelle: 1 };
       this.chiffres.push(ch);
     }
     ch.t.text = critique ? `${montant}!` : String(montant);
-    ch.t.style.fill = joueur ? 16734794 : critique ? 16762938 : 16774368;
+    ch.t.style.fill = critique ? 16762938 : joueur ? 16734794 : 16774368;
     ch.t.style.fontSize = critique ? 44 : joueur ? 32 : 30;
+    ch.echelle = critique ? 1.3 : 1;
+    ch.t.scale.set(1.4 * ch.echelle);
     ch.t.visible = true;
     const px = x * 4,
       py = y * 4,
@@ -167,6 +233,41 @@ export class EffetsCombat extends Container {
   }
 
   mettreAJour(dt: number) {
+    if (this.joueur) {
+      const j = this.joueur;
+      this.ticCourse -= dt;
+      if (j.corps.auSol && j.etat === EtatJoueur.SOL && Math.abs(j.corps.vx) > 4) {
+        if (this.ticCourse <= 0) {
+          this.ticCourse = 0.18;
+          this.bouffiere(j.x, j.y, -Math.sign(j.corps.vx));
+        }
+      } else this.ticCourse = 0;
+    }
+    for (const a of [...this.arcs]) {
+      a.vie += dt;
+      const t = Math.min(1, a.vie / a.duree);
+      a.g.scale.set(0.8 + 0.35 * t);
+      a.g.alpha = 1 - t;
+      if (a.vie >= a.duree) {
+        a.g.destroy();
+        this.arcs.splice(this.arcs.indexOf(a), 1);
+      }
+    }
+    for (const p of this.poussieres) {
+      if (p.vie >= p.duree) continue;
+      p.vie += dt;
+      if (p.vie >= p.duree) {
+        p.s.visible = false;
+        continue;
+      }
+      p.vx *= 1 - dt * 3;
+      p.vy *= 1 - dt * 3;
+      p.s.x += p.vx * dt;
+      p.s.y += p.vy * dt;
+      const reste = 1 - p.vie / p.duree;
+      p.s.alpha = 0.4 * reste;
+      p.s.scale.set(0.16 + 0.22 * (1 - reste));
+    }
     for (const f of [...this.foudres]) {
       f.vie += dt;
       f.g.alpha = Math.max(0, 1 - f.vie / 0.3) * (Math.floor(f.vie * 40) % 2 ? 0.6 : 1);
@@ -198,7 +299,7 @@ export class EffetsCombat extends Container {
       a.vie += dt;
       const t = Math.min(1, a.vie / a.duree);
       a.s.scale.set(a.taille * (0.4 + 1.4 * t));
-      a.s.alpha = 1 - t;
+      a.s.alpha = (1 - t) * a.intensite;
       if (a.vie >= a.duree) a.s.visible = false;
     }
     for (const c of this.chiffres) {
@@ -207,8 +308,10 @@ export class EffetsCombat extends Container {
       c.vy += 520 * dt;
       c.t.x += c.vx * dt;
       c.t.y += c.vy * dt;
-      const t = c.vie / c.duree;
-      c.t.scale.set(t < 0.12 ? 0.6 + (t / 0.12) * 0.6 : 1.2 - Math.min(0.2, (t - 0.12) * 0.4));
+      const t = c.vie / c.duree,
+        pop = Math.min(1, c.vie / 0.12),
+        easeOut = 1 - (1 - pop) * (1 - pop);
+      c.t.scale.set((1.4 - 0.4 * easeOut) * (c.echelle ?? 1));
       c.t.alpha = t < 0.7 ? 1 : 1 - (t - 0.7) / 0.3;
       if (c.vie >= c.duree) c.t.visible = false;
     }

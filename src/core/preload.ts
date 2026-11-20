@@ -76,6 +76,6 @@ export function prechargerModule<T>(
   return attente.then((resultats) => {
     for (const resultat of resultats || [])
       resultat.status === `rejected` && signalerErreur(resultat.reason);
-    return importer().catch(signalerErreur);
+    return importer().catch(signalerErreur) as Promise<T>;
   });
 }

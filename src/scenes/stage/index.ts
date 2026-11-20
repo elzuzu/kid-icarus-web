@@ -21,6 +21,7 @@ import { VisuelJoueur } from "./visuelJoueur";
 import { VisuelEnnemi } from "./visuelEnnemi";
 import { VisuelsProjectiles } from "./visuelProjectile";
 import { EffetsCombat } from "./effets";
+import { Camp } from "./combat";
 import { chargerFlammes, Flammes } from "./flammes";
 import { BarreBoss, SousTitres, Annonces, MenuPause } from "./hudStage";
 import { brancherAudio } from "./audio";
@@ -126,6 +127,7 @@ export const lancer = async (ctx: any, params: any) => {
   });
   const visuelsProjectiles = new VisuelsProjectiles(sim.combat),
     effetsCombat = new EffetsCombat(sim.combat);
+  effetsCombat.brancherJoueur(sim.joueur);
   plan.addChild(visuelsProjectiles, effetsCombat);
   const haloBouclier = new Sprite(textureHalo(128));
   haloBouclier.anchor.set(0.5);
@@ -135,6 +137,12 @@ export const lancer = async (ctx: any, params: any) => {
   haloBouclier.visible = false;
   plan.addChild(haloBouclier);
   sim.arme.aTire.connecter((charge: boolean, dx: number, dy: number) => visuelJoueur.signalerTir(dx, dy));
+  // melee() vit dans arme.ts (hors lot) : le feel (lunge + arc visuel) est relayé ici.
+  sim.arme.aFrappe.connecter((combo: number) => sim.joueur.frapperMelee(combo));
+  sim.combat.combattantMort.connecter((cible: any) => {
+    if (cible.camp === Camp.ENNEMI) sim.camera.secouer(0.25);
+  });
+  sim.combat.explosionSignal.connecter(() => sim.camera.secouer(0.3));
   visuelsProjectiles.origineVisuelle = (projectile: any) =>
     projectile.auteur === sim.combattant ? visuelJoueur.douilleEcran() : null;
   sim.combattant.touche.connecter(() => visuelJoueur.signalerCoup());
@@ -238,6 +246,8 @@ export const lancer = async (ctx: any, params: any) => {
       .catch((erreur) => console.error("planche du boss", boss.def.id, erreur));
   });
   sim.bossVaincuSignal.connecter(() => {
+    sim.combat.geler(0.12);
+    sim.camera.secouer(0.5);
     setTimeout(() => barreBoss.masquer(), 2500);
   });
   const entrees = ctx.entrees;
@@ -264,8 +274,12 @@ export const lancer = async (ctx: any, params: any) => {
     }, 3500);
   });
   let intentionFusee: any = null;
+  // Horloge propre à la secousse : elle doit continuer de vibrer pendant le hitstop
+  // (sim.temps y est gelé, ce qui figerait l'offset en une pose statique).
+  let horlogeSecousse = 0;
   const surFrame = (ticker: any) => {
     const dt = Math.min(0.1, ticker.deltaMS / 1000);
+    horlogeSecousse += dt;
     accumulateur += dt;
     const intention = entrees.lire();
     intentionFusee = intentionFusee ? fusionnerIntention(intentionFusee, intention) : intention;
@@ -279,24 +293,30 @@ export const lancer = async (ctx: any, params: any) => {
       accumulateur = 0;
       intentionFusee = null;
     }
-    while (accumulateur >= pasSimulation) {
-      precJoueur.x = sim.joueur.x;
-      precJoueur.y = sim.joueur.y;
-      for (const ennemi of apparitions.vivants) precedents.set(ennemi, { x: ennemi.x, y: ennemi.y });
-      if (sim.boss) precedents.set(sim.boss, { x: sim.boss.x, y: sim.boss.y });
-      const tickIntention = intentionFusee ?? intentionSansPresse(intention);
-      intentionFusee = null;
-      sim.tick(tickIntention, pasSimulation);
-      accumulateur -= pasSimulation;
-    }
+    if (sim.combat.gelGlobal > 0) {
+      // Hitstop : on saute la simulation mais tout le rendu ci-dessous continue ;
+      // l'accumulateur est purgé pour éviter une rafale de ticks de rattrapage.
+      sim.combat.gelGlobal = Math.max(0, sim.combat.gelGlobal - dt);
+      accumulateur = 0;
+    } else
+      while (accumulateur >= pasSimulation) {
+        precJoueur.x = sim.joueur.x;
+        precJoueur.y = sim.joueur.y;
+        for (const ennemi of apparitions.vivants) precedents.set(ennemi, { x: ennemi.x, y: ennemi.y });
+        if (sim.boss) precedents.set(sim.boss, { x: sim.boss.x, y: sim.boss.y });
+        const tickIntention = intentionFusee ?? intentionSansPresse(intention);
+        intentionFusee = null;
+        sim.tick(tickIntention, pasSimulation);
+        accumulateur -= pasSimulation;
+      }
     const alpha = accumulateur / pasSimulation,
       camera = sim.camera,
       cx = camera.precedentX + (camera.cx - camera.precedentX) * alpha,
       cy = camera.precedentY + (camera.cy - camera.precedentY) * alpha,
       secousse = camera.trauma * camera.trauma * 14;
     plan.position.set(
-      Math.round(largeurEcran / 2 - cx * 4 + (secousse ? Math.sin(sim.temps * 91) * secousse : 0)),
-      Math.round(hauteurEcran / 2 - cy * 4 + (secousse ? Math.cos(sim.temps * 77) * secousse : 0)),
+      Math.round(largeurEcran / 2 - cx * 4 + (secousse ? Math.sin(horlogeSecousse * 91) * secousse : 0)),
+      Math.round(hauteurEcran / 2 - cy * 4 + (secousse ? Math.cos(horlogeSecousse * 77) * secousse : 0)),
     );
     const joueurX =
         Math.abs(sim.joueur.x - precJoueur.x) > 64

@@ -164,6 +164,7 @@ export class Monde {
   plan: SpriteTuile;
   avantPlan: SpriteTuile | null = null;
   particules: ParticulesAmbiance;
+  tempsFond = 0;
 
   constructor(kit: any, largeurJeu: number, ascension: boolean) {
     this.kit = kit;
@@ -242,11 +243,18 @@ export class Monde {
 
   mettreAJour(dt: number, x: number, y: number) {
     this.particules.mettreAJour(dt);
+    // Dérive lente additive réservée au fond lointain : périodes 24 s / 31 s sans multiple
+    // commun court, la boucle combinée (~12 min) est imperceptible ; le scale 1.15 absorbe les ±6 px.
+    this.tempsFond += dt;
+    const deriveX = Math.sin((this.tempsFond * Math.PI * 2) / 24) * 6;
+    const deriveY = Math.sin((this.tempsFond * Math.PI * 2) / 31) * 4;
     if (this.ascension) {
-      this.fond.y = hauteurEcran / 2 + Math.max(-120, Math.min(120, -y * 0.01));
+      this.fond.x = largeurEcran / 2 + deriveX;
+      this.fond.y = hauteurEcran / 2 + Math.max(-120, Math.min(120, -y * 0.01)) + deriveY;
       this.plan.tilePosition.y = -y * 0.3 + hauteurEcran * 0.22;
     } else {
-      this.fond.x = largeurEcran / 2 + Math.max(-140, Math.min(140, -x * 0.02));
+      this.fond.x = largeurEcran / 2 + Math.max(-140, Math.min(140, -x * 0.02)) + deriveX;
+      this.fond.y = hauteurEcran / 2 + deriveY;
       this.plan.tilePosition.x = -x * 0.3;
       this.plan.tilePosition.y = hauteurEcran * 0.22 - y * 0.1;
       if (this.avantPlan) this.avantPlan.tilePosition.x = -x * 1.35;

@@ -1,4 +1,4 @@
-import { Container, Sprite, Texture } from "pixi.js";
+import { Container, Graphics, Sprite, Texture } from "pixi.js";
 import { n as textureHalo } from "../../render/textures";
 import { Camp } from "./combat";
 
@@ -50,6 +50,7 @@ export class VisuelProjectile extends Container {
   age = 0;
   corps = new Sprite();
   halo = new Sprite(textureHalo(64));
+  pointe = new Graphics();
   traine: Sprite[] = [];
   historique: { x: number; y: number }[] = [];
   fleche = false;
@@ -57,7 +58,7 @@ export class VisuelProjectile extends Container {
   constructor() {
     super();
     this.blendMode = "add";
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 4; i++) {
       const s = new Sprite(textureHalo(64));
       s.anchor.set(0.5);
       this.traine.push(s);
@@ -65,7 +66,13 @@ export class VisuelProjectile extends Container {
     }
     this.halo.anchor.set(0.5);
     this.corps.anchor.set(0.9, 0.5);
-    this.addChild(this.halo, this.corps);
+    // Pointe non additive : une tête pleine et lisible plutôt qu'un trait laser.
+    this.pointe
+      .poly([10, 0, -6, -5, -3, 0, -6, 5], true)
+      .fill({ color: 16775399 });
+    this.pointe.blendMode = "normal";
+    this.pointe.visible = false;
+    this.addChild(this.halo, this.corps, this.pointe);
   }
 
   configurer(p: any) {
@@ -99,6 +106,7 @@ export class VisuelProjectile extends Container {
       s.tint = i < 2 ? principal : secondaire;
       s.visible = false;
     });
+    this.pointe.visible = false;
     this.fleche = fleche;
   }
 
@@ -110,6 +118,13 @@ export class VisuelProjectile extends Container {
     this.corps.position.set(px, py);
     this.halo.position.set(px, py);
     if (this.fleche) this.corps.rotation = angle;
+    this.pointe.visible = this.fleche;
+    if (this.fleche) {
+      const avance = 12 * this.corps.scale.x;
+      this.pointe.position.set(px + Math.cos(angle) * avance, py + Math.sin(angle) * avance);
+      this.pointe.rotation = angle;
+      this.pointe.scale.set(p.charge ? 1.3 : 0.9);
+    }
     this.historique.unshift({ x: px, y: py });
     if (this.historique.length > this.traine.length) this.historique.pop();
     const fleche = this.fleche;
@@ -125,10 +140,10 @@ export class VisuelProjectile extends Container {
           (p.charge ? 1.3 : 0.9) * (0.6 + 0.6 * reste),
           (p.charge ? 0.14 : 0.07) * (0.5 + reste),
         );
-        s.alpha = 0.8 * reste;
+        s.alpha = 0.4 * reste;
       } else {
         s.scale.set(this.corps.scale.x * (0.4 + 0.8 * reste));
-        s.alpha = 0.5 * reste;
+        s.alpha = 0.25 * reste;
       }
     });
   }

@@ -14,6 +14,9 @@ export class VisuelEnnemi extends Container {
   facePeinte: number;
   auxPieds: boolean;
   sansBarre = false;
+  etatPrecedent = "";
+  prepareDepuis = 0;
+  attaqueDepuis = 0;
 
   constructor(ennemi: any, planche: any) {
     super();
@@ -53,6 +56,15 @@ export class VisuelEnnemi extends Container {
   mettreAJour(dt: number, x: number, y: number) {
     const e = this.ennemi;
     this.flash = Math.max(0, this.flash - dt);
+    // WHY: horodatage local des transitions pour piloter les poses procédurales
+    // sans toucher aux minuteries de la simulation.
+    if (e.etatVisuel !== this.etatPrecedent) {
+      if (e.etatVisuel === "prepare") this.prepareDepuis = 0;
+      if (e.etatVisuel === "attaque") this.attaqueDepuis = 0;
+      this.etatPrecedent = e.etatVisuel;
+    }
+    this.prepareDepuis += dt;
+    this.attaqueDepuis += dt;
     switch (e.etatVisuel) {
       case "prepare":
         this.jouer("prepare", 8);
@@ -67,10 +79,54 @@ export class VisuelEnnemi extends Container {
         this.jouer(this.flash > 0 ? "touche" : "boucle", 10);
     }
     if (this.flash > 0 && e.etatVisuel !== "mort") this.jouer("touche", 10);
-    this.sprite.scale.x = this.echelle * (e.face >= 0 ? 1 : -1) * this.facePeinte;
-    this.position.set(x * 4, (y - (this.auxPieds ? 0 : e.taille.y / 2)) * 4);
-    this.sprite.tint = this.flash > 0 ? 16771288 : 16777215;
-    this.alpha = e.etatVisuel === "mort" ? Math.max(0, 1 - e.mortDepuis / 0.7) : 1 - e.fondu;
+    const face = e.face >= 0 ? 1 : -1;
+    let poseX = 1,
+      poseY = 1,
+      poseRot = 0,
+      posePx = 0,
+      tint = this.flash > 0 ? 16771288 : 16777215;
+    if (e.etatVisuel === "prepare") {
+      const k = Math.min(1, this.prepareDepuis / 0.1);
+      poseX = 1 + 0.12 * k;
+      poseY = 1 - 0.12 * k;
+      if (this.flash <= 0) {
+        // WHY: pulse blanc/or 8 Hz (amplitude 0.25) pour rendre le coup à venir lisible.
+        const p = 0.25 * (0.5 + 0.5 * Math.sin(this.prepareDepuis * Math.PI * 16));
+        tint = (255 << 16) | (Math.round(255 - 55 * p) << 8) | Math.round(255 - 191 * p);
+      }
+    } else if (e.etatVisuel === "attaque") {
+      // WHY: windup→strike puis retour en 0.15 s ; la frame attaque reste affichée.
+      const r = Math.max(0, 1 - this.attaqueDepuis / 0.15),
+        k = r * r,
+        vers = typeof e.versCible === "function" ? e.versCible() : null,
+        sens = vers && Math.abs(vers.x) > 1 ? Math.sign(vers.x) : face;
+      poseX = 1 - 0.1 * k;
+      poseY = 1 + 0.15 * k;
+      poseRot = sens * 0.2 * k;
+    } else if (e.etatVisuel === "mort") {
+      // WHY: sursaut → affaissement → fade ; le fade chevauche la fin de l'affaissement
+      // pour rester dans les 0.7 s du despawn simulation (ennemi.ts, non modifié).
+      const t = e.mortDepuis;
+      if (t < 0.06) {
+        poseX = poseY = 1 + 0.2 * (t / 0.06);
+      } else {
+        const p = Math.min(1, (t - 0.06) / 0.35),
+          k = 1 - (1 - p) * (1 - p);
+        poseX = 1.2 - 0.1 * k;
+        poseY = 1.2 - 0.6 * k;
+        poseRot = face * 0.4 * k;
+        posePx = 8 * k;
+      }
+    }
+    this.sprite.scale.x = this.echelle * face * this.facePeinte * poseX;
+    this.sprite.scale.y = this.echelle * poseY;
+    this.sprite.rotation = poseRot;
+    this.position.set(x * 4, (y - (this.auxPieds ? 0 : e.taille.y / 2)) * 4 + posePx);
+    this.sprite.tint = tint;
+    this.alpha =
+      e.etatVisuel === "mort"
+        ? Math.max(0, 1 - Math.max(0, e.mortDepuis - 0.35) / 0.35)
+        : 1 - e.fondu;
     const c = e.combattant;
     this.barre.clear();
     if (c.vivant && c.pv < c.pvMax && !this.sansBarre) {

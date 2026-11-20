@@ -19,6 +19,10 @@ export class Comportement {
 
 export const vecteurNul = { x: 0, y: 0 };
 export const tau = Math.PI * 2;
+// WHY: les durées de prepare viennent des JSON ennemis (params.preparation) ;
+// plancher de lisibilité appliqué côté comportement, sans réécrire les données.
+export const dureeMinPrepare = 0.3;
+export const dureePrepare = (duree: number) => Math.max(dureeMinPrepare, duree);
 export const tuiles = (n: number) => Comportement.tuiles(n);
 export const rad = (deg: number) => (deg * Math.PI) / 180;
 export const borner = (v: number, min: number, max: number) => (v < min ? min : v > max ? max : v);
@@ -163,7 +167,7 @@ export const comportements: Record<string, any> = {
         case "sort":
           e.combattant.invulnerable = 0;
           e.etatVisuel = "prepare";
-          if (this.minuterie > 0.5) {
+          if (this.minuterie > dureePrepare(0.5)) {
             e.face = signeStrict(e.versCible().x);
             const dir = pivoter({ x: e.face, y: 0 }, -e.face * rad(35));
             e.tirer(dir.x, dir.y, this.param("tir", {}));
@@ -312,7 +316,7 @@ export const comportements: Record<string, any> = {
           break;
         case "reveil":
           e.etatVisuel = "prepare";
-          if (this.minuterie > 0.6) {
+          if (this.minuterie > dureePrepare(0.6)) {
             this.etat = "chasse";
             e.combattant.invulnerable = 0;
             e.combattant.sensibiliteRecul = 0.6;
@@ -346,7 +350,7 @@ export const comportements: Record<string, any> = {
       const vers = e.versCible();
       e.face = signeStrict(vers.x);
       const cadence = this.param("cadence", 2.2);
-      e.etatVisuel = this.minuterie > cadence - 0.4 ? "prepare" : "idle";
+      e.etatVisuel = this.minuterie > cadence - dureePrepare(0.4) ? "prepare" : "idle";
       if (this.minuterie >= cadence && norme(vers) < tuiles(14)) {
         this.minuterie = 0;
         e.tirer(e.face, 0, this.param("tir", {}));
@@ -379,7 +383,7 @@ export const comportements: Record<string, any> = {
         case "prepare":
           e.vx = 0;
           e.etatVisuel = "prepare";
-          if (this.minuterie > this.param("preparation", 0.6)) {
+          if (this.minuterie > dureePrepare(this.param("preparation", 0.6))) {
             this.etat = "charge";
             this.minuterie = 0;
           }
@@ -462,7 +466,7 @@ export const comportements: Record<string, any> = {
             Math.abs(vers.y) < tuiles(5)
           ) {
             this.etat = "prepare";
-            this.minuterie = this.param("preparation", 0.6);
+            this.minuterie = dureePrepare(this.param("preparation", 0.6));
             e.face = signeStrict(vers.x);
           }
           break;
@@ -559,7 +563,7 @@ export const comportements: Record<string, any> = {
         case "prepare":
           fixerVelocite(e, lerpVecteur(velocite(e), multiplier(normaliser(vers), -tuiles(1.5)), 0.2));
           e.etatVisuel = "prepare";
-          if (this.minuterie > this.param("preparation", 0.55)) {
+          if (this.minuterie > dureePrepare(this.param("preparation", 0.55))) {
             this.etat = "fonce";
             this.minuterie = 0;
             this.dir = normaliser(e.versCible());
@@ -597,7 +601,7 @@ export const comportements: Record<string, any> = {
       fixerVelocite(e, lerpVecteur(velocite(e), limiter(cible, e.vitesse()), 0.06));
       e.face = signeStrict(vers.x);
       const cadence = this.param("cadence", 2.4);
-      e.etatVisuel = this.minuterie > cadence - 0.45 ? "prepare" : "vol";
+      e.etatVisuel = this.minuterie > cadence - dureePrepare(0.45) ? "prepare" : "vol";
       if (this.minuterie >= cadence && norme(vers) < tuiles(13)) {
         this.minuterie = 0;
         const nombre = Math.trunc(this.param("nombre", 1)),
@@ -638,7 +642,7 @@ export const comportements: Record<string, any> = {
         case "gronde":
           fixerVelocite(e, lerpVecteur(velocite(e), vecteurNul, 0.2));
           e.etatVisuel = "prepare";
-          if (this.minuterie > this.param("preparation", 0.8)) {
+          if (this.minuterie > dureePrepare(this.param("preparation", 0.8))) {
             e.tirer(0, 1, this.param("tir", {}));
             e.etatVisuel = "attaque";
             this.etat = "suit";

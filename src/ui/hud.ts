@@ -2,6 +2,7 @@ import { Container, Graphics, Sprite, TextStyle } from "pixi.js";
 import type { Texture } from "pixi.js";
 import { n as largeurEcran } from "../core";
 import { o as Text } from "../render/textures";
+import { n as OR, o as styleTexte, r as BRONZE } from "../render/theme";
 // Le bundle hud importe le chunk index pour effet de bord (ordre d'exécution).
 import "../app";
 import { TypeTuile, construireNiveau, chargerNiveau } from "./niveau";
@@ -33,6 +34,7 @@ interface EtatHud {
 export class Hud extends Container {
   icones: IconesHud;
   coeurs: Sprite[] = [];
+  echellesCoeurs: number[] = [];
   jauge = new Graphics();
   texteFleches: any;
   comptes: any[] = [];
@@ -65,9 +67,16 @@ export class Hud extends Container {
       coeur.scale.x = coeur.scale.y;
       coeur.position.set(58 + i * 44, 56);
       this.coeurs.push(coeur);
+      // Échelle de base mémorisée : la pulsation PV bas doit rester relative, pas cumulative.
+      this.echellesCoeurs.push(coeur.scale.x);
       this.addChild(coeur);
     }
     this.addChild(this.jauge);
+    const labelVol = new Text({ text: "VOL", style: styleTexte(15, BRONZE) });
+    labelVol.anchor.set(0, 0.5);
+    labelVol.alpha = 0.85;
+    labelVol.position.set(302, 96);
+    this.addChild(labelVol);
     const coeurMonnaie = new Sprite(icones.coeur);
     coeurMonnaie.anchor.set(0.5);
     coeurMonnaie.height = 38;
@@ -146,11 +155,16 @@ export class Hud extends Container {
 
   afficher(etat: EtatHud) {
     const part = etat.pvMax / this.coeurs.length;
+    // Pulsation douce à PV critiques : signal d'urgence lisible sans toucher au gameplay.
+    const critique = etat.pv > 0 && etat.pv <= etat.pvMax * 0.25;
+    const pulsation = critique ? 1 + 0.07 * Math.sin(this.t * 6) : 1;
     this.coeurs.forEach((coeur, i) => {
       const plein = etat.pv >= (i + 1) * part - 1e-6;
       const partiel = !plein && etat.pv > i * part + 1e-6;
       coeur.texture = plein || partiel ? this.icones.coeur : this.icones.coeurVide;
       coeur.alpha = partiel ? 0.45 + 0.4 * ((etat.pv - i * part) / part) : 1;
+      const echelle = this.echellesCoeurs[i] * (critique && (plein || partiel) ? pulsation : 1);
+      coeur.scale.set(echelle);
     });
     const jauge = this.jauge;
     jauge.clear();
@@ -184,9 +198,15 @@ export class Hud extends Container {
       if (pouvoir.charge < 0) icone.alpha = 0.18;
       else if (pouvoir.charge < 1) {
         icone.alpha = 0.45;
+        // Voile radial sur la part encore en recharge + arc or de progression :
+        // lecture immédiate du cooldown, le compte chiffré reste en complément.
+        const finRecharge = -Math.PI / 2 + Math.PI * 2 * pouvoir.charge;
         voile
-          .roundRect(-31, -31, 62, 62 * (1 - pouvoir.charge), 7)
+          .moveTo(0, 0)
+          .arc(0, 0, 33, finRecharge, Math.PI * 1.5)
+          .closePath()
           .fill({ color: 329226, alpha: 0.72 });
+        voile.arc(0, 0, 36, -Math.PI / 2, finRecharge).stroke({ color: OR, width: 3, alpha: 0.9 });
       } else icone.alpha = 0.85 + 0.15 * Math.sin(this.t * 4 + i);
       compte.text =
         pouvoir.charge >= 0 && pouvoir.charge < 1

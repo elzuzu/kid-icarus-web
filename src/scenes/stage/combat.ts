@@ -1,4 +1,5 @@
 import { O as Signal } from "../../app";
+import { options } from "../../app/options";
 import { r as Flux } from "../../core";
 
 export enum Element {
@@ -200,6 +201,9 @@ export class Combat {
   combattants: Combattant[] = [];
   projectiles: Projectile[] = [];
   gelTicks = 0;
+  // Hitstop global en secondes (rendu continu, simulation gelée par la boucle) ;
+  // distinct de gelTicks qui est le micro-gel par coup existant.
+  gelGlobal = 0;
   ticks = 0;
   flux: Flux;
   coupPorte = new Signal();
@@ -213,6 +217,17 @@ export class Combat {
   constructor(niveau: any, graine = "partie") {
     this.niveau = niveau;
     this.flux = new Flux(`${graine}|combat|${niveau?.id ?? "defaut"}`);
+    // Pas de hitstop sur les dégâts subis par le joueur : le gel ne récompense que ses coups.
+    this.combattantMort.connecter((cible: Combattant) => {
+      if (cible.camp === Camp.ENNEMI) this.geler(0.07);
+    });
+    this.coupPorte.connecter((cible: Combattant, coup: Coup) => {
+      if (coup.critique && cible.camp === Camp.ENNEMI) this.geler(0.045);
+    });
+  }
+
+  geler(duree: number) {
+    if (options.hitstop) this.gelGlobal = Math.max(this.gelGlobal, duree);
   }
 
   enregistrer(combattant: Combattant): Combattant {

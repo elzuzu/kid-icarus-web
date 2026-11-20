@@ -1,4 +1,5 @@
 import { n as largeurEcran, t as hauteurEcran } from "../../core";
+import { options } from "../../app/options";
 
 export enum ModeCamera {
   RAIL = 0,
@@ -100,6 +101,7 @@ export class Camera {
   }
 
   secouer(intensite: number) {
+    if (!options.secousses) return;
     this.trauma = Math.min(1, this.trauma + intensite);
   }
 

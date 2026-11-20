@@ -1,8 +1,17 @@
-import { Container, Graphics, TextStyle } from "pixi.js";
+import { Assets, Container, Graphics, Sprite, TextStyle } from "pixi.js";
+import type { Texture } from "pixi.js";
 import { n as largeurEcran, t as hauteurEcran } from "../../core";
 import { o as Texte } from "../../render/textures";
-import { a as panneau, o as styleTexte, s as styleTitre, t as Bouton } from "../../render/theme";
+import {
+  a as panneau,
+  n as OR,
+  o as styleTexte,
+  s as styleTitre,
+  t as Bouton,
+} from "../../render/theme";
 import { t as Menu } from "../../ui/menu";
+import { options, basculerOption, type CleOption } from "../../app/options";
+import { base } from "./base";
 
 const largeurBarre = 700,
   hauteurJauge = 18,
@@ -106,6 +115,8 @@ const largeurSousTitre = 1100;
 
 export class SousTitres extends Container {
   fond = new Graphics();
+  portrait = new Sprite();
+  portraits = new Map<string, Texture>();
   nom: Texte;
   texte: Texte;
   courant: string | null = null;
@@ -113,33 +124,23 @@ export class SousTitres extends Container {
 
   constructor(audio: any) {
     super();
-    this.nom = new Texte({
-      text: "",
-      style: new TextStyle({
-        fontFamily: `"Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif`,
-        fontSize: 26,
-        fontWeight: "700",
-        fill: 16777215,
-        stroke: { color: 0, width: 4 },
-      }),
-    });
-    this.texte = new Texte({
-      text: "",
-      style: new TextStyle({
-        fontFamily: `"Segoe UI", "Trebuchet MS", sans-serif`,
-        fontSize: 28,
-        fill: 16052456,
-        wordWrap: true,
-        wordWrapWidth: largeurSousTitre,
-        align: "center",
-        lineHeight: 36,
-        stroke: { color: 0, width: 4 },
-      }),
-    });
+    this.nom = new Texte({ text: "", style: styleTitre(26, OR) });
+    const styleReplique = styleTexte(28);
+    styleReplique.wordWrap = true;
+    styleReplique.wordWrapWidth = largeurSousTitre;
+    styleReplique.align = "center";
+    styleReplique.lineHeight = 36;
+    this.texte = new Texte({ text: "", style: styleReplique });
     this.nom.anchor.set(0.5, 1);
     this.texte.anchor.set(0.5, 0);
-    this.addChild(this.fond, this.nom, this.texte);
+    this.portrait.anchor.set(0, 0.5);
+    this.portrait.visible = false;
+    this.addChild(this.fond, this.portrait, this.nom, this.texte);
     this.alpha = 0;
+    // Portrait optionnel : seul Pit en possède un dans les assets ; absence = panneau seul, sans erreur.
+    Assets.load(`${base}assets/art/pit/pit_profil.webp`)
+      .then((texture: Texture) => this.portraits.set("pit", texture))
+      .catch(() => void 0);
     audio.sousTitre.connecter((ligne: any) => this.montrer(ligne));
     audio.sousTitreFini.connecter((id: string) => {
       if (id === this.courant) this.courant = null;
@@ -148,20 +149,30 @@ export class SousTitres extends Container {
 
   montrer(ligne: any) {
     this.courant = ligne.id;
-    const [r, v, b] = ligne.couleur;
     this.nom.text = ligne.nom;
-    this.nom.style.fill =
-      (Math.round(r * 255) << 16) | (Math.round(v * 255) << 8) | Math.round(b * 255);
     this.texte.text = ligne.texte;
     const y = hauteurEcran - 128;
-    this.nom.position.set(largeurEcran / 2, y);
-    this.texte.position.set(largeurEcran / 2, y + 6);
-    const largeur = Math.max(this.texte.width, this.nom.width) + 80,
-      hauteur = this.texte.height + this.nom.height + 36;
+    const hauteur = this.texte.height + this.nom.height + 36;
+    const texturePortrait = this.portraits.get(ligne.perso) ?? null;
+    this.portrait.visible = texturePortrait !== null;
+    let margePortrait = 0;
+    if (texturePortrait) {
+      this.portrait.texture = texturePortrait;
+      this.portrait.height = Math.min(150, hauteur - 22);
+      this.portrait.scale.x = this.portrait.scale.y;
+      margePortrait = this.portrait.width + 26;
+    }
+    const largeur = Math.max(this.texte.width, this.nom.width) + margePortrait + 80;
+    const x = largeurEcran / 2 - largeur / 2;
+    const yHaut = y - this.nom.height - 14;
     this.fond.clear();
-    this.fond
-      .roundRect(largeurEcran / 2 - largeur / 2, y - this.nom.height - 14, largeur, hauteur, 12)
-      .fill({ color: 460298, alpha: 0.48 });
+    // Panneau antique (parchemin sombre semi-opaque, bord bronze/or) à la place du rectangle noir plat.
+    panneau(this.fond, x, yHaut, largeur, hauteur, 0.82);
+    // Le texte reste centré dans la zone hors portrait : même largeur de wrap, donc même mise en page.
+    const centreTexte = largeurEcran / 2 + margePortrait / 2;
+    this.nom.position.set(centreTexte, y);
+    this.texte.position.set(centreTexte, y + 6);
+    if (texturePortrait) this.portrait.position.set(x + 24, yHaut + hauteur / 2);
   }
 
   get affiche(): boolean {
@@ -234,40 +245,94 @@ export class Annonces extends Container {
   }
 }
 
+const LIBELLES_OPTIONS: Record<CleOption, string> = {
+  secousses: "Secousses d'écran",
+  flashs: "Flashs lumineux",
+  hitstop: "Arrêts sur impact (hitstop)",
+};
+
 export class MenuPause extends Container {
   menu: Menu;
+  menuOptions: Menu;
+  boutonsOptions: Bouton[];
+  titre: Texte;
   ouvert = false;
 
   constructor(reprendre: () => void, abandonner: () => void) {
     super();
     const voile = new Graphics().rect(0, 0, largeurEcran, hauteurEcran).fill({ color: 0, alpha: 0.55 }),
-      boite = panneau(new Graphics(), largeurEcran / 2 - 330, 300, 660, 420, 0.92),
-      titre = new Texte({ text: "PAUSE", style: styleTitre(56) });
-    titre.anchor.set(0.5);
-    titre.position.set(largeurEcran / 2, 380);
+      boite = panneau(new Graphics(), largeurEcran / 2 - 330, 300, 660, 420, 0.92);
+    this.titre = new Texte({ text: "PAUSE", style: styleTitre(56) });
+    this.titre.anchor.set(0.5);
+    this.titre.position.set(largeurEcran / 2, 380);
     const boutonReprendre = new Bouton("Reprendre", 460, 64, () => {
         this.fermer();
         reprendre();
       }),
+      boutonOptions = new Bouton("Options", 460, 64, () => this.ouvrirOptions()),
       boutonAbandonner = new Bouton("Abandonner le stage", 460, 64, () => {
         this.fermer();
         abandonner();
       });
-    [boutonReprendre, boutonAbandonner].forEach((bouton, i) =>
-      bouton.position.set(largeurEcran / 2 - 230, 470 + i * 90),
+    [boutonReprendre, boutonOptions, boutonAbandonner].forEach((bouton, i) =>
+      bouton.position.set(largeurEcran / 2 - 230, 450 + i * 90),
     );
-    this.menu = new Menu([boutonReprendre, boutonAbandonner]);
+    this.menu = new Menu([boutonReprendre, boutonOptions, boutonAbandonner]);
     this.menu.retour = () => {
       this.fermer();
       reprendre();
     };
-    this.addChild(voile, boite, titre, this.menu);
+    this.boutonsOptions = (Object.keys(LIBELLES_OPTIONS) as CleOption[]).map((cle) => {
+      const bouton = new Bouton("", 600, 64, () => {
+        basculerOption(cle);
+        this.majLibellesOptions();
+      });
+      // Libellés longs (« Arrêts sur impact… ») : police réduite pour tenir dans le panneau.
+      bouton.texte.style = styleTitre(24);
+      return bouton;
+    });
+    const boutonRetour = new Bouton("Retour", 460, 64, () => this.fermerOptions());
+    this.boutonsOptions.forEach((bouton, i) =>
+      bouton.position.set(largeurEcran / 2 - 300, 420 + i * 72),
+    );
+    boutonRetour.position.set(largeurEcran / 2 - 230, 420 + this.boutonsOptions.length * 72);
+    this.menuOptions = new Menu([...this.boutonsOptions, boutonRetour]);
+    this.menuOptions.retour = () => this.fermerOptions();
+    this.menuOptions.visible = false;
+    this.majLibellesOptions();
+    this.addChild(voile, boite, this.titre, this.menu, this.menuOptions);
     this.visible = false;
+  }
+
+  majLibellesOptions() {
+    (Object.keys(LIBELLES_OPTIONS) as CleOption[]).forEach((cle, i) => {
+      this.boutonsOptions[i].libelle = `${LIBELLES_OPTIONS[cle]} : ${options[cle] ? "Oui" : "Non"}`;
+      this.boutonsOptions[i].dessiner();
+    });
+  }
+
+  ouvrirOptions() {
+    this.majLibellesOptions();
+    this.menu.visible = false;
+    this.menuOptions.visible = true;
+    this.titre.text = "OPTIONS";
+    this.menuOptions.selectionner(0);
+  }
+
+  fermerOptions() {
+    this.menuOptions.visible = false;
+    this.menu.visible = true;
+    this.titre.text = "PAUSE";
+    // On rend la main sur l'entrée « Options » pour un aller-retour naturel.
+    this.menu.selectionner(1);
   }
 
   ouvrir() {
     this.ouvert = true;
     this.visible = true;
+    this.menuOptions.visible = false;
+    this.menu.visible = true;
+    this.titre.text = "PAUSE";
     this.menu.selectionner(0);
   }
 
@@ -277,6 +342,8 @@ export class MenuPause extends Container {
   }
 
   pas(dt: number, intention: any) {
-    if (this.ouvert) this.menu.pas(dt, intention);
+    if (!this.ouvert) return;
+    if (this.menuOptions.visible) this.menuOptions.pas(dt, intention);
+    else this.menu.pas(dt, intention);
   }
 }

@@ -29,7 +29,7 @@ export const TABLES = [
 
 const chaine = (o: any = {}) => ({ t: "chaine", ...o }),
   nombre = (o: any = {}) => ({ t: "nombre", ...o }),
-  entier = (min: number) => ({ t: "nombre", entier: true, min }),
+  entier = (min?: number) => ({ t: "nombre", entier: true, min }),
   booleen = { t: "booleen" },
   libre = { t: "libre" },
   liste = (de: any, min?: number) =>
