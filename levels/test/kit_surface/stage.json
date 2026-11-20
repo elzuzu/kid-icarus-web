@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_surface",
+	"nom": "Bac a sable horizontal",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "surface",
+	"chunks": ["00", "01"],
+	"marqueurs": {},
+	"portes": ["boutique"]
+}

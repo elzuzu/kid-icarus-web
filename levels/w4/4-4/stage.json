@@ -1,0 +1,61 @@
+{
+	"id": "w4/4-4",
+	"nom": "Sanctuaire final",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "palais",
+	"ambiance": "palais",
+	"musique": "palais",
+	"niveau": 30,
+	"boss": "medusa",
+	"marqueurs": {
+		"s": {
+			"ennemi": "sentinelle_celeste"
+		},
+		"t": {
+			"ennemi": "statue_vivante"
+		},
+		"m": {
+			"ennemi": "serpent_medusa"
+		},
+		"o": {
+			"ennemi": "oeil_celeste"
+		},
+		"e": {
+			"ennemi": "erinus"
+		},
+		"g": {
+			"ennemi": "gardien_aile"
+		},
+		"j": {
+			"ennemi": "specknose",
+			"mode": "jarre",
+			"intervalle": 6.0,
+			"max": 1
+		},
+		"u": {
+			"ennemi": "sentinelle_celeste",
+			"elite": ["blinde"]
+		},
+		"v": {
+			"ennemi": "gardien_aile",
+			"elite": ["rapide"]
+		}
+	},
+	"portes": [
+	"hopital",
+	"divine"
+	],
+	"secrets": 1,
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08"
+	]
+}

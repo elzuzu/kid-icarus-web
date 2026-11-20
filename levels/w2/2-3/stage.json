@@ -1,0 +1,54 @@
+{
+	"id": "w2/2-3",
+	"nom": "Ruines au crépuscule",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "surface",
+	"ambiance": "crepuscule",
+	"musique": "surface_3",
+	"niveau": 13,
+	"boss": "cyclope_roi",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13"
+	],
+	"marqueurs": {
+		"y": {
+			"ennemi": "myrmidon"
+		},
+		"c": {
+			"ennemi": "cyclope_frondeur"
+		},
+		"b": {
+			"ennemi": "sanglier_bronze"
+		},
+		"z": {
+			"ennemi": "zurret"
+		},
+		"m": {
+			"ennemi": "mick"
+		},
+		"h": {
+			"ennemi": "harpie"
+		}
+	},
+	"portes": [
+		"marche_noir",
+		"epreuve",
+		"tresor",
+		"marche_noir"
+	],
+	"secrets": 1
+}

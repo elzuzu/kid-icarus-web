@@ -1,0 +1,394 @@
+{
+	"id": "w2/2-4",
+	"nom": "Forteresse de la Surface",
+	"type": "forteresse",
+	"largeur": 234,
+	"boucle": false,
+	"kit": "forteresse",
+	"ambiance": "forteresse_surface",
+	"musique": "forteresse_surface",
+	"niveau": 15,
+	"boss": "hewdraw",
+	"salle": [
+		26,
+		15
+	],
+	"grille_salles": [
+		9,
+		6
+	],
+	"salles": [
+		{
+			"x": 0,
+			"y": 0,
+			"type": "normale",
+			"sorties": "ES"
+		},
+		{
+			"x": 0,
+			"y": 1,
+			"type": "normale",
+			"sorties": "ENS"
+		},
+		{
+			"x": 0,
+			"y": 2,
+			"type": "normale",
+			"sorties": "ENS"
+		},
+		{
+			"x": 0,
+			"y": 3,
+			"type": "normale",
+			"sorties": "NS"
+		},
+		{
+			"x": 0,
+			"y": 4,
+			"type": "normale",
+			"sorties": "ENS"
+		},
+		{
+			"x": 0,
+			"y": 5,
+			"type": "depart",
+			"sorties": "EN"
+		},
+		{
+			"x": 1,
+			"y": 0,
+			"type": "normale",
+			"sorties": "OS"
+		},
+		{
+			"x": 1,
+			"y": 1,
+			"type": "objet",
+			"sorties": "NO",
+			"objet": "maillet"
+		},
+		{
+			"x": 1,
+			"y": 2,
+			"type": "checkpoint",
+			"sorties": "EOS"
+		},
+		{
+			"x": 1,
+			"y": 3,
+			"type": "objet",
+			"sorties": "ENS",
+			"objet": "carte"
+		},
+		{
+			"x": 1,
+			"y": 4,
+			"type": "normale",
+			"sorties": "NO"
+		},
+		{
+			"x": 1,
+			"y": 5,
+			"type": "normale",
+			"sorties": "EO"
+		},
+		{
+			"x": 2,
+			"y": 0,
+			"type": "normale",
+			"sorties": "ES"
+		},
+		{
+			"x": 2,
+			"y": 1,
+			"type": "objet",
+			"sorties": "NS",
+			"objet": "torche"
+		},
+		{
+			"x": 2,
+			"y": 2,
+			"type": "normale",
+			"sorties": "ENO"
+		},
+		{
+			"x": 2,
+			"y": 3,
+			"type": "normale",
+			"sorties": "EOS"
+		},
+		{
+			"x": 2,
+			"y": 4,
+			"type": "normale",
+			"sorties": "EN"
+		},
+		{
+			"x": 2,
+			"y": 5,
+			"type": "normale",
+			"sorties": "EO"
+		},
+		{
+			"x": 3,
+			"y": 0,
+			"type": "centurion",
+			"sorties": "EO"
+		},
+		{
+			"x": 3,
+			"y": 1,
+			"type": "porte",
+			"sorties": "S"
+		},
+		{
+			"x": 3,
+			"y": 2,
+			"type": "normale",
+			"sorties": "NO"
+		},
+		{
+			"x": 3,
+			"y": 3,
+			"type": "porte",
+			"sorties": "OS"
+		},
+		{
+			"x": 3,
+			"y": 4,
+			"type": "normale",
+			"sorties": "NOS"
+		},
+		{
+			"x": 3,
+			"y": 5,
+			"type": "normale",
+			"sorties": "ENO"
+		},
+		{
+			"x": 4,
+			"y": 0,
+			"type": "normale",
+			"sorties": "EO"
+		},
+		{
+			"x": 4,
+			"y": 1,
+			"type": "normale",
+			"sorties": "S"
+		},
+		{
+			"x": 4,
+			"y": 2,
+			"type": "normale",
+			"sorties": "EN"
+		},
+		{
+			"x": 4,
+			"y": 3,
+			"type": "normale",
+			"sorties": "ES"
+		},
+		{
+			"x": 4,
+			"y": 4,
+			"type": "normale",
+			"sorties": "EN"
+		},
+		{
+			"x": 4,
+			"y": 5,
+			"type": "centurion",
+			"sorties": "EO"
+		},
+		{
+			"x": 5,
+			"y": 0,
+			"type": "normale",
+			"sorties": "OS"
+		},
+		{
+			"x": 5,
+			"y": 1,
+			"type": "normale",
+			"sorties": "EN"
+		},
+		{
+			"x": 5,
+			"y": 2,
+			"type": "porte",
+			"sorties": "EOS"
+		},
+		{
+			"x": 5,
+			"y": 3,
+			"type": "normale",
+			"sorties": "NO"
+		},
+		{
+			"x": 5,
+			"y": 4,
+			"type": "centurion",
+			"sorties": "EOS"
+		},
+		{
+			"x": 5,
+			"y": 5,
+			"type": "objet",
+			"sorties": "ENO",
+			"objet": "crayon"
+		},
+		{
+			"x": 6,
+			"y": 0,
+			"type": "boss",
+			"sorties": "E"
+		},
+		{
+			"x": 6,
+			"y": 1,
+			"type": "normale",
+			"sorties": "EOS"
+		},
+		{
+			"x": 6,
+			"y": 2,
+			"type": "objet",
+			"sorties": "ENO",
+			"objet": "bouclier"
+		},
+		{
+			"x": 6,
+			"y": 3,
+			"type": "normale",
+			"sorties": "ES"
+		},
+		{
+			"x": 6,
+			"y": 4,
+			"type": "normale",
+			"sorties": "ENO"
+		},
+		{
+			"x": 6,
+			"y": 5,
+			"type": "normale",
+			"sorties": "O"
+		},
+		{
+			"x": 7,
+			"y": 0,
+			"type": "normale",
+			"sorties": "OS"
+		},
+		{
+			"x": 7,
+			"y": 1,
+			"type": "normale",
+			"sorties": "ENO"
+		},
+		{
+			"x": 7,
+			"y": 2,
+			"type": "centurion",
+			"sorties": "EO"
+		},
+		{
+			"x": 7,
+			"y": 3,
+			"type": "checkpoint",
+			"sorties": "EO"
+		},
+		{
+			"x": 7,
+			"y": 4,
+			"type": "normale",
+			"sorties": "O"
+		},
+		{
+			"x": 8,
+			"y": 0,
+			"type": "secrete",
+			"sorties": ""
+		},
+		{
+			"x": 8,
+			"y": 1,
+			"type": "normale",
+			"sorties": "OS"
+		},
+		{
+			"x": 8,
+			"y": 2,
+			"type": "normale",
+			"sorties": "NO"
+		},
+		{
+			"x": 8,
+			"y": 3,
+			"type": "normale",
+			"sorties": "O"
+		}
+	],
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05"
+	],
+	"marqueurs": {
+		"c": {
+			"objet": "carte"
+		},
+		"o": {
+			"objet": "torche"
+		},
+		"y": {
+			"objet": "crayon"
+		},
+		"h": {
+			"objet": "sandales"
+		},
+		"j": {
+			"objet": "maillet"
+		},
+		"q": {
+			"objet": "bouclier"
+		},
+		"f": {
+			"objet": "fleches"
+		},
+		"u": {
+			"allie": "centurion"
+		},
+		"w": {
+			"ennemi": "sorcier_aubergine"
+		},
+		"g": {
+			"ennemi": "gardien_ferre"
+		},
+		"t": {
+			"ennemi": "tamambo"
+		},
+		"r": {
+			"ennemi": "myrmidon"
+		},
+		"k": {
+			"ennemi": "komayto"
+		},
+		"a": {
+			"ennemi": "harpie"
+		},
+		"z": {
+			"ennemi": "zurret"
+		}
+	},
+	"portes": [
+		"hopital",
+		"hopital",
+		"boutique",
+		"divine"
+	]
+}

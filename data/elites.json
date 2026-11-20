@@ -1,0 +1,13 @@
+{
+	"_doc": "Affixes d'elite. Une elite a deja PV x2, XP x3, coeurs x3 et 25 % de chances de lacher une arme ; ses affixes s'ajoutent. teinte : couleur de l'aura.",
+	"entrees": [
+		{"id": "enrage", "nom": "Enragé", "teinte": [1.0, 0.25, 0.2], "degats_mult": 1.4, "vitesse_mult": 1.2},
+		{"id": "blinde", "nom": "Blindé", "teinte": [0.7, 0.75, 0.85], "pv_mult": 1.6, "defense": 4},
+		{"id": "vampirique", "nom": "Vampirique", "teinte": [0.6, 0.1, 0.25], "vol_de_vie": 0.5},
+		{"id": "rapide", "nom": "Rapide", "teinte": [0.3, 0.9, 1.0], "vitesse_mult": 1.6},
+		{"id": "explosif", "nom": "Explosif", "teinte": [1.0, 0.6, 0.1], "explosion_mort": 2.2},
+		{"id": "invocateur", "nom": "Invocateur", "teinte": [0.6, 0.4, 1.0], "invocation": "chauve_souris_braise", "intervalle": 6.0},
+		{"id": "miroir", "nom": "Miroir", "teinte": [0.9, 0.95, 1.0], "reflet": 0.3},
+		{"id": "teleporteur", "nom": "Téléporteur", "teinte": [0.8, 0.3, 1.0], "teleportation": 4.0}
+	]
+}

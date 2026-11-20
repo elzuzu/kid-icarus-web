@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_surface_vitrine",
+	"nom": "Vitrine du kit surface",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "surface",
+	"chunks": ["00"],
+	"marqueurs": {},
+	"portes": []
+}

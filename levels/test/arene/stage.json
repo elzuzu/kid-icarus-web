@@ -1,0 +1,33 @@
+{
+	"id": "test/arene",
+	"nom": "Arene de test",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "enfers",
+	"chunks": [
+		"00"
+	],
+	"marqueurs": {
+		"a": {
+			"ennemi": "shemum"
+		},
+		"b": {
+			"ennemi": "monoeye",
+			"mode": "vague",
+			"intervalle": 3.0,
+			"max": 2
+		},
+		"c": {
+			"ennemi": "nettler"
+		},
+		"d": {
+			"ennemi": "golem_cendre"
+		},
+		"e": {
+			"ennemi": "brute_hades"
+		},
+		"f": {
+			"ennemi": "specknose"
+		}
+	}
+}
