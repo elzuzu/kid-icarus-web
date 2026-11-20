@@ -47,6 +47,16 @@ export function calculerCoup(attaque: any, cible: any, charge: boolean, flux: Fl
   return coup;
 }
 
+// Option partagée `difficulte` (possédée par ui, lue ici en continu) :
+// expert = dégâts ennemis ×1.35, PV ennemis ×1.25, cœurs ×0.85.
+// Un seul point de vérité : les multiplicateurs sont appliqués par les
+// consommateurs (Combat.appliquer, Progression) sans dupliquer la logique.
+export function multDifficulte(): { pv: number; degats: number; coeurs: number } {
+  return (options as any).difficulte === "expert"
+    ? { pv: 1.25, degats: 1.35, coeurs: 0.85 }
+    : { pv: 1, degats: 1, coeurs: 1 };
+}
+
 export enum Camp {
   JOUEUR = 0,
   ENNEMI = 1,
@@ -295,6 +305,11 @@ export class Combat {
     );
     if (cible.multDegatsRecus !== 1)
       coup.montant = Math.max(1, Math.round(coup.montant * cible.multDegatsRecus));
+    // Difficulté expert : tout dégât d'origine ennemie vers le joueur est majoré
+    // ici (contact, projectiles, boss, explosions, reflets) — un seul multiplicateur.
+    const md = multDifficulte();
+    if (md.degats !== 1 && cible.camp === Camp.JOUEUR && auteur?.camp === Camp.ENNEMI)
+      coup.montant = Math.max(1, Math.round(coup.montant * md.degats));
     coup.source = source;
     coup.auteur = auteur;
     const recul = (attaque.recul ?? 100) * cible.sensibiliteRecul;

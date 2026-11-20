@@ -10,7 +10,7 @@ import {
   t as Bouton,
 } from "../../render/theme";
 import { t as Menu } from "../../ui/menu";
-import { options, basculerOption, type CleOption } from "../../app/options";
+import { PanneauOptions } from "../../ui/options";
 import { base } from "./base";
 
 const largeurBarre = 700,
@@ -198,6 +198,9 @@ export class Annonces extends Container {
 
   constructor() {
     super();
+    // Ombre portée coupée : sur le bandeau semi-opaque posé sur le ciel clair,
+    // le dropShadow de styleTitre se rend en bandes noires au-dessus des glyphes.
+    this.texte.style.dropShadow = false;
     this.texte.anchor.set(0.5);
     this.texte.position.set(largeurEcran / 2, 300);
     this.invite.anchor.set(0.5);
@@ -245,84 +248,88 @@ export class Annonces extends Container {
   }
 }
 
-const LIBELLES_OPTIONS: Record<CleOption, string> = {
-  secousses: "Secousses d'écran",
-  flashs: "Flashs lumineux",
-  hitstop: "Arrêts sur impact (hitstop)",
-};
-
 export class MenuPause extends Container {
   menu: Menu;
-  menuOptions: Menu;
-  boutonsOptions: Bouton[];
+  panneauOptions: PanneauOptions;
   titre: Texte;
+  aidePause: Texte;
+  aideOptions: Texte;
   ouvert = false;
 
-  constructor(reprendre: () => void, abandonner: () => void) {
+  constructor(reprendre: () => void, abandonner: () => void, audio: any = null) {
     super();
-    const voile = new Graphics().rect(0, 0, largeurEcran, hauteurEcran).fill({ color: 0, alpha: 0.55 }),
-      boite = panneau(new Graphics(), largeurEcran / 2 - 330, 300, 660, 420, 0.92);
-    this.titre = new Texte({ text: "PAUSE", style: styleTitre(56) });
+    const son = (id: string) => audio?.sfx(id);
+    const voile = new Graphics().rect(0, 0, largeurEcran, hauteurEcran).fill({ color: 0x050308, alpha: 0.62 }),
+      boite = panneau(new Graphics(), largeurEcran / 2 - 420, 145, 840, 790, 0.94);
+    voile.eventMode = "static";
+    this.titre = new Texte({ text: "PAUSE", style: styleTitre(54) });
     this.titre.anchor.set(0.5);
-    this.titre.position.set(largeurEcran / 2, 380);
-    const boutonReprendre = new Bouton("Reprendre", 460, 64, () => {
+    this.titre.position.set(largeurEcran / 2, 218);
+    const boutonReprendre = new Bouton("Reprendre", 500, 64, () => {
+        son("menu_valider");
         this.fermer();
         reprendre();
       }),
-      boutonOptions = new Bouton("Options", 460, 64, () => this.ouvrirOptions()),
-      boutonAbandonner = new Bouton("Abandonner le stage", 460, 64, () => {
+      boutonOptions = new Bouton("Options", 500, 64, () => {
+        son("menu_ouvrir");
+        this.ouvrirOptions();
+      }),
+      boutonAbandonner = new Bouton("Abandonner le stage", 500, 64, () => {
+        son("menu_retour");
         this.fermer();
         abandonner();
       });
     [boutonReprendre, boutonOptions, boutonAbandonner].forEach((bouton, i) =>
-      bouton.position.set(largeurEcran / 2 - 230, 450 + i * 90),
+      bouton.position.set(largeurEcran / 2 - 250, 330 + i * 92),
     );
     this.menu = new Menu([boutonReprendre, boutonOptions, boutonAbandonner]);
     this.menu.retour = () => {
+      son("menu_retour");
       this.fermer();
       reprendre();
     };
-    this.boutonsOptions = (Object.keys(LIBELLES_OPTIONS) as CleOption[]).map((cle) => {
-      const bouton = new Bouton("", 600, 64, () => {
-        basculerOption(cle);
-        this.majLibellesOptions();
-      });
-      // Libellés longs (« Arrêts sur impact… ») : police réduite pour tenir dans le panneau.
-      bouton.texte.style = styleTitre(24);
-      return bouton;
+    this.menu.surNavigation = () => son("menu_deplacer");
+    this.panneauOptions = new PanneauOptions({
+      retour: () => this.fermerOptions(),
+      audio,
+      largeur: 740,
     });
-    const boutonRetour = new Bouton("Retour", 460, 64, () => this.fermerOptions());
-    this.boutonsOptions.forEach((bouton, i) =>
-      bouton.position.set(largeurEcran / 2 - 300, 420 + i * 72),
-    );
-    boutonRetour.position.set(largeurEcran / 2 - 230, 420 + this.boutonsOptions.length * 72);
-    this.menuOptions = new Menu([...this.boutonsOptions, boutonRetour]);
-    this.menuOptions.retour = () => this.fermerOptions();
-    this.menuOptions.visible = false;
-    this.majLibellesOptions();
-    this.addChild(voile, boite, this.titre, this.menu, this.menuOptions);
+    this.panneauOptions.position.set(largeurEcran / 2 - 370, 272);
+    this.panneauOptions.visible = false;
+    this.aidePause = new Texte({
+      text: "↑ ↓ choisir   ·   Entrée / Espace valider   ·   Échap reprendre",
+      style: styleTexte(20, 14208184),
+    });
+    this.aideOptions = new Texte({
+      text: "↑ ↓ choisir   ·   ← → régler   ·   Échap retour",
+      style: styleTexte(20, 14208184),
+    });
+    for (const aide of [this.aidePause, this.aideOptions]) {
+      aide.anchor.set(0.5);
+      aide.position.set(largeurEcran / 2, 888);
+      aide.alpha = 0.85;
+    }
+    this.aideOptions.visible = false;
+    this.addChild(voile, boite, this.titre, this.menu, this.panneauOptions, this.aidePause, this.aideOptions);
     this.visible = false;
   }
 
-  majLibellesOptions() {
-    (Object.keys(LIBELLES_OPTIONS) as CleOption[]).forEach((cle, i) => {
-      this.boutonsOptions[i].libelle = `${LIBELLES_OPTIONS[cle]} : ${options[cle] ? "Oui" : "Non"}`;
-      this.boutonsOptions[i].dessiner();
-    });
-  }
-
   ouvrirOptions() {
-    this.majLibellesOptions();
+    this.panneauOptions.rafraichir();
     this.menu.visible = false;
-    this.menuOptions.visible = true;
+    this.panneauOptions.visible = true;
     this.titre.text = "OPTIONS";
-    this.menuOptions.selectionner(0);
+    this.aidePause.visible = false;
+    this.aideOptions.visible = true;
+    this.panneauOptions.menu.selectionner(0);
   }
 
   fermerOptions() {
-    this.menuOptions.visible = false;
+    this.panneauOptions.visible = false;
     this.menu.visible = true;
     this.titre.text = "PAUSE";
+    this.aidePause.visible = true;
+    this.aideOptions.visible = false;
     // On rend la main sur l'entrée « Options » pour un aller-retour naturel.
     this.menu.selectionner(1);
   }
@@ -330,9 +337,11 @@ export class MenuPause extends Container {
   ouvrir() {
     this.ouvert = true;
     this.visible = true;
-    this.menuOptions.visible = false;
+    this.panneauOptions.visible = false;
     this.menu.visible = true;
     this.titre.text = "PAUSE";
+    this.aidePause.visible = true;
+    this.aideOptions.visible = false;
     this.menu.selectionner(0);
   }
 
@@ -343,7 +352,8 @@ export class MenuPause extends Container {
 
   pas(dt: number, intention: any) {
     if (!this.ouvert) return;
-    if (this.menuOptions.visible) this.menuOptions.pas(dt, intention);
+    // Échap ferme d'abord les Options (retour du sous-menu), puis la pause.
+    if (this.panneauOptions.visible) this.panneauOptions.menu.pas(dt, intention);
     else this.menu.pas(dt, intention);
   }
 }

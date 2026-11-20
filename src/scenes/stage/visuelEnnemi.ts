@@ -1,7 +1,11 @@
-import { Container, Graphics } from "pixi.js";
+import { Container, Graphics, Sprite } from "pixi.js";
 import { c as SpriteAnime } from "../../ui/hud";
+import { n as textureHalo } from "../../render/textures";
+import { flashesActifs } from "../../render/ambiance";
+import { r as Flux } from "../../core";
 
 const dureeFlash = 0.12;
+const particulesDissolution = 14;
 
 export class VisuelEnnemi extends Container {
   ennemi: any;
@@ -17,6 +21,9 @@ export class VisuelEnnemi extends Container {
   etatPrecedent = "";
   prepareDepuis = 0;
   attaqueDepuis = 0;
+  // Dissolution de mort : pool fixe créé une seule fois (première frame de mort),
+  // piloté par e.mortDepuis — aucun timer, aucune allocation par frame.
+  dissolution: Sprite[] | null = null;
 
   constructor(ennemi: any, planche: any) {
     super();
@@ -84,14 +91,14 @@ export class VisuelEnnemi extends Container {
       poseY = 1,
       poseRot = 0,
       posePx = 0,
-      tint = this.flash > 0 ? 16771288 : 16777215;
+      tint = this.flash > 0 ? (flashesActifs() ? 16771288 : 0xffd8c8) : 16777215;
     if (e.etatVisuel === "prepare") {
       const k = Math.min(1, this.prepareDepuis / 0.1);
       poseX = 1 + 0.12 * k;
       poseY = 1 - 0.12 * k;
       if (this.flash <= 0) {
         // WHY: pulse blanc/or 8 Hz (amplitude 0.25) pour rendre le coup à venir lisible.
-        const p = 0.25 * (0.5 + 0.5 * Math.sin(this.prepareDepuis * Math.PI * 16));
+        const p = (flashesActifs() ? 0.25 : 0.12) * (0.5 + 0.5 * Math.sin(this.prepareDepuis * Math.PI * 16));
         tint = (255 << 16) | (Math.round(255 - 55 * p) << 8) | Math.round(255 - 191 * p);
       }
     } else if (e.etatVisuel === "attaque") {
@@ -117,6 +124,7 @@ export class VisuelEnnemi extends Container {
         poseRot = face * 0.4 * k;
         posePx = 8 * k;
       }
+      this.majDissolution(t);
     }
     this.sprite.scale.x = this.echelle * face * this.facePeinte * poseX;
     this.sprite.scale.y = this.echelle * poseY;
@@ -134,6 +142,48 @@ export class VisuelEnnemi extends Container {
       this.barre.rect(-29, haut - 1, 58, 9).fill({ color: 722440, alpha: 0.85 });
       this.barre.rect(-28, haut, 56 * (c.pv / c.pvMax), 7).fill(14164010);
       this.barre.rect(-28, haut, 56 * (c.pv / c.pvMax), 2).fill({ color: 16744576, alpha: 0.6 });
+    }
+  }
+
+  // Dissolution en particules pendant l'affaissement : pool fixe de 14 sprites
+  // additifs créé à la première frame de mort, trajectoires déterministes (Flux
+  // seedé par la position de mort), lecture seule de e.mortDepuis — aucun timer.
+  majDissolution(t: number) {
+    const e = this.ennemi;
+    if (!this.dissolution) {
+      const flux = new Flux(`mort|${e.def?.id ?? "boss"}|${Math.round(e.x)}|${Math.round(e.y)}`);
+      this.dissolution = [];
+      const teintes = [0xffc070, 0xff8040, 0xbfe8ff];
+      for (let i = 0; i < particulesDissolution; i++) {
+        const s = new Sprite(textureHalo(32)) as any;
+        s.anchor.set(0.5);
+        s.blendMode = "add";
+        s.tint = flux.choisir(teintes);
+        const a = flux.randf() * Math.PI * 2;
+        s.vx = Math.cos(a) * flux.randfRange(10, 46);
+        s.vy = -flux.randfRange(14, 60);
+        s.ox = flux.randfRange(-e.taille.x * 2, e.taille.x * 2);
+        s.oy = flux.randfRange(-e.taille.y * 2, e.taille.y * 2);
+        s.phase = flux.randf() * Math.PI * 2;
+        s.taille = flux.randfRange(0.14, 0.3);
+        this.dissolution.push(s);
+        this.addChild(s);
+      }
+    }
+    const p = Math.min(1, t / 0.7),
+      cy0 = this.auxPieds ? -e.taille.y * 2 : 0,
+      entree = Math.min(1, t / 0.08);
+    for (let i = 0; i < this.dissolution.length; i++) {
+      const s = this.dissolution[i] as any;
+      if (p >= 1) {
+        s.visible = false;
+        continue;
+      }
+      s.visible = true;
+      s.x = s.ox + s.vx * t * 4 + Math.sin(t * 6 + s.phase) * 8 * p;
+      s.y = cy0 + s.oy + s.vy * t * 4 + 30 * t * t * 4;
+      s.alpha = (1 - p) * 0.95 * entree;
+      s.scale.set(s.taille * (1 + p * 0.8));
     }
   }
 }

@@ -17,10 +17,11 @@ import {
   v as nomArme,
 } from "../../app";
 import { r as Flux } from "../../core";
+import { options } from "../../app/options";
 import { Recompenses } from "./recompenses";
 import { Boss } from "./boss";
 import { Ennemi } from "./ennemi";
-import { Camp } from "./combat";
+import { Camp, multDifficulte } from "./combat";
 import { brancherEconomie } from "./comportements";
 import { dureeInvulnerabiliteBase } from "./joueur";
 
@@ -130,6 +131,7 @@ export class Progression {
   flaconsAchetes = 0;
   plumeAccordee = false;
   apparitionsBranchees: any = null;
+  difficulteVue = "";
 
   constructor(stage: any, contenu: any, profil: any, intensite: number, options: any = {}) {
     this.stage = stage;
@@ -167,7 +169,10 @@ export class Progression {
 
   set intensite(valeur: number) {
     this.stage.intensite = valeur;
-    this.stage.multBoss = { pv: multPvIntensite(valeur), degats: multDegatsIntensite(valeur) };
+    this.stage.multBoss = {
+      pv: multPvIntensite(valeur) * multDifficulte().pv,
+      degats: multDegatsIntensite(valeur),
+    };
   }
 
   get flacons(): number {
@@ -206,6 +211,18 @@ export class Progression {
   }
 
   pas(intention: any, dt: number) {
+    // Relecture live de `difficulte` : un changement en cours de stage met à jour
+    // immédiatement les cœurs et le boss ; les PV des ennemis déjà apparus restent
+    // ceux de leur apparition (pas de réécriture rétroactive des PV en combat).
+    const difficulte = String((options as any).difficulte ?? "normal");
+    if (difficulte !== this.difficulteVue) {
+      this.difficulteVue = difficulte;
+      this.majMultiplicateurs();
+      this.stage.multBoss = {
+        pv: multPvIntensite(this.intensite) * multDifficulte().pv,
+        degats: multDegatsIntensite(this.intensite),
+      };
+    }
     this.brancherApparitions();
     this.recompenses.pas(dt);
   }
@@ -269,7 +286,9 @@ export class Progression {
     const pct = (cle: string) => this.mods.joueurPct.get(cle) ?? 0,
       recompenses = this.recompenses;
     recompenses.multCoeurs =
-      Math.max(0.1, 1 + pct("coeurs") / 100) * multCoeursIntensite(this.intensite);
+      Math.max(0.1, 1 + pct("coeurs") / 100) *
+      multCoeursIntensite(this.intensite) *
+      multDifficulte().coeurs;
     recompenses.multAimant = Math.max(0.5, 1 + pct("aimant") / 100);
     recompenses.multVie = Math.max(0.2, 1 + this.mods.joueur("vie_coeurs_pct", 0) / 100);
   }
@@ -280,6 +299,12 @@ export class Progression {
       ennemi.elites.push(ids[ennemi.rng.randiRange(0, ids.length - 1)]);
     }
     appliquerElites(this.contenu, ennemi, this.intensite);
+    const md = multDifficulte();
+    if (md.pv !== 1) {
+      const c = ennemi.combattant;
+      c.pvMax = arrondi(c.pvMax * md.pv);
+      c.pv = c.pvMax;
+    }
     if (this.defi.has("rapide")) ennemi.vitesseMult *= 1.3;
   };
 

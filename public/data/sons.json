@@ -65,6 +65,7 @@
 		{"id": "vent_rafale", "volume": -8, "hauteur": [0.95, 1.05], "delai": 0.5, "voix": 1, "bus": "SFX", "variantes": 2},
 		{"id": "eclair", "volume": -5, "hauteur": [0.95, 1.05], "delai": 0.2, "voix": 2, "bus": "SFX", "variantes": 2},
 		{"id": "onde_choc", "volume": -5, "hauteur": [0.95, 1.05], "delai": 0.15, "voix": 2, "bus": "SFX", "variantes": 2},
+		{"id": "pas", "volume": -14, "hauteur": [0.95, 1.05], "delai": 0.09, "voix": 2, "bus": "SFX", "variantes": 3},
 		{"id": "glace", "volume": -10, "hauteur": [0.95, 1.1], "delai": 0.06, "voix": 3, "bus": "SFX", "variantes": 3},
 		{"id": "pierre", "volume": -9, "hauteur": [0.9, 1.05], "delai": 0.08, "voix": 3, "bus": "SFX", "variantes": 2},
 		{"id": "eau", "volume": -11, "hauteur": [0.9, 1.1], "delai": 0.06, "voix": 3, "bus": "SFX", "variantes": 3},

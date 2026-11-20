@@ -9,6 +9,9 @@ type Bouton = Container & {
   selectionne: boolean;
   dessiner(): void;
   action(): void;
+  // Réglage latéral propre à l'entrée (sliders/selects des options) ;
+  // absent → repli sur le callback global `lateral` du menu (comportement historique).
+  lateral?: (sens: number) => void;
 };
 
 interface EntreeMenu {
@@ -29,6 +32,10 @@ export class Menu extends Container {
   sensTenu = 0;
   sensLateral = 0;
   attenteLat = 0;
+  // Hooks sonores optionnels (branchés par les scènes) : aucun son par défaut.
+  surNavigation: (() => void) | null = null;
+  surValidation: (() => void) | null = null;
+  surRetour: (() => void) | null = null;
 
   constructor(boutons: Bouton[]) {
     super();
@@ -69,10 +76,19 @@ export class Menu extends Container {
     for (let n = 1; n <= total; n++) {
       const cible = (this.index + sens * n + total * n) % total;
       if (this.boutons[cible]?.actif) {
-        this.selectionner(cible);
+        if (cible !== this.index) {
+          this.selectionner(cible);
+          this.surNavigation?.();
+        }
         return;
       }
     }
+  }
+
+  private reglerLateral(sens: number) {
+    const bouton = this.boutons[this.index] as Bouton | undefined;
+    if (bouton?.lateral) bouton.lateral(sens);
+    else this.lateral?.(sens);
   }
 
   pas(dt: number, entree: EntreeMenu) {
@@ -98,18 +114,22 @@ export class Menu extends Container {
         this.attenteLat -= dt;
         if (this.attenteLat <= 0) {
           this.attenteLat = delaiRepeat;
-          this.lateral?.(lateral);
+          this.reglerLateral(lateral);
         }
       }
     } else {
       this.sensLateral = lateral;
       this.attenteLat = delaiInitial;
-      if (lateral) this.lateral?.(lateral);
+      if (lateral) this.reglerLateral(lateral);
     }
     if (entree.sautPresse || entree.interagirPresse) {
       const bouton = this.boutons[this.index];
-      if (bouton?.actif) bouton.action();
+      if (bouton?.actif) {
+        this.surValidation?.();
+        bouton.action();
+      }
     } else if (entree.dashPresse || entree.pausePresse) {
+      this.surRetour?.();
       this.retour?.();
     }
   }

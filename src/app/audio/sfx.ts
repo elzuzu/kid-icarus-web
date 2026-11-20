@@ -40,7 +40,7 @@ export class ReglesSfx {
   inconnus = new Set<string>();
   jetons = 0;
 
-  constructor(defs: any[], flux: any, nbVoix = 28) {
+  constructor(defs: any[], flux: any, nbVoix = 24) {
     this.flux = flux;
     for (let def of defs) this.defs.set(def.id, def);
     this.voies = Array(Math.max(1, nbVoix)).fill(null);
@@ -133,6 +133,8 @@ export class LecteurSfx {
   tampons = new Map<string, AudioBuffer[]>();
   chargements = new Map<string, Promise<void>>();
   nbVariantes = new Map<string, number>();
+  // Compteurs cumulés par id : assertions de playtest (le son ne se capture pas).
+  lectures = new Map<string, number>();
 
   constructor(
     ctx: AudioContext,
@@ -150,7 +152,7 @@ export class LecteurSfx {
     for (let def of copie)
       if (def.variantes !== undefined) this.nbVariantes.set(def.id, def.variantes);
     this.regles = new ReglesSfx(copie, flux);
-    this.voies = Array.from({ length: 28 }, () => {
+    this.voies = Array.from({ length: this.regles.voies.length }, () => {
       let gain = new GainNode(ctx, { gain: 0 }),
         pan = new StereoPannerNode(ctx, { pan: 0 });
       gain.connect(pan);
@@ -192,6 +194,11 @@ export class LecteurSfx {
     };
     voie.source = source;
     source.start();
+    this.lectures.set(id, (this.lectures.get(id) ?? 0) + 1);
+  }
+
+  sourcesActives() {
+    return this.voies.filter((voie) => voie.source !== null).length;
   }
 
   arreterTout() {

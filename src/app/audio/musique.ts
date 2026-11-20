@@ -225,6 +225,12 @@ export class LecteurMusique {
     yield* this.sortantes;
   }
 
+  sourcesActives() {
+    let nombre = 0;
+    for (let piste of this.pistes()) if (!piste.finie) nombre += piste.sources.length;
+    return nombre;
+  }
+
   rampeCouche(couche: string) {
     let rampe = this.couches.get(couche);
     if (!rampe) {

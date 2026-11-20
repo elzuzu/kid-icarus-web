@@ -12,15 +12,19 @@ import {
   a as Particle,
   i as ParticleContainer,
   n as textureTache,
+  o as Text,
   r as textureVignette,
   t as textureDegrade,
 } from "../render/textures";
+import { o as styleTexte } from "../render/theme";
 
 const base = import.meta.env.BASE_URL;
 
 interface ContexteScene {
   app: any;
   racine: Container;
+  entrees?: any;
+  allerA?: (scene: string, params?: any) => void;
 }
 
 interface Braise {
@@ -523,16 +527,37 @@ const lancer = async (ctx: ContexteScene) => {
     fioles: 1,
   });
   ctx.racine.addChild(hud);
+  const aide = new Text({
+    text: `VITRINE   ·   Échap / Entrée : retour au titre`,
+    style: styleTexte(20, 14208184),
+  });
+  aide.anchor.set(0.5);
+  aide.position.set(largeur / 2, hauteur - 40);
+  aide.alpha = 0.8;
+  ctx.racine.addChild(aide);
   let temps = 0;
   const yMonoeye = monoeye.y;
-  app.ticker.add((tick: any) => {
-    const dt = tick.deltaMS / 1000;
+  const pas = (tick: any) => {
+    const dt = Math.min(0.1, tick.deltaMS / 1000);
     temps += dt;
     braises.mettreAJour(dt);
     monoeye.y = yMonoeye + Math.sin(temps * 2.1) * 6;
     fleche.mettreAJour(dt);
     milieu.tilePosition.x = Math.sin(temps * 0.05) * 30;
-  });
+    aide.alpha = 0.55 + 0.3 * Math.sin(temps * 2.4);
+    const entrees = ctx.entrees?.lire();
+    if (
+      entrees &&
+      (entrees.pausePresse || entrees.interagirPresse || entrees.sautPresse)
+    )
+      ctx.allerA?.(`titre`);
+  };
+  app.ticker.add(pas);
+  // Nettoyage obligatoire : sans lui, la ticker survivrait à la scène et
+  // toucherait des sprites détruits au changement d'écran.
+  return () => {
+    app.ticker.remove(pas);
+  };
 };
 
 export { lancer };

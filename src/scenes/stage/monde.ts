@@ -1,8 +1,9 @@
 import { Assets, Container, Rectangle, Sprite, Texture } from "pixi.js";
-import { n as largeurEcran, t as hauteurEcran } from "../../core";
+import { n as largeurEcran, t as hauteurEcran, r as Flux } from "../../core";
 import { s as SpriteTuile } from "../../ui/hud";
-import { n as textureHalo, r as textureVignette, t as textureDegrade } from "../../render/textures";
+import { n as textureHalo, r as textureVignette, t as textureDegrade, g as textureGrain, e as textureEclair } from "../../render/textures";
 import { c as ParticulesAmbiance } from "../../render/theme";
+import { gradeDe, techart, bruit1, flashesActifs } from "../../render/ambiance";
 import { base } from "./base";
 
 const baseDecors = `${base}assets/art/decors/`;
@@ -19,14 +20,14 @@ const ambiances: Record<string, any> = {
     teinteMilieu: 10518640,
     voile: ["rgba(60,20,10,0.2)", "rgba(120,40,10,0.35)"],
     particules: "braises",
-    nombre: 140,
+    nombre: 120,
     halo: 16740384,
   },
   puits: {
     teinteMilieu: 8024208,
     voile: ["rgba(20,16,40,0.35)", "rgba(40,20,60,0.45)"],
-    particules: "ames",
-    nombre: 45,
+    particules: "spores",
+    nombre: 70,
     halo: 10514687,
   },
   forteresse: {
@@ -53,8 +54,8 @@ const ambiances: Record<string, any> = {
   crepuscule: {
     teinteMilieu: 12098208,
     voile: ["rgba(60,30,60,0.15)", "rgba(120,60,40,0.3)"],
-    particules: "pluie",
-    nombre: 110,
+    particules: "cendres",
+    nombre: 90,
     halo: 16748608,
   },
   forteresse_surface: {
@@ -75,7 +76,7 @@ const ambiances: Record<string, any> = {
     teinteMilieu: 10134720,
     voile: ["rgba(30,34,60,0.2)", "rgba(50,50,90,0.35)"],
     particules: "pluie",
-    nombre: 130,
+    nombre: 120,
     halo: 10139903,
   },
   temple_vents: {
@@ -165,10 +166,23 @@ export class Monde {
   avantPlan: SpriteTuile | null = null;
   particules: ParticulesAmbiance;
   tempsFond = 0;
+  // Halos de torche poolés : créés une fois par stage, flicker bruité par frame.
+  halos: { s: Sprite; base: number; echelle: number; phase: number }[] = [];
+  // Orage lointain : un sprite éclair + un voile de flash, tous deux réutilisés.
+  eclair: Sprite | null = null;
+  eclairFlash: Sprite | null = null;
+  eclairVie = -1;
+  prochainEclair = 6;
+  fluxOrage: Flux;
 
   constructor(kit: any, largeurJeu: number, ascension: boolean) {
     this.kit = kit;
     this.ascension = ascension;
+    this.fluxOrage = new Flux(`decor|orage|${kit.ambiance}`);
+    this.prochainEclair = this.fluxOrage.randfRange(3, 8);
+    const grade = gradeDe(String(kit.ambiance));
+    // Grade 1/3 : teinte multiplicative de tout l'arrière-plan (zéro filtre).
+    this.arriere.tint = grade.teinte;
     this.fond = new Sprite(kit.lointain);
     this.fond.scale.set(
       Math.max(largeurEcran / kit.lointain.width, hauteurEcran / kit.lointain.height) * 1.15,
@@ -186,6 +200,19 @@ export class Monde {
     voile.width = largeurEcran;
     voile.height = hauteurEcran;
     this.arriere.addChild(voile);
+    if (grade.orage) {
+      // Éclairs lointains : derrière le gameplay, texture pré-générée, alpha piloté.
+      this.eclairFlash = new Sprite(textureDegrade("rgba(200,215,255,0.5)", "rgba(200,215,255,0)", 256));
+      this.eclairFlash.width = largeurEcran;
+      this.eclairFlash.height = hauteurEcran;
+      this.eclairFlash.blendMode = "add";
+      this.eclairFlash.alpha = 0;
+      this.eclair = new Sprite(textureEclair());
+      this.eclair.anchor.set(0.5, 0);
+      this.eclair.blendMode = "add";
+      this.eclair.alpha = 0;
+      this.arriere.addChild(this.eclairFlash, this.eclair);
+    }
     const marge = (largeurEcran - largeurJeu) / 2;
     if (kit.cadre && ascension && marge > 40)
       for (const sens of [-1, 1]) {
@@ -227,6 +254,19 @@ export class Monde {
         this.avant.addChild(this.avantPlan);
       }
     }
+    // Grade 2/3 : voile coloré au-dessus du gameplay (normal, alpha baked) +
+    // lueur additive directionnelle. Deux quads plein écran, aucun filtre par frame.
+    const voileGrade = new Sprite(textureDegrade(grade.voile[0], grade.voile[1], 256));
+    voileGrade.width = largeurEcran;
+    voileGrade.height = hauteurEcran;
+    this.avant.addChild(voileGrade);
+    if (grade.lueur) {
+      const lueur = new Sprite(textureDegrade(grade.lueur[0], grade.lueur[1], 256));
+      lueur.width = largeurEcran;
+      lueur.height = hauteurEcran;
+      lueur.blendMode = "add";
+      this.avant.addChild(lueur);
+    }
     this.particules = new ParticulesAmbiance(
       textureHalo(32),
       kit.reglage.particules,
@@ -239,10 +279,23 @@ export class Monde {
     vignette.width = largeurEcran;
     vignette.height = hauteurEcran;
     this.avant.addChild(vignette);
+    // Grain filmique statique : texture pré-générée, tuilée, jamais recalculée.
+    const grain = new SpriteTuile({ texture: textureGrain(256), width: largeurEcran, height: hauteurEcran });
+    grain.alpha = 0.55;
+    this.avant.addChild(grain);
+    techart.monde = this;
+  }
+
+  compterAmbiance(): number {
+    return this.particules.liste.length;
   }
 
   mettreAJour(dt: number, x: number, y: number) {
     this.particules.mettreAJour(dt);
+    // Parallaxe d'ambiance bornée : le champ dérive contre la caméra sans exposer
+    // ses bords (marges de spawn ±100 px, cull ±150 px).
+    this.particules.position.x = Math.max(-48, Math.min(48, -x * 0.05));
+    this.particules.position.y = Math.max(-36, Math.min(36, -y * 0.035));
     // Dérive lente additive réservée au fond lointain : périodes 24 s / 31 s sans multiple
     // commun court, la boucle combinée (~12 min) est imperceptible ; le scale 1.15 absorbe les ±6 px.
     this.tempsFond += dt;
@@ -258,6 +311,43 @@ export class Monde {
       this.plan.tilePosition.x = -x * 0.3;
       this.plan.tilePosition.y = hauteurEcran * 0.22 - y * 0.1;
       if (this.avantPlan) this.avantPlan.tilePosition.x = -x * 1.35;
+    }
+    // Flicker bruité des halos de torche (pool fixe, aucune allocation).
+    const amp = flashesActifs() ? 0.24 : 0.1;
+    for (let i = 0; i < this.halos.length; i++) {
+      const h = this.halos[i];
+      const n = bruit1(this.tempsFond * 1.6 + h.phase);
+      h.s.alpha = h.base * (1 - amp + amp * (0.5 + 0.5 * n));
+      h.s.scale.set(h.echelle * (1 + 0.05 * n));
+    }
+    if (this.eclair && this.eclairFlash) this.majOrage(dt);
+  }
+
+  majOrage(dt: number) {
+    const eclair = this.eclair!, flash = this.eclairFlash!;
+    if (this.eclairVie >= 0) {
+      this.eclairVie += dt;
+      const t = this.eclairVie;
+      // Double strobe : pic franc, creux, réplique, extinction douce (0.45 s).
+      const pic = t < 0.07 ? 1 : t < 0.14 ? 0.25 : t < 0.22 ? 0.8 : Math.max(0, 1 - (t - 0.22) / 0.23);
+      const intensite = flashesActifs() ? 1 : 0.35;
+      eclair.alpha = pic * 0.9 * intensite;
+      flash.alpha = pic * 0.16 * intensite;
+      if (t >= 0.45) {
+        this.eclairVie = -1;
+        eclair.alpha = 0;
+        flash.alpha = 0;
+        this.prochainEclair = this.fluxOrage.randfRange(5, 13);
+      }
+    } else {
+      this.prochainEclair -= dt;
+      if (this.prochainEclair <= 0) {
+        this.eclairVie = 0;
+        eclair.x = this.fluxOrage.randfRange(0.12, 0.88) * largeurEcran;
+        eclair.y = -10;
+        const echelle = this.fluxOrage.randfRange(1.1, 1.9);
+        eclair.scale.set(this.fluxOrage.randf() < 0.5 ? -echelle : echelle, echelle);
+      }
     }
   }
 
@@ -276,8 +366,13 @@ export class Monde {
     halo.tint = this.kit.reglage.halo;
     halo.alpha = 0.5;
     halo.blendMode = "add";
-    halo.scale.set(3.2);
+    // Zone additive réduite + culling : le fillrate des halos est le seul
+    // coût mesurable du grade (8 torches ≈ 3,6 fps à 410 px, ≈ 1 fps à 269 px).
+    halo.cullable = true;
+    halo.scale.set(2.1);
     halo.position.set(x, y - 95);
     conteneur.addChild(halo);
+    // Pool de flicker : phase déterministe (angle d'or), aucun état par frame.
+    this.halos.push({ s: halo, base: 0.55, echelle: 2.1, phase: this.halos.length * 2.399 });
   }
 }

@@ -1,0 +1,84 @@
+{
+	"id": "w4/4-3",
+	"nom": "Ascension de la forteresse",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "forteresse",
+	"ambiance": "forteresse_celeste",
+	"musique": "forteresse_ciel",
+	"niveau": 29,
+	"marqueurs": {
+		"s": {
+			"ennemi": "sentinelle_celeste"
+		},
+		"t": {
+			"ennemi": "statue_vivante"
+		},
+		"m": {
+			"ennemi": "serpent_medusa"
+		},
+		"o": {
+			"ennemi": "oeil_celeste"
+		},
+		"g": {
+			"ennemi": "gardien_aile"
+		},
+		"e": {
+			"ennemi": "erinus"
+		},
+		"p": {
+			"ennemi": "pegase_noir"
+		},
+		"y": {
+			"ennemi": "sylphe"
+		},
+		"k": {
+			"ennemi": "komayto",
+			"mode": "vague",
+			"intervalle": 5.0,
+			"max": 2,
+			"total": 6
+		},
+		"j": {
+			"ennemi": "specknose",
+			"mode": "jarre",
+			"intervalle": 6.0,
+			"max": 1
+		},
+		"u": {
+			"ennemi": "sentinelle_celeste",
+			"elite": ["blinde"]
+		},
+		"v": {
+			"ennemi": "gardien_aile",
+			"elite": ["rapide"]
+		}
+	},
+	"portes": [
+	"tresor",
+	"nid",
+	"epreuve"
+	],
+	"secrets": 1,
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15",
+		"16",
+		"17"
+	]
+}

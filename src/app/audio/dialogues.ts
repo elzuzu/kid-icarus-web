@@ -213,13 +213,14 @@ export class LecteurDialogues {
 
   commencer(sousTitre: any) {
     this.couper();
+    // Ducking dès le sous-titre, même sans voix enregistrée : le dialogue prime.
+    this.surVoix(true);
     let buffer = sousTitre.voix ? this.chargeur.pret(this.url(sousTitre.id)) : null;
     if (!buffer) return;
     let source = new AudioBufferSourceNode(this.ctx, { buffer });
     source.connect(this.sortie);
     source.start();
     this.source = source;
-    this.surVoix(true);
   }
 
   finir(id: string) {

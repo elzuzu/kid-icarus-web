@@ -1,5 +1,5 @@
 import { n as largeurEcran, t as hauteurEcran } from "../../core";
-import { options } from "../../app/options";
+import { secoussesActives, techart } from "../../render/ambiance";
 
 export enum ModeCamera {
   RAIL = 0,
@@ -10,9 +10,10 @@ export enum ModeCamera {
 }
 
 const decalageRail = 1.5;
-const avanceSuivi = 3;
 const decalageSuivi = 2.2;
 const zoneMorte = 1.5;
+// Lookahead horizontal amorti : ~24 px de regard dans le sens de la course.
+const regardMax = 24;
 
 export class Camera {
   niveau: any;
@@ -29,10 +30,17 @@ export class Camera {
   vitesseDefilement = 0;
   trauma = 0;
   solReference: (() => number) | null = null;
+  // Regard lissé (vitesse estimée) + horloge de drift vertical.
+  regardX = 0;
+  dernierCentreX = 0;
+  tempsDrift = 0;
+  driftPrecedent = 0;
 
   constructor(niveau: any, cible: any) {
     this.niveau = niveau;
     this.cible = cible;
+    this.dernierCentreX = cible.centre().x;
+    techart.camera = this;
   }
 
   static demi() {
@@ -58,6 +66,8 @@ export class Camera {
     this.borner();
     this.precedentX = this.cx;
     this.precedentY = this.cy;
+    this.regardX = 0;
+    this.dernierCentreX = centre.x;
   }
 
   basVisible(): number {
@@ -69,6 +79,19 @@ export class Camera {
     this.precedentY = this.cy;
     const lissage = 1 - Math.exp(-7 * dt),
       centre = this.cible.centre();
+    // Lookahead horizontal : vitesse estimée bornée, regard amorti (~24 px max)
+    // vers l'avant du joueur. N'affecte QUE les modes libres (SUIVI/SALLE).
+    const vx = dt > 0 ? Math.max(-400, Math.min(400, (centre.x - this.dernierCentreX) / dt)) : 0;
+    this.dernierCentreX = centre.x;
+    const regardCible = Math.max(-regardMax, Math.min(regardMax, vx * 0.14)) + this.cible.face * 6;
+    this.regardX += (regardCible - this.regardX) * (1 - Math.exp(-3.5 * dt));
+    this.tempsDrift += dt;
+    // Drift vertical subtil ±2.5 px, appliqué en delta après le lissage. Les modes
+    // RAIL/ARENE/DEFILEMENT ne le reçoivent jamais ; borner() ré-applique ensuite
+    // le verrou cy (stages horizontaux à hauteur fixe) — le verrou gagne toujours.
+    const driftY =
+      Math.sin((this.tempsDrift * Math.PI * 2) / 9) * 1.6 +
+      Math.sin((this.tempsDrift * Math.PI * 2) / 14.7) * 0.9;
     switch (this.mode) {
       case ModeCamera.RAIL: {
         const cible = this.cibleRail();
@@ -76,18 +99,19 @@ export class Camera {
         break;
       }
       case ModeCamera.SUIVI: {
-        const cibleX = centre.x + this.cible.face * avanceSuivi * 16,
+        const cibleX = centre.x + this.regardX,
           cibleY = centre.y - decalageSuivi * 16;
         this.cx += (cibleX - this.cx) * lissage * 0.6;
         const ecart = cibleY - this.cy,
           marge = zoneMorte * 16;
         if (Math.abs(ecart) > marge) this.cy += (cibleY - Math.sign(ecart) * marge - this.cy) * lissage;
+        this.cy += driftY - this.driftPrecedent;
         break;
       }
       case ModeCamera.SALLE:
         if (this.salleAuto) this.salle = this.rectSalle(centre.x, centre.y);
-        this.cx += (centre.x - this.cx) * lissage;
-        this.cy += (centre.y - this.cy) * lissage;
+        this.cx += (centre.x + this.regardX * 0.5 - this.cx) * lissage;
+        this.cy += (centre.y - this.cy) * lissage + (driftY - this.driftPrecedent) * 0.6;
         break;
       case ModeCamera.ARENE:
         this.cx += (this.pointFixeX - this.cx) * lissage * 0.5;
@@ -96,12 +120,13 @@ export class Camera {
       case ModeCamera.DEFILEMENT:
         this.cx += this.vitesseDefilement * dt;
     }
+    this.driftPrecedent = driftY;
     this.borner();
     this.trauma = Math.max(0, this.trauma - dt * 1.6);
   }
 
   secouer(intensite: number) {
-    if (!options.secousses) return;
+    if (!secoussesActives()) return;
     this.trauma = Math.min(1, this.trauma + intensite);
   }
 
@@ -121,6 +146,8 @@ export class Camera {
     this.borner();
     this.precedentX = this.cx;
     this.precedentY = this.cy;
+    this.regardX = 0;
+    this.dernierCentreX = centre.x;
   }
 
   cadrerArene(x: number, y: number, centrer = false) {

@@ -251,7 +251,10 @@ export class PhysiqueJoueur {
     if (intention.saut && Math.abs(r.vy) < n.seuilApex) gravite *= n.graviteApex;
     r.vy = Math.min(r.vy + gravite * dt, n.chuteMax);
     if (this.courant > 0) r.vy = Math.max(r.vy - this.courant * dt, -n.vitesseSaut * 1.1);
-    this.planant = intention.saut && r.vy > 0 && this.jaugeVol > 0;
+    // Un saut mis en tampon exprime l'intention de sauter à l'atterrissage :
+    // on ne plane pas pendant ce délai, sinon la chute ralentie ferait expirer
+    // le tampon avant le sol et le buffer serait inopérant en maintenant saut.
+    this.planant = intention.saut && r.vy > 0 && this.jaugeVol > 0 && this.tamponSaut <= 0;
     if (this.planant) {
       r.vy = Math.min(r.vy, n.vitessePlane);
       this.jaugeVol = Math.max(0, this.jaugeVol - dt / n.dureeVol);

@@ -114,7 +114,17 @@
 				{
 					"id": "w4/4-2",
 					"nom": "Palais de Médusa",
-					"temps_ref": 420,
+					"temps_ref": 420
+				},
+				{
+					"id": "w4/4-3",
+					"nom": "Ascension de la forteresse",
+					"temps_ref": 360
+				},
+				{
+					"id": "w4/4-4",
+					"nom": "Sanctuaire final",
+					"temps_ref": 300,
 					"fin": true
 				}
 			]

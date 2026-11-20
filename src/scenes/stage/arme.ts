@@ -200,7 +200,9 @@ export class ArmeJoueur {
         this.combattant,
       );
     this.comboTemps = 0.55;
-    this.meleeRecharge = 0.2;
+    // Cadence de mêlée héritée du poids de l'arme (inverse de la cadence de tir) :
+    // massues/canons frappent lentement mais fort, griffes/palmes enchaînent vite.
+    this.meleeRecharge = Math.max(0.2, Math.min(0.6, 0.9 / this.stat("cadence", 5)));
     this.aFrappe.emettre(this.combo);
   }
 

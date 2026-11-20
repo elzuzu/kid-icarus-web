@@ -2,7 +2,7 @@ import { Container, Graphics, Sprite, TextStyle } from "pixi.js";
 import type { Texture } from "pixi.js";
 import { n as largeurEcran } from "../core";
 import { o as Text } from "../render/textures";
-import { n as OR, o as styleTexte, r as BRONZE } from "../render/theme";
+import { n as OR, o as styleTexte, r as BRONZE, a as dessinerPanneau } from "../render/theme";
 // Le bundle hud importe le chunk index pour effet de bord (ordre d'exécution).
 import "../app";
 import { TypeTuile, construireNiveau, chargerNiveau } from "./niveau";
@@ -31,6 +31,137 @@ interface EtatHud {
   fioles: number;
 }
 
+// Couleurs des dieux : teintes saturées distinctes, lisibles sur le parchemin sombre.
+const COULEURS_DIEUX: Record<string, number> = {
+  palutena: 16773296,
+  zeus: 16766016,
+  poseidon: 5227511,
+  athena: 12632256,
+  hades: 12098303,
+};
+
+interface EntreeLoot {
+  genre: "relique" | "set" | "talent";
+  nom: string;
+  couleur: number;
+}
+
+// Panneau des bénédictions actives (reliques portées, bonus de set, talents).
+// Icônes vectorielles + libellés ; reconstruit uniquement quand la signature change.
+export class PanneauLoot extends Container {
+  fond = new Graphics();
+  rangee = new Container();
+  source: { profil: any; contenu: any } | null = null;
+  signature = "";
+
+  constructor() {
+    super();
+    this.addChild(this.fond, this.rangee);
+    this.visible = false;
+  }
+
+  brancher(profil: any, contenu: any) {
+    this.source = { profil, contenu };
+    this.signature = "";
+    this.maj();
+  }
+
+  private entrees(): EntreeLoot[] {
+    if (!this.source) return [];
+    const { profil, contenu } = this.source;
+    const liste: EntreeLoot[] = [];
+    const parDieu = new Map<string, number>();
+    for (const id of profil.reliques_portees ?? []) {
+      try {
+        const relique = contenu.entree("reliques", id);
+        liste.push({
+          genre: "relique",
+          nom: relique.nom,
+          couleur: COULEURS_DIEUX[relique.dieu] ?? OR,
+        });
+        parDieu.set(relique.dieu, (parDieu.get(relique.dieu) ?? 0) + 1);
+      } catch {
+        // Relique inconnue du contenu : on l'ignore plutôt que de casser le HUD.
+      }
+    }
+    for (const [dieu, nombre] of parDieu) {
+      if (nombre < 2) continue;
+      try {
+        const set = contenu.entree("sets", dieu);
+        liste.push({
+          genre: "set",
+          nom: `${set.nom} ×${nombre >= 4 ? 4 : 2}`,
+          couleur: COULEURS_DIEUX[dieu] ?? OR,
+        });
+      } catch {
+        // Set absent : ignoré.
+      }
+    }
+    const talents = Object.entries(profil.talents ?? {}).filter(([, rang]) => (rang as number) > 0);
+    if (talents.length) {
+      const rangs = talents.reduce((somme, [, rang]) => somme + (rang as number), 0);
+      liste.push({
+        genre: "talent",
+        nom: `Talents éveillés · ${rangs} rang${rangs > 1 ? "s" : ""}`,
+        couleur: OR,
+      });
+    }
+    return liste;
+  }
+
+  private icone(g: Graphics, genre: EntreeLoot["genre"], x: number, y: number, couleur: number) {
+    if (genre === "relique") {
+      g.poly([x, y - 10, x + 8, y, x, y + 10, x - 8, y])
+        .fill(couleur)
+        .stroke({ color: OR, width: 1.5 });
+      g.moveTo(x - 4, y - 3).lineTo(x + 4, y - 3).stroke({ color: 0xffffff, width: 1, alpha: 0.7 });
+    } else if (genre === "set") {
+      g.poly([x - 8, y - 9, x + 8, y - 9, x + 8, y + 2, x, y + 10, x - 8, y + 2])
+        .fill(couleur)
+        .stroke({ color: OR, width: 1.5 });
+    } else {
+      g.poly([x, y - 10, x + 3, y - 3, x + 10, y, x + 3, y + 3, x, y + 10, x - 3, y + 3, x - 10, y, x - 3, y - 3])
+        .fill(couleur)
+        .stroke({ color: OR, width: 1.2 });
+    }
+  }
+
+  maj() {
+    if (!this.source) return;
+    const entrees = this.entrees();
+    const signature = JSON.stringify(entrees);
+    if (signature === this.signature) return;
+    this.signature = signature;
+    for (const enfant of this.rangee.removeChildren()) enfant.destroy({ children: true });
+    this.fond.clear();
+    this.visible = entrees.length > 0;
+    if (!entrees.length) return;
+    const pas = 32;
+    const hauteur = 40 + entrees.length * pas + 10;
+    let largeurMax = 0;
+    entrees.forEach((entree, i) => {
+      const y = 46 + i * pas;
+      const icone = new Graphics();
+      this.icone(icone, entree.genre, 26, y, entree.couleur);
+      const texte = new Text({ text: entree.nom, style: styleTexte(19, 16052196) });
+      texte.anchor.set(0, 0.5);
+      texte.position.set(46, y);
+      largeurMax = Math.max(largeurMax, texte.width);
+      this.rangee.addChild(icone, texte);
+    });
+    const entete = new Text({
+      text: "BÉNÉDICTIONS",
+      style: styleTexte(18, BRONZE),
+    });
+    entete.anchor.set(0, 0.5);
+    entete.position.set(20, 22);
+    entete.style.letterSpacing = 3;
+    this.rangee.addChild(entete);
+    const largeur = Math.min(400, Math.max(largeurMax + 66, entete.width + 40));
+    dessinerPanneau(this.fond, 0, 0, largeur, hauteur, 0.62);
+  }
+}
+
 export class Hud extends Container {
   icones: IconesHud;
   coeurs: Sprite[] = [];
@@ -41,6 +172,7 @@ export class Hud extends Container {
   iconesCases: Sprite[] = [];
   voiles: Graphics[] = [];
   touches: any[] = [];
+  loot = new PanneauLoot();
   manette: boolean | null = null;
   t = 0;
   styleChiffres = new TextStyle({
@@ -96,6 +228,18 @@ export class Hud extends Container {
     ).forEach(([texture, touche], i) =>
       this.emplacement(largeurEcran - 320 + i * 108, 58, texture, touche, i),
     );
+    // Bénédictions actives sous la monnaie, côté gauche : libre de tout overlap
+    // (barre boss centrée, pouvoirs à droite, sous-titres en bas).
+    this.loot.position.set(30, 186);
+    this.addChild(this.loot);
+    // Hook debug (même esprit que window.__sim) : permet de câbler/tester le loot
+    // sans toucher à stage/index.ts : __hud.brancherLoot(profil, contenu).
+    (window as any).__hud = this;
+  }
+
+  // Câblage optionnel (stage) : lecture en direct du profil + contenu.
+  brancherLoot(profil: any, contenu: any) {
+    this.loot.brancher(profil, contenu);
   }
 
   emplacement(
@@ -154,6 +298,7 @@ export class Hud extends Container {
   }
 
   afficher(etat: EtatHud) {
+    this.loot.maj();
     const part = etat.pvMax / this.coeurs.length;
     // Pulsation douce à PV critiques : signal d'urgence lisible sans toucher au gameplay.
     const critique = etat.pv > 0 && etat.pv <= etat.pvMax * 0.25;

@@ -47,8 +47,10 @@ const positionsNoeuds: [number, number][] = [
   [1300, 335],
   [1450, 265],
   [1570, 212],
-  [1660, 178],
-  [1740, 122],
+  [1500, 265],
+  [1640, 190],
+  [1730, 140],
+  [1660, 85],
 ];
 
 const etapesChemins: ([number, number][] | null)[] = [
@@ -80,8 +82,10 @@ const etapesChemins: ([number, number][] | null)[] = [
   ],
   [[1380, 300]],
   [[1505, 235]],
-  [[1620, 196]],
-  [[1710, 150]],
+  [[1560, 240]],
+  [[1560, 235]],
+  [[1685, 165]],
+  [[1705, 105]],
 ];
 
 const couleursMondes = [16738874, 8048752, 9095423, 16767088];
@@ -309,8 +313,22 @@ const lancer = async (ctx: ContexteScene) => {
       return;
     }
     audio.sfx(`menu_valider`);
-    partie.lancerStage(ordreStages[selection] ?? ``, intensite);
+    const idStage = ordreStages[selection] ?? ``;
+    partie.lancerStage(idStage, intensite);
     ctx.allerA(`stage`);
+    // Intro de stage : déclenchée avec l'id complet (`stage:w4/4-3`) une fois la
+    // scène prête — le bootstrap coupe les dialogues dans allerA, et le HUD de
+    // sous-titres n'existe qu'après le chargement. `__sim` est publié après ce
+    // HUD : un nouveau sim = scène prête. `une_fois` évite les doublons.
+    const simPrecedent = (window as any).__sim;
+    let essais = 0;
+    const attendreSim = () => {
+      const sim = (window as any).__sim;
+      if (sim && sim !== simPrecedent)
+        audio.declencherDialogue(`stage:${idStage}`);
+      else if (++essais < 150) setTimeout(attendreSim, 120);
+    };
+    setTimeout(attendreSim, 0);
   }
   let attente = 0;
   let sensTenu = 0;

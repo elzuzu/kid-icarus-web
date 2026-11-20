@@ -7,7 +7,7 @@
 		{"id": "pluie_fleches", "nom": "Pluie de flèches", "actif": true, "recharge": 30, "forme": [[0, 0], [1, 0], [2, 0]], "effet": {"fleches": 24, "base": 14}},
 		{"id": "bouclier", "nom": "Bouclier réfléchissant", "actif": true, "recharge": 35, "forme": [[0, 0], [1, 0], [0, 1], [1, 1]], "effet": {"duree": 4}},
 		{"id": "vitesse", "nom": "Vitesse divine", "actif": true, "recharge": 25, "forme": [[0, 0], [1, 1]], "effet": {"duree": 8, "vitesse_pct": 40}},
-		{"id": "eclair", "nom": "Éclair de Zeus", "actif": true, "recharge": 28, "forme": [[0, 0], [1, 0], [2, 0], [1, 1]], "effet": {"cibles": 5, "base": 30}},
+		{"id": "eclair", "nom": "Éclair de Zeus", "actif": true, "recharge": 28, "forme": [[0, 0], [1, 0], [2, 0], [1, 1]], "effet": {"cibles": 5, "base": 34}},
 		{"id": "invisibilite", "nom": "Invisibilité", "actif": true, "recharge": 50, "forme": [[0, 0], [0, 1], [0, 2]], "effet": {"duree": 5}},
 		{"id": "regeneration", "nom": "Régénération", "actif": false, "forme": [[0, 0]], "effets": [{"stat": "regeneration", "v": 2, "mode": "joueur_add"}]},
 		{"id": "attraction", "nom": "Attraction des cœurs", "actif": false, "forme": [[0, 0], [1, 0]], "effets": [{"stat": "aimant", "v": 80, "mode": "joueur_pct"}]},

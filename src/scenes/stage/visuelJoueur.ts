@@ -2,6 +2,7 @@ import { Container, Sprite } from "pixi.js";
 import { O as Signal } from "../../app";
 import { c as SpriteAnime } from "../../ui/hud";
 import { n as textureHalo } from "../../render/textures";
+import { flashesActifs } from "../../render/ambiance";
 import { directionCardinale } from "./arme";
 import { EtatJoueur } from "./joueur";
 
@@ -44,6 +45,9 @@ export class VisuelJoueur extends Container {
   depuisTir = 1 / 0;
   eclair = new Sprite(textureHalo(64));
   fantomes = new Container();
+  // Pool de fantômes de dash : 3 sprites réutilisés en anneau, zéro create/destroy.
+  poolFantomes: Sprite[] = [];
+  indiceFantome = 0;
   swingRestant = 0;
   swingDuree = dureeSwing;
   swingCombo = 0;
@@ -69,6 +73,13 @@ export class VisuelJoueur extends Container {
     this.eclair.tint = 16770720;
     this.eclair.visible = false;
     this.addChild(this.sprite, this.eclair);
+    for (let i = 0; i < maxFantomes; i++) {
+      const fantome = new Sprite();
+      fantome.visible = false;
+      fantome.tint = 0xcfe8ff;
+      this.poolFantomes.push(fantome);
+      this.fantomes.addChild(fantome);
+    }
     joueur.aAtterri.connecter(() => {
       this.atterrissage = 0.1;
       this.ecrasement = dureeEcrasement;
@@ -308,7 +319,7 @@ export class VisuelJoueur extends Container {
       const reste = 1 - this.depuisTir / 0.08;
       this.eclair.position.set(douille.x - this.x, douille.y - this.y);
       this.eclair.scale.set(0.9 + 0.8 * reste);
-      this.eclair.alpha = reste;
+      this.eclair.alpha = reste * (flashesActifs() ? 1 : 0.5);
     }
     this.alpha =
       j.invulnerable > 0 && j.etat !== EtatJoueur.DASH && Math.floor(j.invulnerable * 20) % 2 == 0
@@ -326,29 +337,24 @@ export class VisuelJoueur extends Container {
     this.ticFantome -= dt;
     if (enDash && this.ticFantome <= 0) {
       this.ticFantome = intervalleFantomes;
-      if (this.fantomes.children.length >= maxFantomes) {
-        const vieux = this.fantomes.children[0];
-        this.fantomes.removeChild(vieux);
-        vieux.destroy();
-      }
-      const fantome = new Sprite(this.sprite.texture);
+      // Anneau sur le pool : le plus vieux fantôme est réécrit, jamais détruit.
+      const fantome = this.poolFantomes[this.indiceFantome] as any;
+      this.indiceFantome = (this.indiceFantome + 1) % this.poolFantomes.length;
+      fantome.texture = this.sprite.texture;
       fantome.anchor.copyFrom(this.sprite.anchor);
       fantome.scale.copyFrom(this.sprite.scale);
       fantome.rotation = this.sprite.rotation;
       fantome.position.set(this.x + this.sprite.x, this.y + this.sprite.y);
-      fantome.tint = 0xcfe8ff;
       fantome.alpha = 0.35;
-      (fantome as any).ageFantome = 0;
-      this.fantomes.addChild(fantome);
+      fantome.visible = true;
+      fantome.ageFantome = 0;
     }
-    for (const enfant of [...this.fantomes.children]) {
-      const fantome = enfant as any;
+    for (let i = 0; i < this.poolFantomes.length; i++) {
+      const fantome = this.poolFantomes[i] as any;
+      if (!fantome.visible) continue;
       fantome.ageFantome += dt;
       fantome.alpha = Math.max(0, 0.35 * (1 - fantome.ageFantome / dureeFantome));
-      if (fantome.ageFantome >= dureeFantome) {
-        this.fantomes.removeChild(fantome);
-        fantome.destroy();
-      }
+      if (fantome.ageFantome >= dureeFantome) fantome.visible = false;
     }
   }
 

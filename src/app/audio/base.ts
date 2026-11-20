@@ -59,9 +59,11 @@ export class Rampe {
   }
 }
 
-export const VOLUMES_DEFAUT = { general: 0.9, musique: 0.7, sfx: 0.9, voix: 1 };
-const ATTENUATION_VOIX = 0.4;
-const FONDU_ATTENUATION = 0.15;
+// Défauts alignés sur les clés options partagées : volumeMusique 0.8, volumeSfx 0.9, volumeDialogues 0.9.
+export const VOLUMES_DEFAUT = { general: 0.9, musique: 0.8, sfx: 0.9, voix: 0.9 };
+// Ducking ~3 dB (dialogues, mort joueur, mort boss) : assez pour laisser la voix devant, sans trou.
+const ATTENUATION_VOIX = dbVersGain(-3);
+const FONDU_ATTENUATION = 0.12;
 const FONDU_RETOUR = 0.8;
 const FONDU_VOLUME = 0.03;
 
@@ -89,6 +91,8 @@ export class BusAudio {
   rampes: Record<string, Rampe>;
   sousVoix: GainNode;
   rampeSousVoix = new Rampe(1);
+  dialogueActif = false;
+  evenementFin = 0;
 
   constructor(ctx: AudioContext, reglages: any = VOLUMES_DEFAUT) {
     this.ctx = ctx;
@@ -134,10 +138,30 @@ export class BusAudio {
   }
 
   attenuerMusique(attenuer: boolean) {
-    let cible = attenuer ? ATTENUATION_VOIX : 1;
-    if (this.rampeSousVoix.cible === cible) return;
+    if (this.dialogueActif === attenuer) return;
+    this.dialogueActif = attenuer;
+    this.majDuck(attenuer ? FONDU_ATTENUATION : FONDU_RETOUR);
+  }
+
+  // Ducking événementiel (mort joueur, explosion de boss) : maintien puis retour rampé.
+  duckEvenement(maintien = 1.2) {
+    this.evenementFin = this.ctx.currentTime + Math.max(0, maintien);
+    this.majDuck(FONDU_ATTENUATION);
+  }
+
+  mettreAJour() {
+    if (this.evenementFin > 0 && this.ctx.currentTime >= this.evenementFin) {
+      this.evenementFin = 0;
+      this.majDuck(FONDU_RETOUR);
+    }
+  }
+
+  private majDuck(duree: number) {
+    let cible =
+      this.dialogueActif || this.evenementFin > this.ctx.currentTime ? ATTENUATION_VOIX : 1;
+    if (Math.abs(this.rampeSousVoix.cible - cible) < 1e-4) return;
     let maintenant = this.ctx.currentTime;
-    this.rampeSousVoix.viser(cible, maintenant, attenuer ? FONDU_ATTENUATION : FONDU_RETOUR);
+    this.rampeSousVoix.viser(cible, maintenant, duree);
     this.rampeSousVoix.appliquer(this.sousVoix.gain, maintenant);
   }
 }

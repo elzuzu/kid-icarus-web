@@ -72,6 +72,7 @@ export const lancer = async (ctx: any, params: any) => {
       eclair: "eclair",
       invisibilite: "spectre",
     };
+  (sim as any).chambres = chambres;
   pouvoirs.utilise.connecter((id: string) => ctx.audio.sfx(sonsPouvoirs[id] ?? "benediction"));
   const rngJarres = new Flux(`${sim.graine}|jarres|${niveau.id}`);
   apparitions.jarreBrisee.connecter((x: number, y: number) => {
@@ -221,7 +222,9 @@ export const lancer = async (ctx: any, params: any) => {
         });
         ctx.allerA("resultats");
       },
+      ctx.audio,
     );
+  hud.brancherLoot(partie.profil, ctx.contenu);
   racine.addChild(hud, barreBoss, sousTitres, annonces, menuPause);
   progression.annonce.connecter((message: string, duree: number) => annonces.annoncer(message, duree));
   progression.son.connecter((nom: string) => ctx.audio.sfx(nom));

@@ -566,13 +566,20 @@ export class Contenu {
   }
 }
 
-export async function chargerContenu(lire: (chemin: string) => Promise<string>, tables = TABLES) {
+export async function chargerContenu(
+  lire: (chemin: string) => Promise<string>,
+  tables = TABLES,
+  surTable?: (nom: string, octets: number, ok: boolean) => void,
+) {
   let chargees = await Promise.all(
       tables.map(async (table) => {
         let chemin = `data/${table}.json`;
         try {
-          return { nom: table, brut: JSON.parse(await lire(chemin)), erreur: "" };
+          let texte = await lire(chemin);
+          surTable?.(table, texte.length, true);
+          return { nom: table, brut: JSON.parse(texte), erreur: "" };
         } catch (e) {
+          surTable?.(table, 0, false);
           return {
             nom: table,
             brut: undefined,
@@ -589,10 +596,17 @@ export async function chargerContenu(lire: (chemin: string) => Promise<string>, 
   return Contenu.depuis(brut, erreurs);
 }
 
-export function chargerContenuFetch(base = "/") {
-  return chargerContenu(async (chemin) => {
-    let reponse = await fetch(base + chemin);
-    if (!reponse.ok) throw Error(`HTTP ${reponse.status}`);
-    return reponse.text();
-  });
+export function chargerContenuFetch(
+  base = "/",
+  surTable?: (nom: string, octets: number, ok: boolean) => void,
+) {
+  return chargerContenu(
+    async (chemin) => {
+      let reponse = await fetch(base + chemin);
+      if (!reponse.ok) throw Error(`HTTP ${reponse.status}`);
+      return reponse.text();
+    },
+    TABLES,
+    surTable,
+  );
 }

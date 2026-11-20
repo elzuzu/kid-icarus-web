@@ -140,11 +140,14 @@ export class Pouvoirs {
       tries = stage.combat.combattants
         .filter((c: any) => c.camp === Camp.ENNEMI && c.vivant)
         .sort((a: any, b: any) => distance(a) - distance(b));
-    for (const cible of tries.slice(0, cibles))
+    // Moins de cibles que d'éclairs : les éclairs restants retombent sur la cible
+    // la plus proche à demi-puissance — le pouvoir reste viable contre un boss seul.
+    for (let i = 0; i < cibles && tries.length > 0; i++) {
+      const cible = tries[Math.min(i, tries.length - 1)];
       stage.combat.appliquer(
         cible,
         {
-          base,
+          base: i < tries.length ? base : Math.max(1, Math.round(base * 0.5)),
           chance_critique: 0.1,
           element: Element.FOUDRE,
           statuts: [{ id: "gel", duree: 0.6, puissance: 1 }],
@@ -155,6 +158,7 @@ export class Pouvoirs {
         stage.combattant,
         "eclair",
       );
+    }
   }
 
   bouclier() {

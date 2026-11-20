@@ -17,7 +17,7 @@
 			"xp": 4,
 			"coeurs": [
 				1,
-				1
+				2
 			],
 			"contact": {
 				"base": 8
@@ -52,7 +52,7 @@
 			"volant": true,
 			"xp": 6,
 			"coeurs": [
-				1,
+				2,
 				2
 			],
 			"contact": {
@@ -91,7 +91,7 @@
 			"xp": 4,
 			"coeurs": [
 				1,
-				1
+				2
 			],
 			"contact": {
 				"base": 8
@@ -250,7 +250,7 @@
 			"volant": true,
 			"xp": 7,
 			"coeurs": [
-				1,
+				2,
 				3
 			],
 			"contact": {
@@ -287,7 +287,7 @@
 			"xp": 4,
 			"coeurs": [
 				1,
-				1
+				2
 			],
 			"contact": {
 				"base": 8,
@@ -491,7 +491,7 @@
 			"monde": 1,
 			"origine": "nouveau",
 			"comportement": "chargeur",
-			"pv": 80,
+			"pv": 72,
 			"taille": [
 				1.4,
 				1.9
@@ -737,7 +737,7 @@
 			"monde": 1,
 			"origine": "nouveau",
 			"comportement": "marcheur",
-			"pv": 60,
+			"pv": 75,
 			"taille": [
 				1.1,
 				1.8
@@ -746,11 +746,11 @@
 			"volant": false,
 			"xp": 22,
 			"coeurs": [
-				5,
-				8
+				6,
+				9
 			],
 			"contact": {
-				"base": 18
+				"base": 20
 			},
 			"params": {
 				"poursuit": true,
@@ -784,8 +784,8 @@
 			"volant": true,
 			"xp": 9,
 			"coeurs": [
-				1,
-				2
+				2,
+				3
 			],
 			"contact": {
 				"base": 12
@@ -821,8 +821,8 @@
 			"volant": false,
 			"xp": 8,
 			"coeurs": [
-				1,
-				2
+				2,
+				3
 			],
 			"contact": {
 				"base": 12
@@ -858,7 +858,7 @@
 			"volant": false,
 			"xp": 10,
 			"coeurs": [
-				1,
+				2,
 				3
 			],
 			"contact": {
@@ -895,7 +895,7 @@
 			"volant": true,
 			"xp": 9,
 			"coeurs": [
-				1,
+				2,
 				3
 			],
 			"contact": {
@@ -1070,7 +1070,7 @@
 			"xp": 12,
 			"coeurs": [
 				2,
-				3
+				4
 			],
 			"contact": {
 				"base": 14

@@ -102,7 +102,34 @@ const presetsParticules: Record<string, ReglesParticules> = {
     etire: false,
     scintille: true,
   },
+  // Spores luminescentes : vert acide / cyan, montée lente, scintillement additif.
+  spores: {
+    couleurs: [0x9dffb0, 0x6fe8c8, 0xd8ff9a],
+    taille: [0.08, 0.26],
+    vx: [-14, 14],
+    vy: [-32, -8],
+    vie: [6, 13],
+    ondulation: 26,
+    additif: true,
+    etire: false,
+    scintille: true,
+  },
+  // Cendres : flocons gris chauds qui retombent en dérivant (monde cendre/glacial).
+  cendres: {
+    couleurs: [0xcfc8c0, 0x9a938c, 0xe8e2da],
+    taille: [0.05, 0.16],
+    vx: [-26, 6],
+    vy: [18, 55],
+    vie: [7, 13],
+    ondulation: 20,
+    additif: false,
+    etire: false,
+    scintille: false,
+  },
 };
+
+// Plafond dur d'ambiance : ≤120 particules par champ, quel que soit le preset.
+const PLAFOND_AMBIANCE = 120;
 
 class ChampParticules extends Container {
   tex: Texture;
@@ -131,7 +158,8 @@ class ChampParticules extends Container {
     });
     if (this.regles.additif) this.conteneur.blendMode = `add`;
     this.addChild(this.conteneur);
-    for (let i = 0; i < nombre; i++) {
+    const total = Math.min(nombre, PLAFOND_AMBIANCE);
+    for (let i = 0; i < total; i++) {
       const particule = this.nouvelle();
       particule.vie = this.flux.randf() * particule.duree;
       particule.p.x = this.flux.randf() * this.largeur;
@@ -163,7 +191,9 @@ class ChampParticules extends Container {
   }
   mettreAJour(dt: number) {
     const regles = this.regles;
-    for (const particule of this.liste) {
+    // Boucle indexée : zéro itérateur/closure alloué par frame.
+    for (let i = 0; i < this.liste.length; i++) {
+      const particule = this.liste[i];
       particule.vie += dt;
       const p = particule.p;
       if (
@@ -179,7 +209,7 @@ class ChampParticules extends Container {
       const progression = particule.vie / particule.duree;
       p.x += (particule.vx + Math.sin(particule.vie * 1.7 + particule.phase) * regles.ondulation) * dt;
       p.y += particule.vy * dt;
-      if (!regles.etire && (this.type === `petales` || this.type === `neige`)) {
+      if (!regles.etire && (this.type === `petales` || this.type === `neige` || this.type === `cendres`)) {
         p.rotation += dt * (particule.phase - Math.PI);
       }
       const fondu = Math.min(1, progression * 6) * Math.min(1, (1 - progression) * 4);
@@ -207,14 +237,11 @@ function styleTitre(taille: number, couleur = CREME): TextStyle {
     fontWeight: `600`,
     fill: couleur,
     letterSpacing: taille * 0.12,
+    // Pas de dropShadow : le filtre d'ombre de Pixi se rend en bandes noires
+    // au-dessus des glyphes avec letterSpacing sur fond clair (bug isolé par ui,
+    // contourné dans fin.ts/hudStage.ts). Le contour sombre épaissi suffit au
+    // contraste sur ciel clair comme sur fond noir — aucun usage ne bave.
     stroke: { color: 1707782, width: Math.max(3, taille / 9) },
-    dropShadow: {
-      color: 0,
-      alpha: 0.8,
-      blur: 6,
-      distance: 3,
-      angle: Math.PI / 2,
-    },
   });
 }
 
