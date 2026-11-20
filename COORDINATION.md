@@ -26,7 +26,7 @@ Les améliorations viendront dans un second temps, après vérification d'équiv
 | `vitrine-D26A5z9H.js` | `src/scenes/vitrine.ts` | `lancer` |
 | `resultats-Db6ND_vw.js` | `src/scenes/resultats.ts` | `lancer` |
 | `fin-fQzWhzBQ.js` | `src/scenes/fin.ts` | `lancer` |
-| tous les autres chunks | bibliothèque `pixi.js` v8.8.0 (npm) | — |
+| tous les autres chunks | bibliothèque `pixi.js` v8.21.0 (npm) | — |
 
 ## Règles impératives
 1. **Exports alias** : chaque module ré-exporte ses symboles sous les alias lettre listés
@@ -37,7 +37,7 @@ Les améliorations viendront dans un second temps, après vérification d'équiv
    ci-dessus. Exemple : `import { a as B } from "./unites-BgaM9hDp.js"` →
    `import { a as B } from "../core"`. Garder les noms locaux minifiés importés si leur
    rôle n'est pas certain, les renommer sinon (le renom local est libre).
-3. **Pixi** : les chunks bibliothèque sont pixi.js 8.8.0. Identifier chaque symbole minifié
+3. **Pixi** : les chunks bibliothèque sont pixi.js 8.21.0. Identifier chaque symbole minifié
    importé depuis un chunk lib par son usage (`new X()` conteneur → Container, X.from →
    Texture.from, Graphics, Text, TextStyle, Assets, Ticker, Rectangle, Point, Color,
    FillGradient, BlurFilter, ColorMatrixFilter, Sprite, CanvasTexture, RenderTexture…).
