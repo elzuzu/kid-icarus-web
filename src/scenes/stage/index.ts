@@ -129,6 +129,15 @@ export const lancer = async (ctx: any, params: any) => {
     effetsCombat = new EffetsCombat(sim.combat);
   effetsCombat.brancherJoueur(sim.joueur);
   plan.addChild(visuelsProjectiles, effetsCombat);
+  visuelJoueur.aGlisse.connecter((biais: number) =>
+    effetsCombat.bouffiere(sim.joueur.x, sim.joueur.y, biais),
+  );
+  apparitions.apparu.connecter((ennemi: any) =>
+    ennemi.combattant.touche.connecter(() => {
+      const b = ennemi.combattant.boiteToucheMonde();
+      effetsCombat.etincelles(b.x + b.l / 2, b.y + b.h / 2, 16766826, 6, 260, 0, 0);
+    }),
+  );
   const haloBouclier = new Sprite(textureHalo(128));
   haloBouclier.anchor.set(0.5);
   haloBouclier.blendMode = "add";
@@ -146,6 +155,10 @@ export const lancer = async (ctx: any, params: any) => {
   visuelsProjectiles.origineVisuelle = (projectile: any) =>
     projectile.auteur === sim.combattant ? visuelJoueur.douilleEcran() : null;
   sim.combattant.touche.connecter(() => visuelJoueur.signalerCoup());
+  sim.combattant.touche.connecter(() => {
+    const b = sim.combattant.boiteToucheMonde();
+    effetsCombat.etincelles(b.x + b.l / 2, b.y + b.h / 2, 16737860, 5, 220, 0, 0);
+  });
   const debug = params.debug ? new Graphics() : null;
   if (debug) plan.addChild(debug);
   const flammes = vertical
@@ -232,6 +245,10 @@ export const lancer = async (ctx: any, params: any) => {
   });
   sim.bossApparu.connecter((boss: any) => {
     barreBoss.montrer(String(boss.definition.nom ?? boss.titre), boss.seuils);
+    boss.combattant.touche.connecter(() => {
+      const b = boss.combattant.boiteToucheMonde();
+      effetsCombat.etincelles(b.x + b.l / 2, b.y + b.h / 2, 16766826, 8, 300, 0, 0);
+    });
     Assets.load(`${baseArt}boss/${boss.def.id}/${boss.def.id}.json`)
       .then((planche) => {
         const visuel = new VisuelEnnemi(boss, planche);

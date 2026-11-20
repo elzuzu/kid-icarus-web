@@ -1,4 +1,5 @@
 import { Container, Sprite } from "pixi.js";
+import { O as Signal } from "../../app";
 import { c as SpriteAnime } from "../../ui/hud";
 import { n as textureHalo } from "../../render/textures";
 import { directionCardinale } from "./arme";
@@ -26,6 +27,7 @@ const dureeEtirement = 0.1;
 const dureeFantome = 0.25;
 const intervalleFantomes = 0.03;
 const maxFantomes = 3;
+const dureeGlisse = 0.18;
 
 export class VisuelJoueur extends Container {
   planche: any;
@@ -50,6 +52,9 @@ export class VisuelJoueur extends Container {
   fenetreFantomes = 0;
   ticFantome = 0;
   frappeAbonnee = false;
+  glisse = 0;
+  vxPrecedent = 0;
+  aGlisse = new Signal();
 
   constructor(planche: any, joueur: any) {
     super();
@@ -186,6 +191,18 @@ export class VisuelJoueur extends Container {
     this.ecrasement = Math.max(0, this.ecrasement - dt);
     this.etirement = Math.max(0, this.etirement - dt);
     this.fenetreFantomes = Math.max(0, this.fenetreFantomes - dt);
+    this.glisse = Math.max(0, this.glisse - dt);
+    const vx = corps.vx;
+    if (
+      corps.auSol &&
+      Math.abs(this.vxPrecedent) > 90 &&
+      Math.abs(vx) > 20 &&
+      Math.sign(vx) !== Math.sign(this.vxPrecedent)
+    ) {
+      this.glisse = dureeGlisse;
+      this.aGlisse.emettre(-j.face);
+    }
+    this.vxPrecedent = vx;
     this.brancherFrappe();
     const enTir = this.tirRecent > 0 || intention.tir;
     this.accroupiDepuis = j.accroupi ? this.accroupiDepuis + dt : 0;
@@ -204,8 +221,10 @@ export class VisuelJoueur extends Container {
     else if (j.accroupi && this.animations.accroupi) {
       if (this.accroupiDepuis < 0.08) this.image("accroupi_descente", "accroupi_descente", 0);
       else this.jouer("accroupi", "accroupi", 5);
-    } else if (j.planant || j.volLibre) this.jouer("vol", "vol", 12);
-    else if (corps.auSol) {
+    } else if (j.planant || j.volLibre) {
+      this.jouer("vol", "vol", 12);
+      this.sprite.animationSpeed = (corps.vy < -40 ? 19 : 12) / 60;
+    } else if (corps.auSol) {
       if (this.atterrissage > 0) this.image("saut", "saut", 5);
       else if (Math.abs(corps.vx) > 20) {
         this.jouer("course", "course", 14);
@@ -260,6 +279,21 @@ export class VisuelJoueur extends Container {
       poseX *= 1 - 0.2 * r * r;
       poseY *= 1 + 0.2 * r * r;
     }
+    // WHY: inclinaison additive vers l'avant en course, contre-penchant au
+    // demi-tour (glisse), étirement horizontal en dash, assiette en vol.
+    if (this.anim === "course" || this.anim === "course_tir")
+      poseRot += j.face * 0.05 * Math.min(1, Math.abs(vx) / j.reglages.vitesseCourse);
+    if (this.glisse > 0) {
+      const r = this.glisse / dureeGlisse;
+      poseRot -= j.face * 0.14 * r;
+      poseX *= 1 + 0.06 * r;
+      poseY *= 1 - 0.06 * r;
+    }
+    if (j.etat === EtatJoueur.DASH) {
+      poseX *= 1.12;
+      poseY *= 0.94;
+    }
+    if (this.anim === "vol") poseRot += Math.max(-0.16, Math.min(0.16, corps.vy / 900));
     this.sprite.scale.x = echelle * j.face * poseX;
     this.sprite.scale.y = echelle * poseY;
     this.sprite.rotation += poseRot;
