@@ -37,6 +37,9 @@ function cheminVoix(id: string) {
   return `assets/voix/${id}.ogg`;
 }
 
+// Le répertoire voix peut être absent : un seul 404 suffit à couper les fetch suivants.
+let voixAbsentes = false;
+
 const priorite = (replique: any) => replique.priorite ?? 1;
 
 export class FileDialogues {
@@ -194,7 +197,10 @@ export class LecteurDialogues {
 
   prechargerFile() {
     for (let replique of this.file.enFile)
-      if (!replique.sans_voix) this.chargeur.charger(this.url(replique.id));
+      if (!replique.sans_voix && !voixAbsentes)
+        this.chargeur.charger(this.url(replique.id))?.then((buffer) => {
+          if (!buffer) voixAbsentes = true;
+        });
   }
 
   url(id: string) {

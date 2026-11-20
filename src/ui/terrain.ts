@@ -113,6 +113,43 @@ export function construireSol(
   }
   for (const segment of segmentsTuiles(niveau, TypeTuile.PLATEFORME, ligneDebut, ligneFin))
     conteneur.addChild(construirePlateforme(kit, segment));
+  for (const segment of segmentsTuiles(niveau, TypeTuile.LAVE, ligneDebut, ligneFin))
+    conteneur.addChild(construireLave(segment));
+  for (const segment of segmentsTuiles(niveau, TypeTuile.PICS, ligneDebut, ligneFin))
+    conteneur.addChild(construirePics(segment));
+  return conteneur;
+}
+
+function construireLave(segment: Segment): Container {
+  const g = new Graphics(),
+    x = segment.c0 * 64,
+    y = segment.l * 64,
+    largeur = (segment.c1 - segment.c0) * 64;
+  g.rect(x, y + 10, largeur, 54).fill(0x8c1a05);
+  g.rect(x, y + 10, largeur, 16).fill(0xd84b0a);
+  g.rect(x, y + 6, largeur, 6).fill(0xffa22e);
+  g.rect(x, y + 4, largeur, 3).fill(0xffe07a);
+  for (let bx = x + 10; bx < x + largeur - 6; bx += 26)
+    g.circle(bx, y + 24 + ((bx / 26) % 3) * 10, 3).fill(0xffc247);
+  const conteneur = new Container();
+  conteneur.addChild(g);
+  return conteneur;
+}
+
+function construirePics(segment: Segment): Container {
+  const g = new Graphics(),
+    base = (segment.l + 1) * 64;
+  for (let c = segment.c0; c < segment.c1; c++) {
+    const x = c * 64;
+    g.rect(x, base - 6, 64, 6).fill(0x4a5158);
+    for (let i = 0; i < 3; i++) {
+      const px = x + 5 + i * 20;
+      g.moveTo(px, base - 5).lineTo(px + 9, base - 42).lineTo(px + 18, base - 5).closePath().fill(0x9aa3ad);
+      g.moveTo(px + 9, base - 42).lineTo(px + 13, base - 12).lineTo(px + 18, base - 5).closePath().fill(0x5c646d);
+    }
+  }
+  const conteneur = new Container();
+  conteneur.addChild(g);
   return conteneur;
 }
 

@@ -111,7 +111,7 @@ export const lancer = async (ctx: any, params: any) => {
     if (!planches.has(id))
       planches.set(id, Assets.load(`${baseArt}ennemis/${id}/${id}.json`).catch(() => null));
     planches.get(id)?.then((planche) => {
-      if (!planche || ennemi.disparu) return;
+      if (!planche?.animations || ennemi.disparu) return;
       const visuel = new VisuelEnnemi(ennemi, planche);
       visuelsEnnemis.set(ennemi, visuel);
       conteneurEnnemis.addChild(visuel);
