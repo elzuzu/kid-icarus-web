@@ -1,4 +1,5 @@
 import { O as Signal, S as arrondi } from "../../app";
+import { Camp } from "./combat";
 
 const rayonAimantTuiles = 3.5,
   denominations = [10, 5, 1],
@@ -63,11 +64,57 @@ export class Recompenses {
   armeRamassee = new Signal();
   objetPris = new Signal();
   ticks = 0;
+  // Garanti élite + pity arme : un élite ne repart jamais les mains vides, et une
+  // arme finit toujours par tomber après une longue série de kills sans butin.
+  // generateurPity est injecté par la progression (voir demande d'intégration REPORT).
+  generateurPity: ((rng: any) => any) | null = null;
+  seuilPity = 30;
+  plancherElite = 4;
+  secheresse = 0;
+  garantiesElite = 0;
+  pitysDeclenchees = 0;
+  private instantane = { coeurs: 0, armes: 0 };
+  private apresBranche = false;
 
   constructor(niveau: any, cible: any, combat: any = null) {
     this.niveau = niveau;
     this.cible = cible;
     this.combat = combat;
+    // Branché AVANT progression.surMort (connecté plus tard) : photographie le
+    // butin juste avant le drop normal pour détecter un élite resté à sec.
+    combat?.combattantMort?.connecter((cible: any) => this.avantMort(cible));
+  }
+
+  private estButinEnnemi(cible: any): boolean {
+    const p = cible?.proprietaire;
+    // Boss exclu (il a son propre butin garanti) : seul un Ennemi a `elites` sans `definition`.
+    return cible?.camp === Camp.ENNEMI && !!p && Array.isArray(p.elites) && p.definition === undefined;
+  }
+
+  private avantMort(cible: any) {
+    if (!this.estButinEnnemi(cible)) return;
+    this.instantane.coeurs = this.coeurs.length;
+    this.instantane.armes = this.armes.length;
+  }
+
+  private apresMort(cible: any) {
+    if (!this.estButinEnnemi(cible)) return;
+    const ennemi = cible.proprietaire,
+      rng = ennemi.rng,
+      centre = cible.centre(),
+      aLacheArme = this.armes.length > this.instantane.armes,
+      aLacheCoeurs = this.coeurs.length > this.instantane.coeurs;
+    this.secheresse = aLacheArme ? 0 : this.secheresse + 1;
+    if (ennemi.elites.length > 0 && !aLacheCoeurs && !aLacheArme && rng) {
+      // Garanti élite : plancher de cœurs même si la table de l'ennemi tire 0.
+      this.lacher(centre.x, centre.y, this.plancherElite + rng.randiRange(0, 3), rng);
+      this.garantiesElite += 1;
+    }
+    if (this.secheresse >= this.seuilPity && this.generateurPity && rng) {
+      this.lacherArme(centre.x, centre.y, this.generateurPity(rng));
+      this.secheresse = 0;
+      this.pitysDeclenchees += 1;
+    }
   }
 
   lacher(x: number, y: number, montant: number, rng: any) {
@@ -109,6 +156,12 @@ export class Recompenses {
   }
 
   pas(dt: number) {
+    // Branché APRÈS progression.surMort ( premier pas ) : le bilan du drop normal
+    // est déjà fait quand on vérifie le garanti élite et la pity.
+    if (!this.apresBranche && this.combat?.combattantMort) {
+      this.apresBranche = true;
+      this.combat.combattantMort.connecter((cible: any) => this.apresMort(cible));
+    }
     if (this.combat?.estGele()) return;
     this.ticks += 1;
     const vivant = this.cible?.vivant ?? false,

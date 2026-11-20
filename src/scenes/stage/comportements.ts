@@ -71,14 +71,25 @@ export function brancherEconomie(hook: any) {
 }
 
 export class Marcheur extends Comportement {
+  garde = 0;
   demarrer(e: any) {
     if (this.param("bouclier_frontal", false)) {
       e.combattant.meta.bouclier_frontal = 1;
       e.meta.bouclier_frontal = true;
+      this.garde = e.rng.randfRange(0, 3.2);
     }
   }
 
-  simuler(e: any, _dt: number) {
+  simuler(e: any, dt: number) {
+    // Garde rythmée : 1.8 s de blocage frontal puis 1.4 s d'ouverture.
+    // Le tir chargé perce la garde en permanence (Combat.appliquer) ;
+    // le corps-à-corps et les tirs de dos restent efficaces.
+    if (e.meta.bouclier_frontal) {
+      this.garde += dt;
+      const ouvert = this.garde % 3.2 > 1.8;
+      e.combattant.meta.bouclier_frontal = ouvert ? 0 : 1;
+      e.meta.garde_ouverte = ouvert ? 1 : 0;
+    }
     const vers = e.versCible();
     if (this.param("poursuit", false) && e.cibleVivante() && Math.abs(vers.y) < tuiles(2) && Math.abs(vers.x) > 4)
       e.face = signeStrict(vers.x);
@@ -351,7 +362,7 @@ export const comportements: Record<string, any> = {
       e.face = signeStrict(vers.x);
       const cadence = this.param("cadence", 2.2);
       e.etatVisuel = this.minuterie > cadence - dureePrepare(0.4) ? "prepare" : "idle";
-      if (this.minuterie >= cadence && norme(vers) < tuiles(14)) {
+      if (this.minuterie >= cadence && norme(vers) < tuiles(this.param("portee_tir", 11))) {
         this.minuterie = 0;
         e.tirer(e.face, 0, this.param("tir", {}));
         e.etatVisuel = "attaque";
@@ -456,6 +467,11 @@ export const comportements: Record<string, any> = {
       const vers = e.versCible();
       switch (this.etat) {
         case "marche":
+          // Approche active : quand la recharge est prête, le lanceur se
+          // tourne vers sa cible pour entrer à portée de jet (portée courte
+          // du joueur en début de partie = il doit venir à nous).
+          if (this.minuterie <= 0 && e.cibleVivante() && Math.abs(vers.y) < tuiles(5) && Math.abs(vers.x) > 4)
+            e.face = signeStrict(vers.x);
           if (e.estAuSol() && (!e.solDevant() || e.murDevant())) e.face = -e.face;
           e.vx = e.face * e.vitesse();
           e.etatVisuel = "marche";
@@ -581,29 +597,53 @@ export const comportements: Record<string, any> = {
     }
   },
   tireur_volant: class extends Comportement {
+    dureeKite = 3.6;
+    cadenceT = 0;
     demarrer(e: any) {
+      this.etat = "kite";
       this.minuterie = e.rng.randfRange(0, 1.2);
+      this.cadenceT = e.rng.randfRange(0, 1.2);
+      this.dureeKite = this.param("intervalle", 3.6) + e.rng.randfRange(0, 0.8);
     }
     simuler(e: any, dt: number) {
       this.minuterie += dt;
-      const vers = e.versCible(),
-        distance = tuiles(this.param("distance", 6.5)),
+      this.cadenceT += dt;
+      const vers = e.versCible();
+      // Cycle kite → passe : le tireur harcèle à distance/high altitude
+      // (intouchable par les tirs horizontaux), puis pique vers le joueur
+      // à hauteur de tir pendant ~1.7 s : c'est la fenêtre de punition,
+      // au corps-à-corps comme à l'arc. Sans cette passe, un kite à
+      // 2.5+ tuiles de haut serait invulnérable (tirs cardinaux uniquement).
+      if (this.etat === "kite" && this.minuterie > this.dureeKite) {
+        this.etat = "passe";
+        this.minuterie = 0;
+      } else if (this.etat === "passe" && this.minuterie > 1.7) {
+        this.etat = "kite";
+        this.minuterie = 0;
+        this.dureeKite = this.param("intervalle", 3.6) + e.rng.randfRange(0, 0.8);
+      }
+      const enPasse = this.etat === "passe";
+      const distance = enPasse ? tuiles(1.2) : tuiles(this.param("distance", 6.5)),
+        hauteur = enPasse ? tuiles(1.1) : tuiles(this.param("hauteur", 2.5)),
         cible = ajouter(
           ajouter(vers, {
             x: (vers.x === 0 ? 1 : -Math.sign(vers.x)) * distance,
-            y: -tuiles(this.param("hauteur", 2.5)),
+            y: -hauteur,
           }),
           {
             x: Math.sin(e.age * 1.3) * tuiles(1),
             y: Math.cos(e.age * 1.9) * tuiles(0.7),
           },
         );
-      fixerVelocite(e, lerpVecteur(velocite(e), limiter(cible, e.vitesse()), 0.06));
+      fixerVelocite(
+        e,
+        lerpVecteur(velocite(e), limiter(cible, e.vitesse() * (enPasse ? 1.4 : 1)), enPasse ? 0.1 : 0.06),
+      );
       e.face = signeStrict(vers.x);
       const cadence = this.param("cadence", 2.4);
-      e.etatVisuel = this.minuterie > cadence - dureePrepare(0.45) ? "prepare" : "vol";
-      if (this.minuterie >= cadence && norme(vers) < tuiles(13)) {
-        this.minuterie = 0;
+      e.etatVisuel = this.cadenceT > cadence - dureePrepare(0.45) ? "prepare" : "vol";
+      if (this.cadenceT >= cadence && norme(vers) < tuiles(13)) {
+        this.cadenceT = 0;
         const nombre = Math.trunc(this.param("nombre", 1)),
           ecart = this.param("ecart", 14),
           dir = normaliser(vers);

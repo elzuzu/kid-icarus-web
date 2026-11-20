@@ -1,5 +1,5 @@
 {
-	"_doc": "Reliques : passifs portes (4 emplacements), chacune liee a un dieu. Deux ou quatre reliques d'un meme dieu activent le bonus de set (data/sets.json). effets : [{stat, v, mode}] avec mode joueur_add | joueur_pct | pct | add_pct | flag (meme vocabulaire que les affixes).",
+	"_doc": "Reliques : passifs portes (4 emplacements), chacune liee a un dieu. Deux ou quatre reliques d'un meme dieu activent le bonus de set (data/sets.json). effets : [{stat, v, mode}] avec mode joueur_add | joueur_pct | pct | add_pct | flag | statut (meme vocabulaire que les affixes ; statut applique un statut aux tirs via statut/element/duree).",
 	"entrees": [
 		{"id": "diademe_lumiere", "nom": "Diadème de lumière", "dieu": "palutena", "effets": [{"stat": "pv_max", "v": 15, "mode": "joueur_add"}]},
 		{"id": "calice_sacre", "nom": "Calice sacré", "dieu": "palutena", "effets": [{"stat": "flacons", "v": 1, "mode": "joueur_add"}]},
@@ -15,7 +15,7 @@
 
 		{"id": "conque_marine", "nom": "Conque marine", "dieu": "poseidon", "effets": [{"stat": "defense", "v": 3, "mode": "joueur_add"}]},
 		{"id": "trident_brise", "nom": "Trident brise", "dieu": "poseidon", "effets": [{"stat": "perce", "v": 1, "mode": "add"}]},
-		{"id": "perle_abysses", "nom": "Perle des abysses", "dieu": "poseidon", "effets": [{"stat": "statut_gel", "v": 1, "mode": "flag"}]},
+		{"id": "perle_abysses", "nom": "Perle des abysses", "dieu": "poseidon", "effets": [{"stat": "statut", "v": 1, "mode": "statut", "statut": "gel", "element": 2, "duree": 1.5}]},
 		{"id": "ecaille_hydre", "nom": "Écaille d'hydre", "dieu": "poseidon", "effets": [{"stat": "pv_max", "v": 25, "mode": "joueur_add"}, {"stat": "vitesse_course", "v": -5, "mode": "joueur_pct"}]},
 		{"id": "maree", "nom": "Marée montante", "dieu": "poseidon", "effets": [{"stat": "portee", "v": 20, "mode": "pct"}]},
 

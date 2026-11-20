@@ -117,6 +117,7 @@ export class Progression {
   recompenses: Recompenses;
   mods = new Mods();
   niveauObjet: number;
+  regenAccum = 0;
   benedictions: any[] = [];
   objetsForteresse = new Set<string>();
   defi: Set<string>;
@@ -143,6 +144,11 @@ export class Progression {
     this.intensite = intensite;
     this.niveauObjet = Number(stage.niveau.definition.niveau ?? 1) + arrondi(intensite / 2);
     this.recompenses = new Recompenses(stage.niveau, stage.cible(), stage.combat);
+    this.recompenses.generateurPity = (rng: any) =>
+      genererArme(this.contenu, rng, this.niveauObjet, this.intensite);
+    stage.checkpointTouche.connecter(() => {
+      if (this.mods.drapeau("soin_checkpoint")) stage.combattant.soigner(stage.combattant.pvMax);
+    });
     for (const marqueur of stage.niveau.marqueurs) {
       const objet = marqueur.def.objet;
       if (typeof objet === "string" && !this.aObjet(objet))
@@ -173,6 +179,9 @@ export class Progression {
       pv: multPvIntensite(valeur) * multDifficulte().pv,
       degats: multDegatsIntensite(valeur),
     };
+    // Les multiplicateurs de récompenses suivent l'intensité immédiatement
+    // (cœurs ×1.12/intensité), sans attendre un appliquerProgression.
+    this.majMultiplicateurs();
   }
 
   get flacons(): number {
@@ -224,6 +233,25 @@ export class Progression {
       };
     }
     this.brancherApparitions();
+    // Défi « tempete » : rafales de vent alternées (72 px/s ≈ 56% de la course),
+    // 2.4 s de souffle toutes les 7 s. Le boss garde la main sur le vent en arène.
+    if (this.defi.has("tempete") && !this.stage.boss) {
+      const t = this.stage.temps,
+        cycle = t % 7;
+      this.stage.joueur.vent =
+        this.stage.enChambre || cycle >= 2.4
+          ? 0
+          : Math.sin((cycle / 2.4) * Math.PI) * 72 * (Math.floor(t / 7) % 2 === 0 ? 1 : -1);
+    }
+    const regen = this.mods.joueur("regeneration", 0);
+    if (regen > 0 && this.stage.combattant.vivant) {
+      this.regenAccum += (regen * dt) / 5;
+      const soin = Math.floor(this.regenAccum);
+      if (soin > 0) {
+        this.regenAccum -= soin;
+        this.stage.combattant.soigner(soin);
+      }
+    }
     this.recompenses.pas(dt);
   }
 
@@ -283,6 +311,9 @@ export class Progression {
   }
 
   majMultiplicateurs() {
+    // Le setter intensite peut être appelé avant la création des récompenses
+    // (constructeur) : rien à mettre à jour tant qu'elles n'existent pas.
+    if (!this.recompenses) return;
     const pct = (cle: string) => this.mods.joueurPct.get(cle) ?? 0,
       recompenses = this.recompenses;
     recompenses.multCoeurs =

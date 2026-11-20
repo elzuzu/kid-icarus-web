@@ -5,7 +5,7 @@
 		{"id": "a_critique", "nom": "Œil de faucon", "arbre": "archer", "rangs": 5, "requis": ["a_cadence", 2], "effets": [{"stat": "chance_critique", "v": 2, "mode": "add_pct"}]},
 		{"id": "a_charge", "nom": "Corde tendue", "arbre": "archer", "rangs": 3, "requis": ["a_cadence", 2], "effets": [{"stat": "temps_charge", "v": 8, "mode": "pct_negatif"}]},
 		{"id": "a_perce", "nom": "Transpercer", "arbre": "archer", "rangs": 1, "requis": ["a_critique", 3], "effets": [{"stat": "perce", "v": 1, "mode": "add"}]},
-		{"id": "a_portee", "nom": "Longue vue", "arbre": "archer", "rangs": 3, "requis": ["a_charge", 1], "effets": [{"stat": "portee", "v": 8, "mode": "pct"}]},
+		{"id": "a_portee", "nom": "Longue vue", "arbre": "archer", "rangs": 3, "requis": ["a_charge", 1], "effets": [{"stat": "portee", "v": 12, "mode": "pct"}]},
 		{"id": "a_degats_charges", "nom": "Flèche fatale", "arbre": "archer", "rangs": 3, "requis": ["a_charge", 3], "effets": [{"stat": "mult_charge", "v": 12, "mode": "pct"}]},
 		{"id": "a_multi", "nom": "Double corde", "arbre": "archer", "rangs": 1, "requis": ["a_degats_charges", 3], "effets": [{"stat": "multi", "v": 1, "mode": "add"}]},
 		{"id": "a_elites", "nom": "Chasseur de légendes", "arbre": "archer", "rangs": 3, "requis": ["a_perce", 1], "effets": [{"stat": "degats_elites", "v": 10, "mode": "add_pct"}]},

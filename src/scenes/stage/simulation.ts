@@ -357,13 +357,19 @@ export class Simulation {
     } else if (this.niveau.type === "shmup") {
       if (this.camera.cx < marqueur.c * 16) return;
     } else if (!this.joueur.corps.auSol || this.joueur.y > (marqueur.l + 7) * 16 + 0.5) return;
+    // Courbe PV boss sous intensité : les trash suivent multPvIntensite
+    // (×2.92 à i12), mais un boss ×2.92 devient une éponge (Medusa i12 :
+    // ~8 min mesurées). On atténue la part intensity des PV boss à 45 %
+    // (i12 → ×1.86) ; les dégâts boss restent ×2.32 plein pot : le combat
+    // reste exigeant par la pression, pas par la durée.
+    const pvBoss = 1 + (this.multBoss.pv - 1) * 0.45;
     const boss = new Boss(
       def,
       this.combat,
       this.niveau,
       this.cible(),
       new Flux(`${this.graine}|boss|${this.niveau.id}`),
-      this.multBoss.pv,
+      pvBoss,
       this.multBoss.degats,
     );
     boss.placer((marqueur.c + 0.5) * 16, (marqueur.l + 1) * 16);

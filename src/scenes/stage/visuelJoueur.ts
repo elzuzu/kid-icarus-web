@@ -29,6 +29,7 @@ const dureeFantome = 0.25;
 const intervalleFantomes = 0.03;
 const maxFantomes = 3;
 const dureeGlisse = 0.18;
+const dureeFlashCoup = 0.08;
 
 export class VisuelJoueur extends Container {
   planche: any;
@@ -59,6 +60,11 @@ export class VisuelJoueur extends Container {
   glisse = 0;
   vxPrecedent = 0;
   aGlisse = new Signal();
+  // Flash de coup : copie additive du sprite (tint multiplicatif ne peut pas
+  // blanchir) — 1 sprite poolé, actif ≤0.08 s, gaté options.flashes. Distinct du
+  // clignotement d'invulnérabilité (alpha), qui reste intact.
+  flashCoup = 0;
+  flashSprite = new Sprite();
 
   constructor(planche: any, joueur: any) {
     super();
@@ -72,7 +78,9 @@ export class VisuelJoueur extends Container {
     this.eclair.blendMode = "add";
     this.eclair.tint = 16770720;
     this.eclair.visible = false;
-    this.addChild(this.sprite, this.eclair);
+    this.flashSprite.blendMode = "add";
+    this.flashSprite.visible = false;
+    this.addChild(this.sprite, this.eclair, this.flashSprite);
     for (let i = 0; i < maxFantomes; i++) {
       const fantome = new Sprite();
       fantome.visible = false;
@@ -91,6 +99,9 @@ export class VisuelJoueur extends Container {
       this.fenetreFantomes = 0.18;
       this.ticFantome = 0;
     });
+    // Hook debug (même esprit que window.__sim / __hud) : inspection QA du flash
+    // de coup et des poses, sans toucher à stage/index.ts.
+    (window as any).__visuelJoueur = this;
   }
 
   // WHY: aFrappe vit sur l'arme, pas sur le joueur, et index.ts ne passe que le joueur ;
@@ -113,6 +124,7 @@ export class VisuelJoueur extends Container {
 
   signalerCoup() {
     this.touche = 0.35;
+    this.flashCoup = dureeFlashCoup;
   }
 
   signalerTir(dx: number, dy: number) {
@@ -325,6 +337,20 @@ export class VisuelJoueur extends Container {
       j.invulnerable > 0 && j.etat !== EtatJoueur.DASH && Math.floor(j.invulnerable * 20) % 2 == 0
         ? 0.45
         : 1;
+    // Flash blanc court à l'impact : recalé sur la pose finale du sprite (recul,
+    // squash, ancre de frame inclus). Zéro allocation : un seul sprite réutilisé.
+    this.flashCoup = Math.max(0, this.flashCoup - dt);
+    const flashActif = this.flashCoup > 0 && flashesActifs();
+    this.flashSprite.visible = flashActif;
+    if (flashActif) {
+      const f = this.flashSprite;
+      f.texture = this.sprite.texture;
+      f.anchor.copyFrom(this.sprite.anchor);
+      f.scale.copyFrom(this.sprite.scale);
+      f.rotation = this.sprite.rotation;
+      f.position.set(this.sprite.x, this.sprite.y);
+      f.alpha = 0.9 * (this.flashCoup / dureeFlashCoup);
+    }
     this.majFantomes(dt);
   }
 

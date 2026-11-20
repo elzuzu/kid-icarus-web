@@ -77,7 +77,7 @@ export const lancer = async (ctx: any, params: any) => {
   const rngJarres = new Flux(`${sim.graine}|jarres|${niveau.id}`);
   apparitions.jarreBrisee.connecter((x: number, y: number) => {
     ctx.audio.sfx("jarre_brise", { position: { x, y } });
-    progression.recompenses.lacher(x, y, 6, rngJarres);
+    progression.recompenses.lacher(x, y, rngJarres.randiRange(4, 9), rngJarres);
   });
   const largeurMonde = niveau.largeur * 64,
     vertical = niveau.type === "vertical",
@@ -129,6 +129,7 @@ export const lancer = async (ctx: any, params: any) => {
   const visuelsProjectiles = new VisuelsProjectiles(sim.combat),
     effetsCombat = new EffetsCombat(sim.combat);
   effetsCombat.brancherJoueur(sim.joueur);
+  effetsCombat.brancherProgression(progression);
   plan.addChild(visuelsProjectiles, effetsCombat);
   visuelJoueur.aGlisse.connecter((biais: number) =>
     effetsCombat.bouffiere(sim.joueur.x, sim.joueur.y, biais),
@@ -225,6 +226,7 @@ export const lancer = async (ctx: any, params: any) => {
       ctx.audio,
     );
   hud.brancherLoot(partie.profil, ctx.contenu);
+  hud.brancherSim(sim);
   racine.addChild(hud, barreBoss, sousTitres, annonces, menuPause);
   progression.annonce.connecter((message: string, duree: number) => annonces.annoncer(message, duree));
   progression.son.connecter((nom: string) => ctx.audio.sfx(nom));
@@ -248,6 +250,10 @@ export const lancer = async (ctx: any, params: any) => {
   });
   sim.bossApparu.connecter((boss: any) => {
     barreBoss.montrer(String(boss.definition.nom ?? boss.titre), boss.seuils);
+    boss.cerveau?.aPunition?.connecter((e: any) => {
+      const b = e.combattant.boiteToucheMonde();
+      effetsCombat.etincelles(b.x + b.l / 2, b.y + b.h / 2, 16773312, 10, 300, 0, -1);
+    });
     boss.combattant.touche.connecter(() => {
       const b = boss.combattant.boiteToucheMonde();
       effetsCombat.etincelles(b.x + b.l / 2, b.y + b.h / 2, 16766826, 8, 300, 0, 0);

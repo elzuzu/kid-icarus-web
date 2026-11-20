@@ -40,7 +40,9 @@ export function calculerCoup(attaque: any, cible: any, charge: boolean, flux: Fl
     coup.critique = true;
     degats *= attaque.mult_critique ?? 1.75;
   }
-  const resistance = Math.min(0.9, Math.max(-1, cible.resistances[coup.element] ?? 0));
+  // Aucune immunité totale : une résistance plafonne à 75 % de réduction
+  // (≥ 25 % des dégâts passent toujours), les faiblesses restent à −100 %.
+  const resistance = Math.min(0.75, Math.max(-1, cible.resistances[coup.element] ?? 0));
   degats *= 1 - resistance;
   degats -= cible.defense;
   coup.montant = Math.max(1, Math.round(degats));
@@ -284,7 +286,10 @@ export class Combat {
     const norme = Math.hypot(dirX, dirY) || 1,
       nx = dirX / norme,
       ny = dirY / norme;
-    if (cible.meta.bouclier_frontal && cible.vivant) {
+    // Bouclier frontal : bloque les tirs horizontaux de face, mais un tir
+    // chargé brise la garde (fenêtre de punition lourde) et la garde du
+    // marcheur s'ouvre périodiquement (cf. Marcheur.simuler).
+    if (cible.meta.bouclier_frontal && cible.vivant && !charge) {
       const face = cible.corps.face ?? 1;
       if (Math.abs(ny) < 0.6 && nx * face < 0) {
         this.coupBloque.emettre(cible, cible.centre());

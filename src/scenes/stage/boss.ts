@@ -66,6 +66,16 @@ export class CerveauBoss extends Comportement {
   preparation = 0.6;
   dureeAttaque = 0;
   boiteNormale = { x: 0, y: 0, l: 0, h: 0 };
+  // Fenêtre de punition générique : après chaque attaque, le boss reste
+  // immobile et vulnérable (dégâts ×1.6) pendant ~1.3 s, rétrécie par phase.
+  // Les sous-classes peuvent forcer une fenêtre plus généreuse après un
+  // engagement lourd (punitionForcee) — c'est le rythme lecture → esquive →
+  // punition qui empêche le boss d'être une éponge à dégâts.
+  punitionRestante = 0;
+  punitionMult = 1.6;
+  punitionDuree = 1.3;
+  punitionForcee: { duree: number; mult: number } | null = null;
+  aPunition = new Signal();
 
   demarrer(e: any) {
     this.etat = "entree";
@@ -76,6 +86,7 @@ export class CerveauBoss extends Comportement {
 
   changerPhase(e: any, _phase: number) {
     if (this.etat === "attaque") this.interrompre(e, this.attaque);
+    this.fermerPunition(e);
     if (e.volant) e.vy = 0;
     this.etat = "rugit";
     this.minuterie = 0;
@@ -93,21 +104,27 @@ export class CerveauBoss extends Comportement {
     switch (this.etat) {
       case "entree":
         e.etatVisuel = "idle";
-        if (this.minuterie > 1.5) this.attendre(e);
+        if (this.minuterie > 1.5) this.attendre(e, false);
         break;
       case "rugit":
         e.etatVisuel = "prepare";
         e.vx = 0;
-        if (this.minuterie > 1.2) this.attendre(e);
+        if (this.minuterie > 1.2) this.attendre(e, false);
         break;
       case "attente":
         e.etatVisuel = "idle";
-        this.deriver(e, dt);
+        if (this.punitionRestante > 0) {
+          this.punitionRestante -= dt;
+          e.vx = 0;
+          if (e.volant) e.vy = 0;
+          if (this.punitionRestante <= 0) e.combattant.multDegatsRecus = 1;
+        } else this.deriver(e, dt);
         if (this.minuterie > this.dureeAttaque) {
           const liste = this.repertoire[Math.min(this.phase(e), this.repertoire.length - 1)] ?? [];
           this.attaque = liste[e.rng.randiRange(0, liste.length - 1)] ?? "";
           this.etat = "prepare";
           this.minuterie = 0;
+          this.fermerPunition(e);
           this.preparer(e, this.attaque);
         }
         break;
@@ -130,10 +147,30 @@ export class CerveauBoss extends Comportement {
     }
   }
 
-  attendre(e: any) {
+  attendre(e: any, punir = true) {
     this.etat = "attente";
     this.minuterie = 0;
     this.dureeAttaque = e.rng.randfRange(this.attenteMin, this.attenteMax);
+    if (punir) this.ouvrirPunition(e);
+  }
+
+  ouvrirPunition(e: any) {
+    const spec = this.punitionForcee;
+    this.punitionForcee = null;
+    const duree = spec?.duree ?? Math.max(0.7, this.punitionDuree - 0.15 * this.phase(e));
+    const mult = spec?.mult ?? this.punitionMult;
+    this.punitionRestante = duree;
+    // Le repos couvre la fenêtre entière : la punition n'est pas tronquée
+    // par l'attaque suivante (sinon elle disparaîtrait aux phases rapides).
+    this.dureeAttaque = Math.max(this.dureeAttaque, duree + 0.1);
+    e.combattant.multDegatsRecus = Math.max(e.combattant.multDegatsRecus, mult);
+    this.aPunition.emettre(e, duree, mult);
+  }
+
+  fermerPunition(e: any) {
+    this.punitionRestante = 0;
+    this.punitionForcee = null;
+    e.combattant.multDegatsRecus = 1;
   }
 
   deriver(_e: any, _dt: number) {}
@@ -151,6 +188,7 @@ export class CerveauBoss extends Comportement {
   finir(_e: any, _attaque: string) {}
 
   interrompre(e: any, _attaque: string) {
+    this.fermerPunition(e);
     e.combattant.boite = { ...this.boiteNormale };
     this.demanderVent(e, 0);
   }
@@ -1246,14 +1284,15 @@ class Tanatos extends CerveauBoss {
 class Medusa extends CerveauBoss {
   ancre = { x: 0, y: 0 };
   hauteurYeux = 0;
+  rueeHeurte = false;
 
   constructor() {
     super();
     this.repertoire = [
       ["regard", "serpents", "anneau", "serpents"],
       ["regard", "pluie", "serpents", "anneau", "regard"],
-      ["couvee", "regard", "pluie", "anneau", "serpents", "regard"],
-      ["fureur", "anneau", "couvee", "fureur", "serpents", "pluie"],
+      ["couvee", "regard", "pluie", "ruee", "anneau", "serpents", "regard"],
+      ["fureur", "anneau", "couvee", "ruee", "fureur", "serpents", "pluie", "ruee"],
     ];
     this.preparation = 0.85;
   }
@@ -1302,12 +1341,28 @@ class Medusa extends CerveauBoss {
       case "couvee":
         this.invoquer(e, "serpent_medusa", 2, 3);
         return 0.7;
+      case "ruee":
+        // Ruée horizontale : télégraphe court (prepare), traversal rapide,
+        // choc contre le bord de l'arène → grand étourdissement punissable.
+        this.rueeHeurte = false;
+        e.vy = 0;
+        e.vx = e.face * tuiles(15 + 2 * this.phase(e));
+        return 1.0;
     }
     return 0.5;
   }
 
   pendant(e: any, attaque: string, dt: number) {
     const tic = quotient(this.minuterie, dt);
+    if (attaque === "ruee") {
+      if (!this.rueeHeurte && this.minuterie > 0.1 && (e.murDevant() || Math.abs(e.vx) < 1)) {
+        this.rueeHeurte = true;
+        e.vx = 0;
+        this.ondesAuSol(e, fusionner(tirOnde, { base: 18, vitesse: 9, visuel: "venin" }));
+        this.punitionForcee = { duree: 2.2, mult: 2.0 };
+      }
+      return;
+    }
     if ((attaque === "regard" || attaque === "fureur") && this.minuterie > 0.3 && tic % 3 == 0) {
       e.tirer(e.face, 0, fusionner(tirRegard, { origine: { x: e.x, y: this.hauteurYeux } }));
       if (attaque === "fureur")
@@ -1328,9 +1383,16 @@ class Medusa extends CerveauBoss {
     }
   }
 
-  finir(e: any, _attaque: string) {
+  finir(e: any, attaque: string) {
     e.vx = 0;
     e.vy = 0;
+    // Épuisement après les engagements lourds : fenêtres de punition
+    // généreuses et lisibles (le boss s'arrête, étincelles dorées via
+    // aPunition côté visuel).
+    if (attaque === "regard" || attaque === "fureur")
+      this.punitionForcee = { duree: 1.8, mult: 1.75 };
+    else if (attaque === "ruee" && !this.rueeHeurte)
+      this.punitionForcee = { duree: 1.5, mult: 1.7 };
   }
 }
 

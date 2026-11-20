@@ -25,6 +25,7 @@ export class BarreBoss extends Container {
   traine = 1;
   seuils: number[] = [];
   apparition = 0;
+  t = 0;
 
   constructor() {
     super();
@@ -57,6 +58,7 @@ export class BarreBoss extends Container {
     this.seuils = seuils;
     this.ratio = this.traine = 1;
     this.apparition = 0;
+    this.t = 0;
     this.visible = true;
     this.dessinerCadre();
   }
@@ -90,6 +92,7 @@ export class BarreBoss extends Container {
 
   afficher(dt: number, pv: number, pvMax: number) {
     if (!this.visible) return;
+    this.t += dt;
     this.apparition = Math.min(1, this.apparition + dt * 1.5);
     this.alpha = this.apparition;
     this.ratio = Math.max(0, Math.min(1, pv / Math.max(1, pvMax)));
@@ -100,15 +103,45 @@ export class BarreBoss extends Container {
     const g = this.jauge,
       x = largeurEcran / 2 - largeurBarre / 2;
     g.clear();
+    // Basse vie : la jauge vire au rouge vif et pouls — lisibilité de l'urgence sans
+    // toucher à la géométrie (zéro overlap avec le HUD joueur, grappes gauche/droite).
+    const bas = this.ratio > 0 && this.ratio <= 0.3;
+    const pouls = bas ? 0.5 + 0.5 * Math.sin(this.t * 5) : 0;
+    const k = bas ? 0.35 + 0.45 * pouls : 0;
+    const couleur = melangeCouleur(11735580, 0xff3820, k);
     const largeur = largeurBarre * Math.min(this.ratio, this.apparition);
     g.rect(x, yJauge, largeurBarre * this.traine * this.apparition, hauteurJauge).fill({
       color: 16765088,
       alpha: 0.55,
     });
-    g.rect(x, yJauge, largeur, hauteurJauge).fill(11735580);
-    g.rect(x, yJauge, largeur, hauteurJauge * 0.4).fill({ color: 16738906, alpha: 0.55 });
+    g.rect(x, yJauge, largeur, hauteurJauge).fill(couleur);
+    g.rect(x, yJauge, largeur, hauteurJauge * 0.4).fill({
+      color: 16738906,
+      alpha: 0.55 + (bas ? 0.2 * pouls : 0),
+    });
     g.rect(x, 77, largeur, 3).fill({ color: 5899528, alpha: 0.8 });
+    // Jalons de phase : losange or tant que le palier n'est pas franchi, bronze éteint
+    // ensuite — les seuils viennent de boss.seuils (phases réelles, pas décoratives).
+    // Sous le cadre (y 88-98) : le nom du boss occupe le dessus, zéro collision.
+    for (const seuil of this.seuils) {
+      const sx = x + largeurBarre * seuil;
+      const actif = this.ratio > seuil;
+      g.poly([sx - 5, 93, sx, 87, sx + 5, 93, sx, 99])
+        .fill(actif ? 16773312 : 4865066)
+        .stroke({ color: actif ? 15255672 : 9071150, width: 1.5, alpha: actif ? 1 : 0.55 });
+    }
   }
+}
+
+// Mélange de couleurs sans allocation (canaux entiers), pour le pouls basse vie.
+function melangeCouleur(a: number, b: number, k: number): number {
+  const ar = (a >> 16) & 255, ag = (a >> 8) & 255, ab = a & 255;
+  const br = (b >> 16) & 255, bg = (b >> 8) & 255, bb = b & 255;
+  return (
+    (Math.round(ar + (br - ar) * k) << 16) |
+    (Math.round(ag + (bg - ag) * k) << 8) |
+    Math.round(ab + (bb - ab) * k)
+  );
 }
 
 const largeurSousTitre = 1100;

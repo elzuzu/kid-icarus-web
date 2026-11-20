@@ -267,11 +267,21 @@ export class VisuelObjets extends Container {
       this.synchroniser(
         this.armes,
         recompenses.armes,
-        () => {
+        (arme: any) => {
           const sprite = new Sprite(this.tex.arme_sol);
           sprite.anchor.set(0.5, 1);
-          sprite.height = 70;
+          // Lisibilité du loot au sol : teinte et taille selon la rareté tirée.
+          const rarete = this.sim?.chambres?.contenu?.chercher("raretes", arme.inst?.rarete);
+          const rang = rarete?.rang ?? 0;
+          sprite.height = 70 + rang * 5;
           sprite.scale.x = sprite.scale.y;
+          if (Array.isArray(rarete?.couleur)) {
+            const [r, g, b] = rarete.couleur;
+            sprite.tint =
+              (Math.round(Math.min(1, r) * 255) << 16) |
+              (Math.round(Math.min(1, g) * 255) << 8) |
+              Math.round(Math.min(1, b) * 255);
+          }
           return sprite;
         },
         (arme: any, sprite: Sprite) => {

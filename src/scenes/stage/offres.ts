@@ -87,7 +87,19 @@ function joliNom(id: string): string {
 export function offreRelique(contenu: any, rng: any, profil: any) {
   const ids = contenu.ids("reliques").filter((id: string) => !profil.reliques.includes(id));
   if (ids.length === 0) return offreEauDeVie();
-  const relique = contenu.entree("reliques", ids[rng.randiRange(0, ids.length - 1)]);
+  // Tirage pondéré « chasse de set » : un dieu déjà porté pèse plus lourd, et un
+  // dieu à 1 ou 3 reliques (bonus 2/4 pièces à un pas) pèse encore plus — les
+  // bonus de sets.json deviennent réellement poursuivables, pas un loterie plate.
+  const parDieu = new Map<string, number>();
+  for (const id of profil.reliques_portees ?? []) {
+    const dieu = contenu.entree("reliques", id).dieu;
+    parDieu.set(dieu, (parDieu.get(dieu) ?? 0) + 1);
+  }
+  const poids = ids.map((id: string) => {
+    const n = parDieu.get(contenu.entree("reliques", id).dieu) ?? 0;
+    return n === 1 || n === 3 ? 3.5 : n === 2 ? 1.6 : 1;
+  });
+  const relique = contenu.entree("reliques", ids[rng.indicePondere(poids)]);
   return {
     type: "relique",
     id: relique.id,
@@ -124,13 +136,30 @@ export function offreBenediction(rng: any) {
   };
 }
 
+// Calibration économie (mesurée, lane loot) : revenu stage 1-1 ≈ 58 cœurs trash
+// + 80 boss = 138 (expert ×0.85 ≈ 117). Cible : 2-3 achats significatifs par
+// stage, sans inflation triviale ni mur. Les prix de base viennent de
+// chambres.json (level) ; ces coefficients les recalibrent contre le revenu réel.
+// eau 45→35, plume 70→50, pouvoir 110→90, relique 140→100.
+const calibrationPrix: Record<string, number> = {
+    eau_de_vie: 0.8,
+    plume: 0.7,
+    pouvoir: 0.8,
+    relique: 0.7,
+  },
+  // valeurArme (puissance DPS) médiane mesurée : niv1 commune 72 / rare 84 /
+  // épique 97 ; niv18 épique 171 / légendaire 235 / mythique 305. À 0.8 le mur
+  // était réel (arme rare 120 > revenu stage) ; 0.45 donne commune 50, rare 75,
+  // épique 105 en 1-1, et 175/285/430 en endgame (revenu intensité 12 ≈ 1400).
+  coefValeurArme = 0.45;
+
 export function calculerPrix(contenu: any, offre: any, def: any, rng: any): number {
   const prix = { ...def.prix };
   let montant: number;
   montant =
     offre.type === "arme"
-      ? (prix.arme_base ?? 20) + valeurArme(contenu, offre.inst) * 0.8 * (1 + 0.5 * offre.rang)
-      : (prix[offre.type] ?? 60);
+      ? (prix.arme_base ?? 20) + valeurArme(contenu, offre.inst) * coefValeurArme * (1 + 0.5 * offre.rang)
+      : (prix[offre.type] ?? 60) * (calibrationPrix[offre.type] ?? 1);
   const [min, max] = def.mult_prix ?? [1, 1];
   montant *= rng.randfRange(min, max);
   return Math.max(5, arrondi(montant / 5) * 5);

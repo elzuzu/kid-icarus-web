@@ -214,8 +214,8 @@
 			"volant": true,
 			"xp": 2,
 			"coeurs": [
-				0,
-				1
+				1,
+				2
 			],
 			"contact": {
 				"base": 6

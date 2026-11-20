@@ -9,7 +9,7 @@ export const statsArcDefaut = {
   base: 10,
   cadence: 5,
   vitesse: 26,
-  portee: 0.9,
+  portee: 7.5,
   temps_charge: 0.9,
   mult_charge: 3,
   perce_charge: 2,
@@ -148,14 +148,19 @@ export class ArmeJoueur {
     const p = new Projectile();
     p.x = point.x + decalage[0];
     p.y = point.y + decalage[1];
-    const vitesse = this.stat("vitesse", 26) * 16 * (charge ? 1.25 : 1);
+    const vitesseBase = this.stat("vitesse", 26) * 16,
+      vitesse = vitesseBase * (charge ? 1.25 : 1);
     p.vx = dir[0] * vitesse;
     p.vy = dir[1] * vitesse;
     p.rayon = charge ? 6 : 4;
     p.camp = Camp.JOUEUR;
     p.attaque = this.attaque(charge);
     p.charge = charge;
-    p.vie = this.stat("portee", 0.9) * (charge ? 1.3 : 1);
+    // Portée en tuiles : la durée de vie est dérivée de la vitesse réelle pour
+    // que la distance parcourue soit exactement `portee` tuiles (+50% en tir
+    // chargé), indépendamment des bonus de vitesse (affixe vitesse_tir) : la
+    // vitesse ne change que le temps d'impact, pas la portée. Axe de progression.
+    p.vie = (this.stat("portee", 7.5) * 16 * (charge ? 1.5 : 1)) / Math.max(64, vitesse);
     p.perce = charge
       ? this.stat("perce_charge", 2) + this.stat("perce", 0)
       : this.stat("perce", 0);
