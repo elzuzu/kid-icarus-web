@@ -1,0 +1,34 @@
+{
+	"_doc": "Reliques : passifs portes (4 emplacements), chacune liee a un dieu. Deux ou quatre reliques d'un meme dieu activent le bonus de set (data/sets.json). effets : [{stat, v, mode}] avec mode joueur_add | joueur_pct | pct | add_pct | flag (meme vocabulaire que les affixes).",
+	"entrees": [
+		{"id": "diademe_lumiere", "nom": "Diadème de lumière", "dieu": "palutena", "effets": [{"stat": "pv_max", "v": 15, "mode": "joueur_add"}]},
+		{"id": "calice_sacre", "nom": "Calice sacré", "dieu": "palutena", "effets": [{"stat": "flacons", "v": 1, "mode": "joueur_add"}]},
+		{"id": "plume_ange", "nom": "Plume d'ange", "dieu": "palutena", "effets": [{"stat": "plume", "v": 1, "mode": "flag"}]},
+		{"id": "voile_aurore", "nom": "Voile de l'aurore", "dieu": "palutena", "effets": [{"stat": "regeneration", "v": 2, "mode": "joueur_add"}]},
+		{"id": "sceau_divin", "nom": "Sceau divin", "dieu": "palutena", "effets": [{"stat": "recharge_pouvoirs", "v": -20, "mode": "joueur_pct"}]},
+
+		{"id": "crane_couronne", "nom": "Crâne couronne", "dieu": "hades", "effets": [{"stat": "vol_de_vie", "v": 4, "mode": "add_pct"}]},
+		{"id": "sablier_noir", "nom": "Sablier noir", "dieu": "hades", "effets": [{"stat": "chance_critique", "v": 8, "mode": "add_pct"}]},
+		{"id": "chaine_styx", "nom": "Chaîne du Styx", "dieu": "hades", "effets": [{"stat": "degats_elites", "v": 25, "mode": "add_pct"}]},
+		{"id": "obole", "nom": "Obole de Charon", "dieu": "hades", "effets": [{"stat": "coeurs", "v": 25, "mode": "joueur_pct"}]},
+		{"id": "oeil_cerbere", "nom": "Œil de Cerbère", "dieu": "hades", "effets": [{"stat": "mult_critique", "v": 35, "mode": "add_pct"}]},
+
+		{"id": "conque_marine", "nom": "Conque marine", "dieu": "poseidon", "effets": [{"stat": "defense", "v": 3, "mode": "joueur_add"}]},
+		{"id": "trident_brise", "nom": "Trident brise", "dieu": "poseidon", "effets": [{"stat": "perce", "v": 1, "mode": "add"}]},
+		{"id": "perle_abysses", "nom": "Perle des abysses", "dieu": "poseidon", "effets": [{"stat": "statut_gel", "v": 1, "mode": "flag"}]},
+		{"id": "ecaille_hydre", "nom": "Écaille d'hydre", "dieu": "poseidon", "effets": [{"stat": "pv_max", "v": 25, "mode": "joueur_add"}, {"stat": "vitesse_course", "v": -5, "mode": "joueur_pct"}]},
+		{"id": "maree", "nom": "Marée montante", "dieu": "poseidon", "effets": [{"stat": "portee", "v": 20, "mode": "pct"}]},
+
+		{"id": "foudre_captive", "nom": "Foudre captive", "dieu": "zeus", "effets": [{"stat": "cadence", "v": 12, "mode": "pct"}]},
+		{"id": "sandales_nuees", "nom": "Sandales des nuées", "dieu": "zeus", "effets": [{"stat": "vitesse_course", "v": 10, "mode": "joueur_pct"}]},
+		{"id": "aigle_olympe", "nom": "Aigle de l'Olympe", "dieu": "zeus", "effets": [{"stat": "jauge_vol", "v": 40, "mode": "joueur_pct"}]},
+		{"id": "egide_orage", "nom": "Égide d'orage", "dieu": "zeus", "effets": [{"stat": "recharge_dash", "v": -25, "mode": "joueur_pct"}]},
+		{"id": "eclat_tonnerre", "nom": "Éclat du tonnerre", "dieu": "zeus", "effets": [{"stat": "vitesse", "v": 25, "mode": "pct"}]},
+
+		{"id": "chouette_argent", "nom": "Chouette d'argent", "dieu": "athena", "effets": [{"stat": "xp", "v": 20, "mode": "joueur_pct"}]},
+		{"id": "bouclier_egide", "nom": "Bouclier d'égide", "dieu": "athena", "effets": [{"stat": "degats_subis_pct", "v": -12, "mode": "joueur_add"}]},
+		{"id": "lance_sagesse", "nom": "Lance de la sagesse", "dieu": "athena", "effets": [{"stat": "mult_charge", "v": 20, "mode": "pct"}]},
+		{"id": "olivier", "nom": "Rameau d'olivier", "dieu": "athena", "effets": [{"stat": "melee_base", "v": 20, "mode": "pct"}]},
+		{"id": "casque_hoplite", "nom": "Casque d'hoplite", "dieu": "athena", "effets": [{"stat": "invulnerabilite", "v": 30, "mode": "joueur_pct"}]}
+	]
+}

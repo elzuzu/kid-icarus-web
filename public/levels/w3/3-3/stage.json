@@ -1,0 +1,66 @@
+{
+	"id": "w3/3-3",
+	"nom": "Temple des vents",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "ciel",
+	"ambiance": "temple_vents",
+	"musique": "ciel_3",
+	"niveau": 21,
+	"boss": "talos",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14",
+		"15"
+	],
+	"marqueurs": {
+		"h": {
+			"ennemi": "holer"
+		},
+		"p": {
+			"ennemi": "pegase_noir"
+		},
+		"b": {
+			"ennemi": "oiseau_stymphale"
+		},
+		"e": {
+			"ennemi": "erinus"
+		},
+		"y": {
+			"ennemi": "sylphe"
+		},
+		"x": {
+			"element": "courant",
+			"hauteur": 9.0,
+			"force": 95.0
+		},
+		"v": {
+			"element": "nuage",
+			"axe": "x",
+			"amplitude": 4.0,
+			"periode": 5.0,
+			"largeur": 3
+		}
+	},
+	"portes": [
+		"marche_noir",
+		"epreuve",
+		"tresor",
+		"divine"
+	],
+	"secrets": 1
+}

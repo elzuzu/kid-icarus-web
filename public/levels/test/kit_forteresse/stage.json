@@ -1,0 +1,10 @@
+{
+	"id": "test/kit_forteresse",
+	"nom": "Bac a sable horizontal",
+	"type": "horizontal",
+	"boucle": false,
+	"kit": "forteresse",
+	"chunks": ["00", "01"],
+	"marqueurs": {},
+	"portes": ["boutique"]
+}

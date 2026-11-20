@@ -1,0 +1,743 @@
+{
+	"_doc": "Armes de base. Chaque classe a son moveset (voir ArmeJoueur) ; les stats d'une instance = base + affixes + bonus du joueur. niveau = niveau d'objet minimal. Unites : vitesse en tuiles/s, portee en s de vol, cadence en tirs/s.",
+	"entrees": [
+		{
+			"id": "arc_palutena",
+			"nom": "Arc de Palutena",
+			"classe": "arc",
+			"niveau": 1,
+			"stats": {
+				"base": 10,
+				"cadence": 5.0,
+				"vitesse": 26,
+				"portee": 0.9,
+				"temps_charge": 0.9,
+				"mult_charge": 3.0,
+				"perce_charge": 2,
+				"melee_base": 14,
+				"melee_portee": 1.6
+			}
+		},
+		{
+			"id": "arc_sylvestre",
+			"nom": "Arc sylvestre",
+			"classe": "arc",
+			"niveau": 4,
+			"stats": {
+				"base": 13,
+				"cadence": 4.5,
+				"vitesse": 24,
+				"portee": 1.0,
+				"temps_charge": 0.85,
+				"mult_charge": 3.2,
+				"perce_charge": 3,
+				"melee_base": 15,
+				"melee_portee": 1.6,
+				"guidage": 0.8
+			}
+		},
+		{
+			"id": "arc_fortune",
+			"nom": "Arc de la Fortune",
+			"classe": "arc",
+			"niveau": 8,
+			"stats": {
+				"base": 15,
+				"cadence": 5.0,
+				"vitesse": 27,
+				"portee": 0.9,
+				"temps_charge": 0.9,
+				"mult_charge": 3.0,
+				"perce_charge": 2,
+				"melee_base": 16,
+				"melee_portee": 1.6,
+				"chance_critique": 0.15
+			}
+		},
+		{
+			"id": "arc_meteore",
+			"nom": "Arc météore",
+			"classe": "arc",
+			"niveau": 12,
+			"stats": {
+				"base": 18,
+				"cadence": 3.6,
+				"vitesse": 34,
+				"portee": 1.2,
+				"temps_charge": 1.1,
+				"mult_charge": 3.8,
+				"perce_charge": 5,
+				"melee_base": 17,
+				"melee_portee": 1.6
+			}
+		},
+		{
+			"id": "lame_premiere",
+			"nom": "Première Lame",
+			"classe": "lame",
+			"niveau": 1,
+			"stats": {
+				"base": 8,
+				"cadence": 4.0,
+				"vitesse": 22,
+				"portee": 0.45,
+				"temps_charge": 0.7,
+				"mult_charge": 2.6,
+				"perce_charge": 1,
+				"melee_base": 26,
+				"melee_portee": 2.1
+			}
+		},
+		{
+			"id": "lame_brute",
+			"nom": "Lame brutale",
+			"classe": "lame",
+			"niveau": 5,
+			"stats": {
+				"base": 9,
+				"cadence": 3.5,
+				"vitesse": 20,
+				"portee": 0.4,
+				"temps_charge": 0.8,
+				"mult_charge": 2.8,
+				"perce_charge": 1,
+				"melee_base": 34,
+				"melee_portee": 2.2,
+				"recul": 180
+			}
+		},
+		{
+			"id": "lame_samourai",
+			"nom": "Lame du samouraï",
+			"classe": "lame",
+			"niveau": 9,
+			"stats": {
+				"base": 10,
+				"cadence": 4.2,
+				"vitesse": 24,
+				"portee": 0.5,
+				"temps_charge": 0.65,
+				"mult_charge": 2.6,
+				"perce_charge": 2,
+				"melee_base": 30,
+				"melee_portee": 2.3,
+				"chance_critique": 0.12
+			}
+		},
+		{
+			"id": "lame_viperine",
+			"nom": "Lame vipérine",
+			"classe": "lame",
+			"niveau": 13,
+			"stats": {
+				"base": 11,
+				"cadence": 4.0,
+				"vitesse": 22,
+				"portee": 0.5,
+				"temps_charge": 0.7,
+				"mult_charge": 2.7,
+				"perce_charge": 1,
+				"melee_base": 32,
+				"melee_portee": 2.1,
+				"element": 3,
+				"statuts": [
+					{
+						"id": "poison",
+						"duree": 3.0,
+						"puissance": 2
+					}
+				]
+			}
+		},
+		{
+			"id": "griffes_tigre",
+			"nom": "Griffes du tigre",
+			"classe": "griffes",
+			"niveau": 1,
+			"stats": {
+				"base": 5,
+				"cadence": 8.5,
+				"vitesse": 28,
+				"portee": 0.35,
+				"temps_charge": 0.5,
+				"mult_charge": 2.2,
+				"perce_charge": 1,
+				"melee_base": 12,
+				"melee_portee": 1.4,
+				"tir_en_dash": true
+			}
+		},
+		{
+			"id": "griffes_ombre",
+			"nom": "Griffes de l'ombre",
+			"classe": "griffes",
+			"niveau": 6,
+			"stats": {
+				"base": 6,
+				"cadence": 9.0,
+				"vitesse": 30,
+				"portee": 0.35,
+				"temps_charge": 0.45,
+				"mult_charge": 2.3,
+				"perce_charge": 1,
+				"melee_base": 14,
+				"melee_portee": 1.4,
+				"tir_en_dash": true,
+				"chance_critique": 0.1
+			}
+		},
+		{
+			"id": "griffes_hedgehog",
+			"nom": "Griffes hérissées",
+			"classe": "griffes",
+			"niveau": 10,
+			"stats": {
+				"base": 7,
+				"cadence": 8.0,
+				"vitesse": 26,
+				"portee": 0.4,
+				"temps_charge": 0.5,
+				"mult_charge": 2.4,
+				"perce_charge": 2,
+				"melee_base": 15,
+				"melee_portee": 1.5,
+				"tir_en_dash": true,
+				"multi": 2,
+				"dispersion": 14
+			}
+		},
+		{
+			"id": "griffes_phenix",
+			"nom": "Griffes du phénix",
+			"classe": "griffes",
+			"niveau": 14,
+			"stats": {
+				"base": 8,
+				"cadence": 8.5,
+				"vitesse": 29,
+				"portee": 0.4,
+				"temps_charge": 0.5,
+				"mult_charge": 2.4,
+				"perce_charge": 1,
+				"melee_base": 16,
+				"melee_portee": 1.5,
+				"tir_en_dash": true,
+				"element": 1,
+				"statuts": [
+					{
+						"id": "brulure",
+						"duree": 2.0,
+						"puissance": 2
+					}
+				]
+			}
+		},
+		{
+			"id": "orbitaux_etoiles",
+			"nom": "Orbitaux étoiles",
+			"classe": "orbitaux",
+			"niveau": 1,
+			"stats": {
+				"base": 7,
+				"cadence": 4.0,
+				"vitesse": 24,
+				"portee": 0.8,
+				"temps_charge": 1.0,
+				"mult_charge": 2.8,
+				"perce_charge": 4,
+				"melee_base": 12,
+				"melee_portee": 1.5,
+				"multi": 2,
+				"ecart": 10
+			}
+		},
+		{
+			"id": "orbitaux_cristal",
+			"nom": "Orbitaux de cristal",
+			"classe": "orbitaux",
+			"niveau": 5,
+			"stats": {
+				"base": 8,
+				"cadence": 4.0,
+				"vitesse": 26,
+				"portee": 0.9,
+				"temps_charge": 1.0,
+				"mult_charge": 3.0,
+				"perce_charge": 5,
+				"melee_base": 12,
+				"melee_portee": 1.5,
+				"multi": 2,
+				"ecart": 12,
+				"element": 2,
+				"statuts": [
+					{
+						"id": "gel",
+						"duree": 1.2,
+						"puissance": 1
+					}
+				]
+			}
+		},
+		{
+			"id": "orbitaux_nuee",
+			"nom": "Orbitaux de la nuée",
+			"classe": "orbitaux",
+			"niveau": 9,
+			"stats": {
+				"base": 6,
+				"cadence": 5.0,
+				"vitesse": 22,
+				"portee": 0.9,
+				"temps_charge": 1.0,
+				"mult_charge": 2.6,
+				"perce_charge": 3,
+				"melee_base": 12,
+				"melee_portee": 1.5,
+				"multi": 3,
+				"ecart": 9,
+				"guidage": 1.2
+			}
+		},
+		{
+			"id": "orbitaux_eclipse",
+			"nom": "Orbitaux de l'éclipse",
+			"classe": "orbitaux",
+			"niveau": 13,
+			"stats": {
+				"base": 10,
+				"cadence": 4.2,
+				"vitesse": 28,
+				"portee": 1.0,
+				"temps_charge": 1.1,
+				"mult_charge": 3.2,
+				"perce_charge": 6,
+				"melee_base": 13,
+				"melee_portee": 1.5,
+				"multi": 2,
+				"ecart": 14,
+				"element": 5
+			}
+		},
+		{
+			"id": "canon_explosif",
+			"nom": "Canon explosif",
+			"classe": "canon",
+			"niveau": 1,
+			"stats": {
+				"base": 16,
+				"cadence": 1.6,
+				"vitesse": 16,
+				"portee": 1.1,
+				"temps_charge": 1.3,
+				"mult_charge": 2.5,
+				"perce_charge": 0,
+				"melee_base": 18,
+				"melee_portee": 1.6,
+				"explosion": 1.6,
+				"gravite": 14
+			}
+		},
+		{
+			"id": "canon_volcan",
+			"nom": "Canon volcanique",
+			"classe": "canon",
+			"niveau": 6,
+			"stats": {
+				"base": 18,
+				"cadence": 1.5,
+				"vitesse": 15,
+				"portee": 1.2,
+				"temps_charge": 1.3,
+				"mult_charge": 2.6,
+				"perce_charge": 0,
+				"melee_base": 20,
+				"melee_portee": 1.6,
+				"explosion": 1.9,
+				"gravite": 16,
+				"element": 1,
+				"statuts": [
+					{
+						"id": "brulure",
+						"duree": 3.0,
+						"puissance": 3
+					}
+				]
+			}
+		},
+		{
+			"id": "canon_grele",
+			"nom": "Canon a grêle",
+			"classe": "canon",
+			"niveau": 10,
+			"stats": {
+				"base": 9,
+				"cadence": 2.4,
+				"vitesse": 18,
+				"portee": 1.0,
+				"temps_charge": 1.2,
+				"mult_charge": 2.4,
+				"perce_charge": 0,
+				"melee_base": 18,
+				"melee_portee": 1.6,
+				"explosion": 1.1,
+				"gravite": 12,
+				"multi": 3,
+				"dispersion": 22
+			}
+		},
+		{
+			"id": "canon_titan",
+			"nom": "Canon du titan",
+			"classe": "canon",
+			"niveau": 14,
+			"stats": {
+				"base": 26,
+				"cadence": 1.1,
+				"vitesse": 14,
+				"portee": 1.3,
+				"temps_charge": 1.5,
+				"mult_charge": 3.0,
+				"perce_charge": 0,
+				"melee_base": 24,
+				"melee_portee": 1.7,
+				"explosion": 2.4,
+				"gravite": 10
+			}
+		},
+		{
+			"id": "sceptre_augure",
+			"nom": "Sceptre de l'augure",
+			"classe": "sceptre",
+			"niveau": 3,
+			"stats": {
+				"base": 13,
+				"cadence": 2.4,
+				"vitesse": 19,
+				"portee": 1.7,
+				"temps_charge": 1.0,
+				"mult_charge": 3.4,
+				"perce_charge": 4,
+				"melee_base": 11,
+				"melee_portee": 1.8,
+				"guidage": 1.4,
+				"visuel": "orbe"
+			}
+		},
+		{
+			"id": "sceptre_eclipse",
+			"nom": "Sceptre de l'éclipse",
+			"classe": "sceptre",
+			"niveau": 8,
+			"stats": {
+				"base": 16,
+				"cadence": 2.2,
+				"vitesse": 20,
+				"portee": 1.8,
+				"temps_charge": 1.0,
+				"mult_charge": 3.6,
+				"perce_charge": 5,
+				"melee_base": 12,
+				"melee_portee": 1.8,
+				"guidage": 1.8,
+				"element": 5,
+				"visuel": "orbe"
+			}
+		},
+		{
+			"id": "sceptre_serpents",
+			"nom": "Sceptre aux serpents",
+			"classe": "sceptre",
+			"niveau": 12,
+			"stats": {
+				"base": 15,
+				"cadence": 2.6,
+				"vitesse": 21,
+				"portee": 1.7,
+				"temps_charge": 0.95,
+				"mult_charge": 3.4,
+				"perce_charge": 4,
+				"melee_base": 12,
+				"melee_portee": 1.8,
+				"guidage": 1.5,
+				"element": 3,
+				"statuts": [
+					{
+						"id": "poison",
+						"duree": 4.0,
+						"puissance": 3
+					}
+				],
+				"visuel": "orbe"
+			}
+		},
+		{
+			"id": "sceptre_olympe",
+			"nom": "Sceptre de l'Olympe",
+			"classe": "sceptre",
+			"niveau": 17,
+			"stats": {
+				"base": 20,
+				"cadence": 2.3,
+				"vitesse": 22,
+				"portee": 1.9,
+				"temps_charge": 1.0,
+				"mult_charge": 3.8,
+				"perce_charge": 6,
+				"melee_base": 14,
+				"melee_portee": 1.8,
+				"guidage": 2.0,
+				"multi": 2,
+				"ecart": 8,
+				"visuel": "orbe"
+			}
+		},
+		{
+			"id": "bras_bronze",
+			"nom": "Bras de bronze",
+			"classe": "bras",
+			"niveau": 3,
+			"stats": {
+				"base": 12,
+				"cadence": 3.2,
+				"vitesse": 24,
+				"portee": 0.35,
+				"temps_charge": 0.8,
+				"mult_charge": 2.8,
+				"perce_charge": 1,
+				"melee_base": 36,
+				"melee_portee": 1.9,
+				"recul": 220,
+				"explosion": 0.9,
+				"visuel": "poing"
+			}
+		},
+		{
+			"id": "bras_titan",
+			"nom": "Bras du titan",
+			"classe": "bras",
+			"niveau": 8,
+			"stats": {
+				"base": 14,
+				"cadence": 3.0,
+				"vitesse": 24,
+				"portee": 0.35,
+				"temps_charge": 0.85,
+				"mult_charge": 3.0,
+				"perce_charge": 1,
+				"melee_base": 44,
+				"melee_portee": 2.0,
+				"recul": 260,
+				"explosion": 1.1,
+				"visuel": "poing"
+			}
+		},
+		{
+			"id": "bras_foudre",
+			"nom": "Bras de foudre",
+			"classe": "bras",
+			"niveau": 12,
+			"stats": {
+				"base": 13,
+				"cadence": 3.6,
+				"vitesse": 26,
+				"portee": 0.4,
+				"temps_charge": 0.75,
+				"mult_charge": 2.8,
+				"perce_charge": 2,
+				"melee_base": 40,
+				"melee_portee": 2.0,
+				"recul": 220,
+				"element": 4,
+				"explosion": 1.0,
+				"visuel": "poing"
+			}
+		},
+		{
+			"id": "bras_cyclope",
+			"nom": "Bras du cyclope",
+			"classe": "bras",
+			"niveau": 17,
+			"stats": {
+				"base": 18,
+				"cadence": 2.8,
+				"vitesse": 24,
+				"portee": 0.4,
+				"temps_charge": 0.9,
+				"mult_charge": 3.2,
+				"perce_charge": 2,
+				"melee_base": 52,
+				"melee_portee": 2.1,
+				"recul": 300,
+				"explosion": 1.4,
+				"tourbillon": true,
+				"visuel": "poing"
+			}
+		},
+		{
+			"id": "palme_viridi",
+			"nom": "Palme sylvestre",
+			"classe": "palme",
+			"niveau": 5,
+			"stats": {
+				"base": 5,
+				"cadence": 7.5,
+				"vitesse": 25,
+				"portee": 0.75,
+				"temps_charge": 0.7,
+				"mult_charge": 2.2,
+				"perce_charge": 1,
+				"melee_base": 10,
+				"melee_portee": 1.4,
+				"rebonds": 1,
+				"eventail_charge": true,
+				"visuel": "eclat"
+			}
+		},
+		{
+			"id": "palme_ombre",
+			"nom": "Palme d'ombre",
+			"classe": "palme",
+			"niveau": 10,
+			"stats": {
+				"base": 6,
+				"cadence": 8.0,
+				"vitesse": 26,
+				"portee": 0.8,
+				"temps_charge": 0.65,
+				"mult_charge": 2.3,
+				"perce_charge": 1,
+				"melee_base": 11,
+				"melee_portee": 1.4,
+				"rebonds": 2,
+				"eventail_charge": true,
+				"chance_critique": 0.12,
+				"visuel": "eclat"
+			}
+		},
+		{
+			"id": "palme_aurore",
+			"nom": "Palme de l'aurore",
+			"classe": "palme",
+			"niveau": 14,
+			"stats": {
+				"base": 7,
+				"cadence": 7.5,
+				"vitesse": 27,
+				"portee": 0.8,
+				"temps_charge": 0.7,
+				"mult_charge": 2.4,
+				"perce_charge": 1,
+				"melee_base": 12,
+				"melee_portee": 1.4,
+				"rebonds": 2,
+				"eventail_charge": true,
+				"element": 1,
+				"visuel": "eclat"
+			}
+		},
+		{
+			"id": "palme_nebuleuse",
+			"nom": "Palme nébuleuse",
+			"classe": "palme",
+			"niveau": 18,
+			"stats": {
+				"base": 8,
+				"cadence": 8.5,
+				"vitesse": 28,
+				"portee": 0.85,
+				"temps_charge": 0.65,
+				"mult_charge": 2.5,
+				"perce_charge": 2,
+				"melee_base": 13,
+				"melee_portee": 1.4,
+				"rebonds": 3,
+				"eventail_charge": true,
+				"guidage": 0.6,
+				"visuel": "eclat"
+			}
+		},
+		{
+			"id": "massue_bois",
+			"nom": "Massue de chêne",
+			"classe": "massue",
+			"niveau": 5,
+			"stats": {
+				"base": 6,
+				"cadence": 1.4,
+				"vitesse": 12,
+				"portee": 1.0,
+				"temps_charge": 1.2,
+				"mult_charge": 4.0,
+				"perce_charge": 99,
+				"melee_base": 48,
+				"melee_portee": 2.6,
+				"recul": 260,
+				"renvoi": true,
+				"visuel": "onde"
+			}
+		},
+		{
+			"id": "massue_ossements",
+			"nom": "Massue d'ossements",
+			"classe": "massue",
+			"niveau": 10,
+			"stats": {
+				"base": 7,
+				"cadence": 1.4,
+				"vitesse": 12,
+				"portee": 1.0,
+				"temps_charge": 1.2,
+				"mult_charge": 4.2,
+				"perce_charge": 99,
+				"melee_base": 56,
+				"melee_portee": 2.7,
+				"recul": 280,
+				"renvoi": true,
+				"vol_de_vie": 0.05,
+				"visuel": "onde"
+			}
+		},
+		{
+			"id": "massue_hecatonchire",
+			"nom": "Massue d'Hécatonchire",
+			"classe": "massue",
+			"niveau": 14,
+			"stats": {
+				"base": 8,
+				"cadence": 1.5,
+				"vitesse": 13,
+				"portee": 1.1,
+				"temps_charge": 1.1,
+				"mult_charge": 4.2,
+				"perce_charge": 99,
+				"melee_base": 62,
+				"melee_portee": 2.8,
+				"recul": 300,
+				"renvoi": true,
+				"tourbillon": true,
+				"visuel": "onde"
+			}
+		},
+		{
+			"id": "massue_atlas",
+			"nom": "Massue d'Atlas",
+			"classe": "massue",
+			"niveau": 18,
+			"stats": {
+				"base": 10,
+				"cadence": 1.4,
+				"vitesse": 13,
+				"portee": 1.2,
+				"temps_charge": 1.2,
+				"mult_charge": 4.5,
+				"perce_charge": 99,
+				"melee_base": 72,
+				"melee_portee": 2.9,
+				"recul": 340,
+				"renvoi": true,
+				"explosion": 1.2,
+				"visuel": "onde"
+			}
+		}
+	]
+}

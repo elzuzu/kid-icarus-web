@@ -1,0 +1,31 @@
+{
+	"_doc": "Arbres de talents. Un point par niveau. requis : [id, rangs] a atteindre avant ce talent. effets : par rang (le total = rang x v).",
+	"entrees": [
+		{"id": "a_cadence", "nom": "Main rapide", "arbre": "archer", "rangs": 5, "effets": [{"stat": "cadence", "v": 4, "mode": "pct"}]},
+		{"id": "a_critique", "nom": "Œil de faucon", "arbre": "archer", "rangs": 5, "requis": ["a_cadence", 2], "effets": [{"stat": "chance_critique", "v": 2, "mode": "add_pct"}]},
+		{"id": "a_charge", "nom": "Corde tendue", "arbre": "archer", "rangs": 3, "requis": ["a_cadence", 2], "effets": [{"stat": "temps_charge", "v": 8, "mode": "pct_negatif"}]},
+		{"id": "a_perce", "nom": "Transpercer", "arbre": "archer", "rangs": 1, "requis": ["a_critique", 3], "effets": [{"stat": "perce", "v": 1, "mode": "add"}]},
+		{"id": "a_portee", "nom": "Longue vue", "arbre": "archer", "rangs": 3, "requis": ["a_charge", 1], "effets": [{"stat": "portee", "v": 8, "mode": "pct"}]},
+		{"id": "a_degats_charges", "nom": "Flèche fatale", "arbre": "archer", "rangs": 3, "requis": ["a_charge", 3], "effets": [{"stat": "mult_charge", "v": 12, "mode": "pct"}]},
+		{"id": "a_multi", "nom": "Double corde", "arbre": "archer", "rangs": 1, "requis": ["a_degats_charges", 3], "effets": [{"stat": "multi", "v": 1, "mode": "add"}]},
+		{"id": "a_elites", "nom": "Chasseur de légendes", "arbre": "archer", "rangs": 3, "requis": ["a_perce", 1], "effets": [{"stat": "degats_elites", "v": 10, "mode": "add_pct"}]},
+
+		{"id": "g_pv", "nom": "Constitution", "arbre": "guerrier", "rangs": 5, "effets": [{"stat": "pv_max", "v": 6, "mode": "joueur_add"}]},
+		{"id": "g_melee", "nom": "Bras de fer", "arbre": "guerrier", "rangs": 5, "requis": ["g_pv", 1], "effets": [{"stat": "melee_base", "v": 8, "mode": "pct"}]},
+		{"id": "g_defense", "nom": "Peau de bronze", "arbre": "guerrier", "rangs": 3, "requis": ["g_pv", 3], "effets": [{"stat": "defense", "v": 1, "mode": "joueur_add"}]},
+		{"id": "g_vol_de_vie", "nom": "Soif de combat", "arbre": "guerrier", "rangs": 3, "requis": ["g_melee", 3], "effets": [{"stat": "vol_de_vie", "v": 1, "mode": "add_pct"}]},
+		{"id": "g_flacon", "nom": "Gourde bénie", "arbre": "guerrier", "rangs": 1, "requis": ["g_defense", 2], "effets": [{"stat": "flacons", "v": 1, "mode": "joueur_add"}]},
+		{"id": "g_recul", "nom": "Coup de massue", "arbre": "guerrier", "rangs": 2, "requis": ["g_melee", 2], "effets": [{"stat": "recul", "v": 25, "mode": "pct"}]},
+		{"id": "g_degats", "nom": "Force brute", "arbre": "guerrier", "rangs": 5, "requis": ["g_vol_de_vie", 1], "effets": [{"stat": "bonus_degats", "v": 3, "mode": "pct"}]},
+		{"id": "g_regeneration", "nom": "Vitalité", "arbre": "guerrier", "rangs": 3, "requis": ["g_flacon", 1], "effets": [{"stat": "regeneration", "v": 1, "mode": "joueur_add"}]},
+
+		{"id": "c_vol", "nom": "Ailes fortes", "arbre": "celeste", "rangs": 3, "effets": [{"stat": "jauge_vol", "v": 20, "mode": "joueur_pct"}]},
+		{"id": "c_vitesse", "nom": "Pas léger", "arbre": "celeste", "rangs": 3, "requis": ["c_vol", 1], "effets": [{"stat": "vitesse_course", "v": 4, "mode": "joueur_pct"}]},
+		{"id": "c_dash", "nom": "Éclair d'ange", "arbre": "celeste", "rangs": 3, "requis": ["c_vol", 2], "effets": [{"stat": "recharge_dash", "v": 12, "mode": "joueur_pct_negatif"}]},
+		{"id": "c_coeurs", "nom": "Grâce de Palutena", "arbre": "celeste", "rangs": 5, "requis": ["c_vitesse", 1], "effets": [{"stat": "coeurs", "v": 6, "mode": "joueur_pct"}]},
+		{"id": "c_xp", "nom": "Étude céleste", "arbre": "celeste", "rangs": 3, "requis": ["c_coeurs", 2], "effets": [{"stat": "xp", "v": 6, "mode": "joueur_pct"}]},
+		{"id": "c_pouvoirs", "nom": "Canal divin", "arbre": "celeste", "rangs": 3, "requis": ["c_dash", 2], "effets": [{"stat": "recharge_pouvoirs", "v": 10, "mode": "joueur_pct_negatif"}]},
+		{"id": "c_esquive", "nom": "Esquive parfaite", "arbre": "celeste", "rangs": 1, "requis": ["c_dash", 3], "effets": [{"stat": "esquive_parfaite", "v": 1, "mode": "flag"}]},
+		{"id": "c_invulnerabilite", "nom": "Auréole", "arbre": "celeste", "rangs": 3, "requis": ["c_esquive", 1], "effets": [{"stat": "invulnerabilite", "v": 10, "mode": "joueur_pct"}]}
+	]
+}

@@ -1,0 +1,56 @@
+{
+	"id": "w1/1-1",
+	"nom": "Les Profondeurs",
+	"type": "vertical",
+	"largeur": 24,
+	"boucle": true,
+	"kit": "enfers",
+	"ambiance": "profondeurs",
+	"musique": "enfers_1",
+	"niveau": 1,
+	"boss": "mere_des_jarres",
+	"chunks": [
+		"00",
+		"01",
+		"02",
+		"03",
+		"04",
+		"05",
+		"06",
+		"07",
+		"08",
+		"09",
+		"10",
+		"11",
+		"12",
+		"13",
+		"14"
+	],
+	"marqueurs": {
+		"n": {
+			"ennemi": "nettler"
+		},
+		"j": {
+			"ennemi": "shemum",
+			"mode": "jarre",
+			"intervalle": 5.0,
+			"max": 1
+		},
+		"m": {
+			"ennemi": "monoeye",
+			"mode": "vague",
+			"intervalle": 5.0,
+			"max": 2
+		},
+		"r": {
+			"ennemi": "reaper"
+		}
+	},
+	"portes": [
+		"boutique",
+		"source_chaude",
+		"tresor",
+		"divine"
+	],
+	"secrets": 1
+}
